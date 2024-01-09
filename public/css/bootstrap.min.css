@@ -1,0 +1,91 @@
+ 
+.treeview {
+  --spacing : 1.5rem;
+  --radius  : 10px;
+}
+
+.treeview li {
+  display      : block;
+  position     : relative;
+  padding: 5px 0;
+  cursor: pointer;
+  width: 1200px;
+}
+
+.treeview ul {
+  border-left: 3px solid #ddd;
+}
+ 
+.search-box .clear{
+    clear:both; 
+    margin-top: 20px;
+}
+
+.search-box {
+  width: auto;
+}
+.search-box ul{
+    list-style: none;
+    z-index: 100;
+    padding: 0px;
+    width: 656px;
+    position: absolute;
+    margin: 0;
+    background: white;
+}
+
+.search-box ul li{
+    background: lavender;
+    padding: 4px;
+    margin-bottom: 1px;
+}
+
+.search-box ul li:nth-child(even){
+    background: #696cff;
+    color: white;
+}
+
+.search-box ul li:hover{
+    cursor: pointer;
+}
+.search-box input[type=text]{
+  padding: 8px;
+  width: 100%;
+  letter-spacing: 1px;
+}
+/*.treeview ul li::before{
+  content      : '';
+  display      : block;
+  position     : absolute;
+  top          : calc(var(--spacing) / -2);
+  left         : -104.25555555555px;
+  width        :20px;
+  height       : calc(var(--spacing) + 7px);
+  border       : solid #ddd;
+  border-width : 0 0 5px 5px;
+}*/
+
+/*.treeview form::before {
+content: " ";
+display: block;
+position     : absolute;
+ left         : 0px;
+ width: 15px;
+border       : 5px solid #ddd;
+border-width : 0 0 5px 5px;
+}*/
+/*.treeview ul li:last-child{
+  border-color : transparent;
+}
+
+.treeview ul li::before{
+  content      : '';
+  display      : block;
+  position     : absolute;
+  top          : calc(var(--spacing) / -2);
+  left         : -5px;
+  width        :calc(var(--spacing) + 2px);
+  height       : calc(var(--spacing) + 1px);
+  border       : solid #ddd;
+  border-width : 0 0 5px 5px;
+}*/
