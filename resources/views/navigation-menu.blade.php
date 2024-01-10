@@ -1,6 +1,6 @@
 <!-- Menu -->
 
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
 
@@ -62,7 +62,7 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Principal</span></li>
             <!-- Cards -->
             
-            
+             <!--
 
           
             <li class="menu-item">
@@ -84,11 +84,17 @@
                 <div >Nombramientos</div>
               </a>
             </li>
-
+ -->
             <li class="menu-item">
               <a href="{{ route('articulos')}}" class="menu-link">
-                <i class="menu-icon material-icons">receipt_long</i>
+                <i class="menu-icon material-icons">queue</i>
                 <div >Articulos</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{ route('categorias')}}" class="menu-link">
+                <i class="menu-icon material-icons">category  </i>
+                <div >Categorias</div>
               </a>
             </li>
  

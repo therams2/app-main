@@ -4,16 +4,19 @@ namespace App\Http\Livewire\Adq;
 
 use Livewire\Component;
 use App\Models\adq\cat_categorias;
+
 class ShowCatCategorias extends Component
 {
     public $nombre;
     public $descripcion;
 
-
+   
     public function render()
     {
-        return view('livewire.adq.show-cat-categorias');
+        $categorias =  cat_categorias::select()->get();
+        return view('livewire.adq.show-cat-categorias', compact('categorias' ));
     }
+    
     public function save(){
         $arrayData = $this->validate(
             [

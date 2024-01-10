@@ -1,5 +1,5 @@
 <div>
-@livewire('adq.show-cat-categorias')
+ 
 
    <!-- Create New Register Modal-->
    <div wire:ignore.self class="modal fade" id="modal_articulo" tabindex="-1" role="dialog" wire:click="updateArrayItems"
@@ -91,9 +91,7 @@
                                     <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
                                     @endforeach
                                 </select>
-                                @if(!$isDisabled)
-                                <button type="button"  data-bs-toggle="modal" data-bs-target="#modal_categoria" class="btn btn-primary me-2"> +</button>    
-                                @endif                                                                   
+                                                                                                  
                             </div>
                             </div> 
 
