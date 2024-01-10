@@ -59,7 +59,7 @@
                         @foreach ($categorias as $categoria) 
                         <tr>
                         <td  style="text-transform:uppercase">{{$categoria->nombre}}</td>
-                        <td  style="text-transform:uppercase">{{$categoria->descripcion}}</td>
+                        <td  style="text-transform:uppercase">{{$categoria->descripcion == null ? "-":$categoria->descripcion}}</td>
                         <td> 
 
                         <i class="bx bx-show me-1"></i> 
