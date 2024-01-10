@@ -198,9 +198,9 @@
                             <td  style="text-transform:uppercase">{{$articulo->code}}</td>
                             <td  style="text-transform:uppercase">{{$articulo->nombre}}</td>
                             <td  style="text-transform:uppercase">{{$articulo->descripcion}}</td>
-                            <td  style="text-transform:uppercase">{{$articulo->cantidad}}</td>
-                            <td  style="text-transform:uppercase">{{$articulo->costo_ini}}</td>
-                            <td  style="text-transform:uppercase">{{$articulo->precio}}</td>  
+                            <td  align ='right' style="text-transform:uppercase">{{ $articulo->cantidad }}</td>
+                            <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->costo_ini,2, ".", ",")}}</td>
+                            <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->precio,2, ".", ",")}}</td>  
                            
                             <td> 
 
