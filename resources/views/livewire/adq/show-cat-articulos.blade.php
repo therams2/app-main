@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="mb-3 col-md-6">
-                                <label class="form-label" for="costoIni">Costo Inicial</label>
+                                <label class="form-label" for="costoIni">Costo inicial por unidad</label>
                                 <div class="input-group input-group-merge">
                                     <input type="number" id="costoIni" name="costoIni" class="form-control" @if($isDisabled) disabled  @endif
                                       wire:model="costoIni" />
@@ -69,7 +69,7 @@
                             </div>
 
                             <div class="mb-3 col-md-6">
-                                <label class="form-label" for="precio">Precio</label>
+                                <label class="form-label" for="precio">Precio Final</label>
                                 <div class="input-group input-group-merge">
                                  
                                     <input type="number" id="precio" name="precio" class="form-control" @if($isDisabled) disabled  @endif
