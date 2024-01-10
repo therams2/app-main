@@ -91,7 +91,9 @@
                                     <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
                                     @endforeach
                                 </select>
-                                                                                                  
+                                @if(!$isDisabled)
+                                <button type="button"  data-bs-toggle="modal" data-bs-target="#modal_categoria" class="btn btn-primary me-2"> +</button>    
+                                @endif                                                                   
                             </div>
                             </div> 
 
@@ -204,14 +206,14 @@
                            
                             <td> 
 
-                                <a wire:click="view({{$articulo->id}})"         data-bs-toggle="modal" data-bs-target="#modal_articulo" class="dropdown-item"><i
-                                        class="bx bx-show me-1"></i>Mostrar</a>
+                                 <i wire:click="view({{$articulo->id}})"       data-bs-toggle="modal" data-bs-target="#modal_articulo"  title="Visualizar" 
+                                        class="bx bx-show me-1"></i> 
 
-                                <a wire:click="showEdit({{$articulo->id}})"     data-bs-toggle="modal" data-bs-target="#modal_articulo" class="dropdown-item"><i
-                                        class="bx bx-edit-alt me-1"></i>Editar</a> 
+                                 <i  wire:click="showEdit({{$articulo->id}})"     data-bs-toggle="modal" data-bs-target="#modal_articulo"  title="Editar" 
+                                        class="bx bx-edit-alt me-1"></i> 
 
-                                <a wire:click="assignId({{$articulo->id}})"     data-bs-toggle="modal" data-bs-target="#delete_modal_articulo" class="dropdown-item"><i
-                                class="bx bx-trash-alt me-1"></i>Eliminar</a>
+                               <i wire:click="assignId({{$articulo->id}})"     data-bs-toggle="modal" data-bs-target="#delete_modal_articulo" title="Eliminar" 
+                                class="bx bx-trash-alt me-1"></i> 
                             </td>
                         </tr>
                         @endforeach           

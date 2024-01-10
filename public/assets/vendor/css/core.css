@@ -1956,6 +1956,7 @@ progress {
   color: #697a8d;
   vertical-align: middle;
   border-color: #d9dee3;
+  font-size: 13px;
 }
 .table > :not(caption) > * > * {
   padding: 0.625rem 1.25rem;

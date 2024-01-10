@@ -61,14 +61,14 @@
                         <td  style="text-transform:uppercase">{{$categoria->descripcion}}</td>
                         <td> 
 
-                            <a data-bs-toggle="modal" data-bs-target="#modal_articulo" class="dropdown-item"><i
-                                    class="bx bx-show me-1"></i>Mostrar</a>
+                           <i
+                                    class="bx bx-show me-1 "></i> 
 
-                            <a data-bs-toggle="modal" data-bs-target="#modal_articulo" class="dropdown-item"><i
-                                    class="bx bx-edit-alt me-1"></i>Editar</a> 
+                        <i
+                                    class="bx bx-edit-alt me-1  "></i> 
 
-                            <a  data-bs-toggle="modal" data-bs-target="#delete_modal_articulo" class="dropdown-item"><i
-                            class="bx bx-trash-alt me-1"></i>Eliminar</a>
+                         <i
+                            class="bx bx-trash-alt me-1  " ></i> 
                         
                         </td>
                         </tr> 
