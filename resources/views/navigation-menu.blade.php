@@ -24,7 +24,7 @@
             </li>
 
             <!-- Layouts -->
-       {{--      <li class="menu-item">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Layouts">Layouts</div>
@@ -57,9 +57,9 @@
                   </a>
                 </li>
               </ul>
-            </li> --}}
+            </li>  
             <!-- Components -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Principal</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">INVENTARIO</span></li>
             <!-- Cards -->
             
              <!--
@@ -97,7 +97,15 @@
                 <div >Categorias</div>
               </a>
             </li>
- 
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">INGRESOS</span></li>
+
+            <li class="menu-item">
+              <a href="{{ route('articulos')}}" class="menu-link">
+                <i class="menu-icon material-icons">shop</i>
+                <div >Ventas</div>
+              </a>
+            </li>
+             
           </ul>
         </aside>
         <!-- / Menu -->
