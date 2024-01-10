@@ -170,7 +170,8 @@
     <div class="card mb-4">
         <div class="card-body d-flex">
             <x-jet-input placeholder="Buscar" type="text" wire:model="search" />
-            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" wire:click="changeAction()"  data-bs-target="#modal_articulo">Nuevo Articulo</button> 
+            &nbsp
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" wire:click="changeAction()"  data-bs-target="#modal_articulo"><i  class="bx bx-add-to-queue "></i></button> 
         </div> 
        <hr class="my-0" />
         <div class="card-body">
