@@ -82,7 +82,7 @@
                             </div>
 
                             <div class="mb-3 col-md-6">
-                            <label class="form-label" for="categoria">Categoria</label>
+                            <label class="form-label" for="categoria">Categoria *</label>
                             <div class="input-group">
                              
                                 <select class="select2 form-select" wire:model="id_categoria" @if($isDisabled) disabled  @endif>
@@ -90,16 +90,13 @@
                                     @foreach ($getCategorias as $categoria)
                                     <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
                                     @endforeach
-                                </select>
-                                @if(!$isDisabled)
-                                <button type="button"  data-bs-toggle="modal" data-bs-target="#modal_categoria" class="btn btn-primary me-2"> +</button>    
-                                @endif                                                                   
+                                </select>                                                                  
                             </div>
                             </div> 
 
                             
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Unidad de Medida</label>
+                                <label class="form-label">Unidad de Medida *</label>
                                 <select class="select2 form-select" wire:model="id_unidad_medida"  @if($isDisabled) disabled  @endif>
                                     <option value="-1">SELECCIONA</option>
                                     <option value="1">LITROS</option>
