@@ -21,12 +21,9 @@ class ShowCatCategorias extends Component
         $arrayData = $this->validate(
             [
                 'nombre'        => 'required',
-             
             ],
             [
-                
                 'nombre.required'           => '* Requerido',
-            
             ]
         );
         $arrayData['descripcion'] =  $this->descripcion; 

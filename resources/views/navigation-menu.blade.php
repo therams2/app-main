@@ -61,34 +61,17 @@
             <!-- Components -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">INVENTARIO</span></li>
             <!-- Cards -->
-            
-             <!--
-
-          
-            <li class="menu-item">
-              <a href="{{ route('funcionario')}}" class="menu-link">
-                <i class="menu-icon material-icons ">group</i>
-                <div >Funcionarios</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="{{ route('organigramasArbol')}}" class="menu-link">
-                <i class="menu-icon material-icons">schema</i>
-                <div data-i18n="Basic">Organigramas</div>
-              </a>
-            </li>
-
-            <li class="menu-item">
-              <a href="{{ route('nombramientos')}}" class="menu-link">
-                <i class="menu-icon material-icons">receipt_long</i>
-                <div >Nombramientos</div>
-              </a>
-            </li>
- -->
+             
             <li class="menu-item">
               <a href="{{ route('articulos')}}" class="menu-link">
                 <i class="menu-icon material-icons">queue</i>
                 <div >Articulos</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{ route('articulos')}}" class="menu-link">
+                <i class="menu-icon material-icons">dataset</i>
+                <div >Inventario</div>
               </a>
             </li>
             <li class="menu-item">

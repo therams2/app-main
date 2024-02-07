@@ -24,7 +24,7 @@ class CreateCatNombramientosTable extends Migration
 
 
             $table->integer('idorganigrama')->default(0);
-            $table->integer('idmunicipio')->default(0)->nullable();;
+            $table->integer('idmunicipio')->default(0)->nullable();
 
             $table->date("fecha_alta");
             $table->date("fecha_baja"); 

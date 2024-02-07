@@ -15,8 +15,8 @@ class CreateCatCategoriasTable extends Migration
     {
         Schema::create('adq_cat_categorias', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 100);
-            $table->string('descripcion', 200);
+            $table->string('nombre', 100)->unique();;
+            $table->string('descripcion', 200)->nullable();
             $table->timestamps();
         });
     }
