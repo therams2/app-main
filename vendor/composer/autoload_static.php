@@ -588,6 +588,7 @@ class ComposerStaticInit9be234257af2fc3cf97a79d6b917c7a1
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Livewire\\Adq\\ShowCatArticulos' => __DIR__ . '/../..' . '/app/Http/Livewire/Adq/ShowCatArticulos.php',
+        'App\\Http\\Livewire\\Adq\\ShowCatCategorias' => __DIR__ . '/../..' . '/app/Http/Livewire/Adq/ShowCatCategorias.php',
         'App\\Http\\Livewire\\Clasificadores\\Funcionario' => __DIR__ . '/../..' . '/app/Http/Livewire/Clasificadores/Funcionario.php',
         'App\\Http\\Livewire\\Clasificadores\\Nombramientos' => __DIR__ . '/../..' . '/app/Http/Livewire/Clasificadores/Nombramientos.php',
         'App\\Http\\Livewire\\Clasificadores\\Organigramas' => __DIR__ . '/../..' . '/app/Http/Livewire/Clasificadores/Organigramas.php',

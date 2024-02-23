@@ -39,7 +39,7 @@
                             </div>
                     
                             <div class="mb-3 col-md-6">
-                                <label for="descripcion" class="form-label">Descripción</label>
+                                <label for="descripcion" class="form-label">Concepto/Marca</label>
                                 <input class="form-control" type="text" name="descripcion"  style="text-transform:uppercase" id="descripcion" value=""  @if($isDisabled) disabled  @endif
                                     wire:model="descripcion" />
                                     @error('descripcion') 
@@ -49,7 +49,7 @@
 
                             <div class="mb-3 col-md-6">
                                 <label for="cantidad" class="form-label">Cantidad</label>
-                                <input class="form-control" type="number" id="cantidad" name="cantidad" value="" placeholder=""  @if($isDisabled) disabled  @endif
+                                <input class="form-control" type="number" id="cantidad" name="cantidad" value="0" placeholder=""  @if($isDisabled) disabled  @endif
                                     wire:model="cantidad" />
                                     @error('cantidad') 
                                     <span class="text-danger" style="font-size: 12px;">{{ $message }}</span>
@@ -57,22 +57,10 @@
                             </div>
 
                             <div class="mb-3 col-md-6">
-                                <label class="form-label" for="costoIni">Costo inicial por unidad</label>
-                                <div class="input-group input-group-merge">
-                                    <input type="number" id="costoIni" name="costoIni" class="form-control" @if($isDisabled) disabled  @endif
-                                      wire:model="costoIni" />
-                                    
-                                </div>
-                                @error('costoIni') 
-                                    <span class="text-danger" style="font-size: 12px;">{{ $message }}</span>
-                                    @enderror
-                            </div>
-
-                            <div class="mb-3 col-md-6">
-                                <label class="form-label" for="precio">Precio Final</label>
+                                <label class="form-label" for="precio">Precio</label>
                                 <div class="input-group input-group-merge">
                                  
-                                    <input type="number" id="precio" name="precio" class="form-control" @if($isDisabled) disabled  @endif
+                                    <input type="number" id="precio" name="precio" value="0" class="form-control" @if($isDisabled) disabled  @endif
                                       wire:model="precio" />
                                      
                                 </div>
@@ -80,6 +68,9 @@
                                     <span class="text-danger" style="font-size: 12px;">{{ $message }}</span>
                                     @enderror
                             </div>
+                            <div class="mb-3 col-md-6">
+                              
+                              </div>
 
                             <div class="mb-3 col-md-6">
                             <label class="form-label" for="categoria">Categoria *</label>
@@ -184,11 +175,9 @@
                             <tr>
                                 <th scope="col">Code</th>
                                 <th scope="col">Articulo</th>
-                                <th scope="col">Descripción</th>
+                                <th scope="col">Concepto/Marca</th>
                                 <th scope="col">Cantidad</th>
-                                <th scope="col">Costo Inicial</th>
                                 <th scope="col">Precio</th>
-                                
                                 <th scope="col">Acciones</th> 
                             </tr>
                         </thead> 
@@ -197,20 +186,18 @@
                         <tr> 
                             <td  style="text-transform:uppercase">{{$articulo->code}}</td>
                             <td  style="text-transform:uppercase">{{$articulo->nombre}}</td>
-                            <td  style="text-transform:uppercase">{{$articulo->descripcion}}</td>
+                            <td  style="text-transform:uppercase">{{$articulo->descripcion == null ? "-" : $articulo->descripcion}}</td>
                             <td  align ='right' style="text-transform:uppercase">{{ $articulo->cantidad }}</td>
-                            <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->costo_ini,2, ".", ",")}}</td>
                             <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->precio,2, ".", ",")}}</td>  
-                           
                             <td> 
 
-                                 <i wire:click="view({{$articulo->id}})"       data-bs-toggle="modal" data-bs-target="#modal_articulo"  title="Visualizar" 
+                                 <i wire:click="view({{$articulo->id}})"    data-bs-toggle="modal" data-bs-target="#modal_articulo"  title="Visualizar" 
                                         class="bx bx-show me-1"></i> 
 
-                                 <i  wire:click="showEdit({{$articulo->id}})"     data-bs-toggle="modal" data-bs-target="#modal_articulo"  title="Editar" 
+                                 <i  wire:click="showEdit({{$articulo->id}})"   data-bs-toggle="modal" data-bs-target="#modal_articulo"  title="Editar" 
                                         class="bx bx-edit-alt me-1"></i> 
 
-                               <i wire:click="assignId({{$articulo->id}})"     data-bs-toggle="modal" data-bs-target="#delete_modal_articulo" title="Eliminar" 
+                               <i wire:click="assignId({{$articulo->id}})"  data-bs-toggle="modal" data-bs-target="#delete_modal_articulo" title="Eliminar" 
                                 class="bx bx-trash-alt me-1"></i> 
                             </td>
                         </tr>

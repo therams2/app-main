@@ -57,23 +57,23 @@ class ShowCatArticulos extends Component
             [
                 'code'          => 'required',
                 'nombre'        => 'required',
-                'descripcion'   => 'required',
+              
                 'cantidad'      => 'required',
                 'precio'        => 'required',
-                'costoIni'      => 'required'
+                
             ],
             [
                 'code.required'             => '* Requerido',
                 'nombre.required'           => '* Requerido',
-                'descripcion.required'      => '* Requerido',
+                
                 'cantidad.required'         => '* Requerido',
                 'precio.required'           => '* Requerido',
-                'costoIni.required'         => '* Requerido',
+             
               
             ]
         ); 
        
-        $arrayData['costo_ini']         = $arrayData['costoIni']; 
+       // $arrayData['costo_ini']         = $arrayData['costoIni']; 
         $arrayData['id_categoria']      =  $this->id_categoria;
         $arrayData['id_unidad_medida']  =  $this->id_unidad_medida;
       
