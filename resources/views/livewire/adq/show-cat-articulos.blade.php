@@ -187,7 +187,7 @@
                             <td  style="text-transform:uppercase">{{$articulo->code}}</td>
                             <td  style="text-transform:uppercase">{{$articulo->nombre}}</td>
                             <td  style="text-transform:uppercase">{{$articulo->descripcion == null ? "-" : $articulo->descripcion}}</td>
-                            <td  align ='right' style="text-transform:uppercase">{{ $articulo->cantidad }}</td>
+                            <td  align ='right' style="text-transform:uppercase">{{ $articulo->cantidad }} UNID</td>
                             <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->precio,2, ".", ",")}}</td>  
                             <td> 
 
