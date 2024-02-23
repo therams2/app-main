@@ -48,6 +48,17 @@
                             </div>
 
                             <div class="mb-3 col-md-6">
+                                <label class="form-label">Unidad</label>
+                                <select class="select2 form-select" wire:model="id_unidad_tipo"  @if($isDisabled) disabled  @endif>
+                                    <option value="1">UNIDADES</option>
+                                    <option value="2">CAJA</option>
+                                    <option value="3">BULTO</option>
+                                    <option value="4">PAQUETE</option>
+                                </select>
+                          
+                            </div> 
+
+                            <div class="mb-3 col-md-6">
                                 <label for="cantidad" class="form-label">Cantidad</label>
                                 <input class="form-control" type="number" id="cantidad" name="cantidad" value="0" placeholder=""  @if($isDisabled) disabled  @endif
                                     wire:model="cantidad" />
@@ -68,9 +79,7 @@
                                     <span class="text-danger" style="font-size: 12px;">{{ $message }}</span>
                                     @enderror
                             </div>
-                            <div class="mb-3 col-md-6">
-                              
-                              </div>
+                          
 
                             <div class="mb-3 col-md-6">
                             <label class="form-label" for="categoria">Categoria *</label>
@@ -187,7 +196,7 @@
                             <td  style="text-transform:uppercase">{{$articulo->code}}</td>
                             <td  style="text-transform:uppercase">{{$articulo->nombre}}</td>
                             <td  style="text-transform:uppercase">{{$articulo->descripcion == null ? "-" : $articulo->descripcion}}</td>
-                            <td  align ='right' style="text-transform:uppercase">{{ $articulo->cantidad }} UNID</td>
+                            <td    style="text-transform:uppercase">{{ $articulo->cantidad }} {{  $articulo->id_unidad_tipo ==  1 ? "UNID" :  ( $articulo->id_unidad_tipo ==  2 ? "CAJ":($articulo->id_unidad_tipo ==  3 ? "BULT":"PAQ") ) }}</td>
                             <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->precio,2, ".", ",")}}</td>  
                             <td> 
 

@@ -15,6 +15,7 @@ class ShowCatArticulos extends Component
     public $precio;
     public $code;
     public $costoIni;
+    public $id_unidad_tipo;
 
     // var de configuracion
     public $isEdit; 
@@ -57,25 +58,24 @@ class ShowCatArticulos extends Component
             [
                 'code'          => 'required',
                 'nombre'        => 'required',
-              
                 'cantidad'      => 'required',
+                'id_unidad_tipo'     => 'required',
                 'precio'        => 'required',
-                
+                'descripcion'   => 'nullable',
             ],
             [
                 'code.required'             => '* Requerido',
                 'nombre.required'           => '* Requerido',
-                
                 'cantidad.required'         => '* Requerido',
+                'id_unidad_tipo.required'        => '* Requerido',
                 'precio.required'           => '* Requerido',
-             
-              
             ]
         ); 
        
        // $arrayData['costo_ini']         = $arrayData['costoIni']; 
         $arrayData['id_categoria']      =  $this->id_categoria;
         $arrayData['id_unidad_medida']  =  $this->id_unidad_medida;
+       
       
         cat_articulos::create($arrayData);
         $this->cleanFields();
@@ -92,7 +92,7 @@ class ShowCatArticulos extends Component
         $this->isDisabled = false;
         $this->idArticulo = $id;
 
-        $articulo = cat_articulos::select('nombre','descripcion','cantidad','precio','code','costo_ini as costoIni', 'id_categoria','id_unidad_medida') 
+        $articulo = cat_articulos::select('nombre','descripcion','cantidad','precio','code','costo_ini as costoIni', 'id_categoria','id_unidad_medida','id_unidad_tipo') 
         ->where('id', '=', $id)
         ->first();
        
@@ -104,34 +104,35 @@ class ShowCatArticulos extends Component
         $this->costoIni         =   $articulo->costoIni;
         $this->id_categoria     =   $articulo->id_categoria;
         $this->id_unidad_medida =   $articulo->id_unidad_medida;
+        $this->id_unidad_tipo        =   $articulo->id_unidad_tipo;
     }
 
 
 
     public function edit(){
+        
         $arrayData = $this->validate(
             [
                 'code'          => 'required',
-                'nombre'        => 'required',
-                'descripcion'   => 'required',
+                'nombre'        => 'required', 
                 'cantidad'      => 'required',
+                'id_unidad_tipo'     => 'required',
                 'precio'        => 'required',
-                'costoIni'      => 'required'
+                'descripcion'   => 'nullable',
             ],
             [
                 'code.required'             => '* Requerido',
                 'nombre.required'           => '* Requerido',
-                'descripcion.required'      => '* Requerido',
                 'cantidad.required'         => '* Requerido',
+                'id_unidad_tipo.required'   => '* Requerido',
                 'precio.required'           => '* Requerido',
-                'costoIni.required'         => '* Requerido'
             ]
         ); 
-       
-        $arrayData['costo_ini']         =   $arrayData['costoIni']; 
+  
+        //$arrayData['costo_ini']         =   $arrayData['costoIni']; 
         $arrayData['id_categoria']      =   $this->id_categoria; 
-        $arrayData['id_unidad_medida']  =   $this->id_unidad_medida; 
-
+        $arrayData['id_unidad_medida']  =   $this->id_unidad_medida;      
+       
         $articulo = cat_articulos::find($this->idArticulo);
         $articulo->update($arrayData);
     }
@@ -140,7 +141,7 @@ class ShowCatArticulos extends Component
      
         $this->isDisabled = true;
 
-        $articulo = cat_articulos::select('nombre','descripcion','cantidad','precio','code','costo_ini as costoIni', 'id_categoria','id_unidad_medida') 
+        $articulo = cat_articulos::select('nombre','descripcion','cantidad','precio','code','costo_ini as costoIni', 'id_categoria','id_unidad_medida','id_unidad_tipo') 
         ->where('id', '=', $id)
         ->first();
        
@@ -151,9 +152,8 @@ class ShowCatArticulos extends Component
         $this->code             =   $articulo->code;
         $this->costoIni         =   $articulo->costoIni;
         $this->id_categoria     =   $articulo->id_categoria;
-        $this->id_unidad_medida =   $articulo->id_unidad_medida;
-
-
+        $this->id_unidad_medida      =   $articulo->id_unidad_medida;
+        $this->id_unidad_tipo        =   $articulo->id_unidad_tipo;
     }
 
     public function assignId($id){
@@ -172,6 +172,7 @@ class ShowCatArticulos extends Component
         $this->costoIni             =   "";
         $this->id_categoria         =   -1;
         $this->id_unidad_medida     =   -1;
+        $this->id_unidad_tipo            =   "1";
     }
 
     public function delete(){

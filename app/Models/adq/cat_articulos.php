@@ -18,6 +18,7 @@ class cat_articulos extends Model
         'cantidad',
         'costo_ini',
         'id_categoria',
-        'id_unidad_medida'
+        'id_unidad_medida',
+        'id_unidad_tipo'
     ];
 }
