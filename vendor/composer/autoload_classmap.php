@@ -18,7 +18,6 @@ return array(
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Livewire\\Adq\\ShowCatArticulos' => $baseDir . '/app/Http/Livewire/Adq/ShowCatArticulos.php',
-    'App\\Http\\Livewire\\Adq\\ShowCatCategorias' => $baseDir . '/app/Http/Livewire/Adq/ShowCatCategorias.php',
     'App\\Http\\Livewire\\Clasificadores\\Funcionario' => $baseDir . '/app/Http/Livewire/Clasificadores/Funcionario.php',
     'App\\Http\\Livewire\\Clasificadores\\Nombramientos' => $baseDir . '/app/Http/Livewire/Clasificadores/Nombramientos.php',
     'App\\Http\\Livewire\\Clasificadores\\Organigramas' => $baseDir . '/app/Http/Livewire/Clasificadores/Organigramas.php',
