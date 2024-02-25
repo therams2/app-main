@@ -160,49 +160,50 @@
             &nbsp
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" wire:click="changeAction()"  data-bs-target="#modal_articulo"><i  class="bx bx-add-to-queue "></i></button> 
         </div> 
-       <hr class="my-0" />
+       
         <div class="card-body">
             <!--Table-->
             <div class="table-responsive">
-            <table class="table table-dark table-striped">
- 
-                    <tbody>
-                        <thead>
-                            <tr>
-                                <th scope="col">Code</th>
-                                <th scope="col">Articulo</th>
-                                <th scope="col">Concepto/Marca</th>
-                                <th scope="col">Cantidad</th>
-                                <th scope="col">Precio</th>
-                                <th scope="col">Categoria</th>
-                                <th scope="col">Acciones</th> 
+                <table class="table table-dark table-striped">
+    
+                        <tbody>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Code</th>
+                                    <th scope="col">Articulo</th>
+                                    <th scope="col">Concepto/Marca</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Categoria</th>
+                                    <th scope="col">Acciones</th> 
+                                </tr>
+                            </thead> 
+
+                            @foreach ($articulos as $articulo) 
+                            <tr> 
+                                <td  style="text-transform:uppercase">{{$articulo->code}}</td>
+                                <td  style="text-transform:uppercase">{{$articulo->nombre}}</td>
+                                <td  style="text-transform:uppercase">{{$articulo->descripcion == null ? "-" : $articulo->descripcion}}</td>
+                                <td    style="text-transform:uppercase">{{ $articulo->cantidad }} {{  $articulo->id_unidad_tipo ==  1 ? "PZA" :  ( $articulo->id_unidad_tipo ==  2 ? "CAJ":($articulo->id_unidad_tipo ==  3 ? "BULT":"PAQ") ) }}</td>
+                                <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->precio,2, ".", ",")}}</td>  
+                                <td  style="text-transform:uppercase">{{$articulo->nombre_cat}} {{$articulo->id_cat}}</td>
+
+                                <td> 
+
+                                    <i wire:click="view({{$articulo->id}})"    data-bs-toggle="modal" data-bs-target="#modal_articulo"  title="Visualizar" 
+                                            class="bx bx-show me-1"></i> 
+
+                                    <i  wire:click="showEdit({{$articulo->id}})"   data-bs-toggle="modal" data-bs-target="#modal_articulo"  title="Editar" 
+                                            class="bx bx-edit-alt me-1"></i> 
+
+                                <i wire:click="assignId({{$articulo->id}})"  data-bs-toggle="modal" data-bs-target="#delete_modal_articulo" title="Eliminar" 
+                                    class="bx bx-trash-alt me-1"></i> 
+                                </td>
                             </tr>
-                        </thead> 
-
-                        @foreach ($articulos as $articulo) 
-                        <tr> 
-                            <td  style="text-transform:uppercase">{{$articulo->code}}</td>
-                            <td  style="text-transform:uppercase">{{$articulo->nombre}}</td>
-                            <td  style="text-transform:uppercase">{{$articulo->descripcion == null ? "-" : $articulo->descripcion}}</td>
-                            <td    style="text-transform:uppercase">{{ $articulo->cantidad }} {{  $articulo->id_unidad_tipo ==  1 ? "PZA" :  ( $articulo->id_unidad_tipo ==  2 ? "CAJ":($articulo->id_unidad_tipo ==  3 ? "BULT":"PAQ") ) }}</td>
-                            <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->precio,2, ".", ",")}}</td>  
-                            <td  style="text-transform:uppercase">{{$articulo->nombre_cat}} {{$articulo->id_cat}}</td>
-
-                            <td> 
-
-                                 <i wire:click="view({{$articulo->id}})"    data-bs-toggle="modal" data-bs-target="#modal_articulo"  title="Visualizar" 
-                                        class="bx bx-show me-1"></i> 
-
-                                 <i  wire:click="showEdit({{$articulo->id}})"   data-bs-toggle="modal" data-bs-target="#modal_articulo"  title="Editar" 
-                                        class="bx bx-edit-alt me-1"></i> 
-
-                               <i wire:click="assignId({{$articulo->id}})"  data-bs-toggle="modal" data-bs-target="#delete_modal_articulo" title="Eliminar" 
-                                class="bx bx-trash-alt me-1"></i> 
-                            </td>
-                        </tr>
-                        @endforeach           
-                    </tbody>
-                </table>
+                            @endforeach           
+                        </tbody>
+                    </table>
+                    {{ $articulos->links() }}
             </div>
         </div>
 </div>

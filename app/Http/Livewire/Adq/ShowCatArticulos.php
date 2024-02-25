@@ -5,18 +5,19 @@ namespace App\Http\Livewire\Adq;
 use Livewire\Component;
 use App\Models\adq\cat_articulos;
 use App\Models\adq\cat_categorias;
-
+use Livewire\WithPagination;
 class ShowCatArticulos extends Component
 {
+    use WithPagination;
     // var de datos
     public $nombre;
+    protected $paginationTheme = 'bootstrap';
     public $descripcion;
     public $cantidad;
     public $precio;
     public $code;
     public $costoIni;
-    public $id_unidad_tipo;
-
+    public $id_unidad_tipo; 
     // var de configuracion
     public $isEdit; 
     public $idArticulo;
@@ -26,6 +27,7 @@ class ShowCatArticulos extends Component
     public $getCategorias = [];
 
     public $search; 
+ 
     public function render()
     {
 
@@ -47,7 +49,8 @@ class ShowCatArticulos extends Component
         ->orwhere('costo_ini','like', '%'   . $this->search . '%')
         ->orwhere('code','like', '%'        . $this->search . '%')
         ->orderByDesc('id') 
-        ->get(); 
+        ->paginate(10);
+         
         $getCategorias = cat_categorias::select()->get();
         
         return view('livewire.adq.show-cat-articulos', compact('articulos' ));
