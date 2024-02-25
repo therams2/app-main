@@ -4,7 +4,7 @@
    <!-- Create New Register Modal-->
    <div wire:ignore.self class="modal fade" id="modal_articulo" tabindex="-1" role="dialog" wire:click="updateArrayItems"
         aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content"> 
                 
                     <div class="modal-header bg-primary">
@@ -18,7 +18,7 @@
                     </div> 
                 <div class="modal-body">
                     <div class="row">
-                        <div class="mb-3 col-md-6">
+                            <div class="col-xs-12 col-md-6">
                                 <label for="code" class="form-label">Code</label>
                                 <input class="form-control" type="text" id="code"  style="text-transform:uppercase"  name="code" value=""  @if($isDisabled) disabled  @endif
                                     autofocus wire:model="code" />
@@ -28,7 +28,7 @@
                             </div>
                                    
 
-                            <div class="mb-3 col-md-6">
+                            <div class="col-xs-12 col-md-6">
                                 <label for="nombre" class="form-label">Nombre</label>
                                 <input class="form-control" type="text" id="nombre"  style="text-transform:uppercase" name="nombre" value=""  @if($isDisabled) disabled  @endif
                                     autofocus wire:model="nombre" />
@@ -38,7 +38,7 @@
                                   
                             </div>
                     
-                            <div class="mb-3 col-md-6">
+                            <div class="col-xs-12 col-md-6">
                                 <label for="descripcion" class="form-label">Concepto/Marca</label>
                                 <input class="form-control" type="text" name="descripcion"  style="text-transform:uppercase" id="descripcion" value=""  @if($isDisabled) disabled  @endif
                                     wire:model="descripcion" />
@@ -47,18 +47,19 @@
                                     @enderror
                             </div>
 
-                            <div class="mb-3 col-md-6">
+                            <div class="col-xs-12 col-md-6">
                                 <label class="form-label">Unidad</label>
                                 <select class="select2 form-select" wire:model="id_unidad_tipo"  @if($isDisabled) disabled  @endif>
-                                    <option value="1">UNIDADES</option>
-                                    <option value="2">CAJA</option>
-                                    <option value="3">BULTO</option>
-                                    <option value="4">PAQUETE</option>
+                                    <option value="1">PIEZA</option>
+                                    <option value="2">PESO</option>
+                                    <option value="3">CAJA</option>
+                                    <option value="4">BULTO</option>
+                                    <option value="5">PAQUETE</option>
                                 </select>
                           
                             </div> 
 
-                            <div class="mb-3 col-md-6">
+                            <div class="col-xs-12 col-md-6">
                                 <label for="cantidad" class="form-label">Cantidad</label>
                                 <input class="form-control" type="number" id="cantidad" name="cantidad" value="0" placeholder=""  @if($isDisabled) disabled  @endif
                                     wire:model="cantidad" />
@@ -67,7 +68,7 @@
                                     @enderror
                             </div>
 
-                            <div class="mb-3 col-md-6">
+                            <div class="col-xs-12 col-md-6">
                                 <label class="form-label" for="precio">Precio</label>
                                 <div class="input-group input-group-merge">
                                  
@@ -81,7 +82,7 @@
                             </div>
                           
 
-                            <div class="mb-3 col-md-6">
+                            <div class="col-xs-12 col-md-6">
                             <label class="form-label" for="categoria">Categoria *</label>
                             <div class="input-group">
                              
@@ -95,7 +96,7 @@
                             </div> 
 
                             
-                            <div class="mb-3 col-md-6">
+                            <div class="col-xs-12 col-md-6">
                                 <label class="form-label">Unidad de Medida *</label>
                                 <select class="select2 form-select" wire:model="id_unidad_medida"  @if($isDisabled) disabled  @endif>
                                     <option value="-1">SELECCIONA</option>
@@ -196,7 +197,7 @@
                             <td  style="text-transform:uppercase">{{$articulo->code}}</td>
                             <td  style="text-transform:uppercase">{{$articulo->nombre}}</td>
                             <td  style="text-transform:uppercase">{{$articulo->descripcion == null ? "-" : $articulo->descripcion}}</td>
-                            <td    style="text-transform:uppercase">{{ $articulo->cantidad }} {{  $articulo->id_unidad_tipo ==  1 ? "UNID" :  ( $articulo->id_unidad_tipo ==  2 ? "CAJ":($articulo->id_unidad_tipo ==  3 ? "BULT":"PAQ") ) }}</td>
+                            <td    style="text-transform:uppercase">{{ $articulo->cantidad }} {{  $articulo->id_unidad_tipo ==  1 ? "PZA" :  ( $articulo->id_unidad_tipo ==  2 ? "CAJ":($articulo->id_unidad_tipo ==  3 ? "BULT":"PAQ") ) }}</td>
                             <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->precio,2, ".", ",")}}</td>  
                             <td> 
 

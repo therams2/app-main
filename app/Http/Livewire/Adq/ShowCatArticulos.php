@@ -36,7 +36,7 @@ class ShowCatArticulos extends Component
         ->orwhere('precio','like', '%'      . $this->search . '%')
         ->orwhere('costo_ini','like', '%'   . $this->search . '%')
         ->orwhere('code','like', '%'        . $this->search . '%')
-     
+        ->orderByDesc('id') 
         ->get(); 
         $getCategorias = cat_categorias::select()->get();
         
