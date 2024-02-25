@@ -37,6 +37,7 @@ class ShowCatArticulos extends Component
                         'adq_cat_articulos.nombre',
                         'adq_cat_articulos.descripcion',
                         'adq_cat_articulos.cantidad',
+                        'adq_cat_articulos.id_unidad_tipo',
                         'adq_cat_articulos.precio',
                         'adq_cat_articulos.code',
                         'acc.nombre as nombre_cat',
