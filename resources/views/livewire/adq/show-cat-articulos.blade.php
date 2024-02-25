@@ -186,7 +186,7 @@
                             <td  style="text-transform:uppercase">{{$articulo->descripcion == null ? "-" : $articulo->descripcion}}</td>
                             <td    style="text-transform:uppercase">{{ $articulo->cantidad }} {{  $articulo->id_unidad_tipo ==  1 ? "PZA" :  ( $articulo->id_unidad_tipo ==  2 ? "CAJ":($articulo->id_unidad_tipo ==  3 ? "BULT":"PAQ") ) }}</td>
                             <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->precio,2, ".", ",")}}</td>  
-                            <td  style="text-transform:uppercase">{{$articulo->nombre_cat}}</td>
+                            <td  style="text-transform:uppercase">{{$articulo->nombre_cat}} {{$articulo->id_cat}}</td>
 
                             <td> 
 

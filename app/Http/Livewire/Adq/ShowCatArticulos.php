@@ -37,7 +37,8 @@ class ShowCatArticulos extends Component
                         'adq_cat_articulos.cantidad',
                         'adq_cat_articulos.precio',
                         'adq_cat_articulos.code',
-                        'acc.nombre as nombre_cat')
+                        'acc.nombre as nombre_cat',
+                        'acc.id as id_cat')
         ->leftjoin('adq_cat_categorias as acc', 'acc.id', '=', 'adq_cat_articulos.id')
         ->where('adq_cat_articulos.nombre','like', '%'        . $this->search . '%')
         ->orwhere('adq_cat_articulos.descripcion','like', '%' . $this->search . '%')
