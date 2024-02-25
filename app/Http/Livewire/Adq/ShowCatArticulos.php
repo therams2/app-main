@@ -29,9 +29,18 @@ class ShowCatArticulos extends Component
     public function render()
     {
 
-        $articulos = cat_articulos::select() 
-        ->where('nombre','like', '%'        . $this->search . '%')
-        ->orwhere('descripcion','like', '%' . $this->search . '%')
+        
+        $articulos = cat_articulos::select(
+                        'adq_cat_articulos.id',
+                        'adq_cat_articulos.nombre',
+                        'adq_cat_articulos.descripcion',
+                        'adq_cat_articulos.cantidad',
+                        'adq_cat_articulos.precio',
+                        'adq_cat_articulos.code',
+                        'acc.nombre as nombre_cat')
+        ->leftjoin('adq_cat_categorias as acc', 'acc.id', '=', 'adq_cat_articulos.id')
+        ->where('adq_cat_articulos.nombre','like', '%'        . $this->search . '%')
+        ->orwhere('adq_cat_articulos.descripcion','like', '%' . $this->search . '%')
         ->orwhere('cantidad','like', '%'    . $this->search . '%')
         ->orwhere('precio','like', '%'      . $this->search . '%')
         ->orwhere('costo_ini','like', '%'   . $this->search . '%')

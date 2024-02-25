@@ -87,7 +87,6 @@
                             <div class="input-group">
                              
                                 <select class="select2 form-select" wire:model="id_categoria" @if($isDisabled) disabled  @endif>
-                                    <option value="-1">SELECCIONA</option>
                                     @foreach ($getCategorias as $categoria)
                                     <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
                                     @endforeach
@@ -95,20 +94,7 @@
                             </div>
                             </div> 
 
-                            
-                            <div class="col-xs-12 col-md-6">
-                                <label class="form-label">Unidad de Medida *</label>
-                                <select class="select2 form-select" wire:model="id_unidad_medida"  @if($isDisabled) disabled  @endif>
-                                    <option value="-1">SELECCIONA</option>
-                                    <option value="1">LITROS</option>
-                                    <option value="2">GRAMOS</option>
-                                    <option value="3">CM</option>
-                                    <option value="4">M</option>
-                                    <option value="5">ML</option>
-                                </select>
-                          
-                            </div> 
-                        </div>
+                           </div>
                         <div class="mt-2">
                         @if(!$isDisabled)
                         @if ($isEdit)
@@ -188,6 +174,7 @@
                                 <th scope="col">Concepto/Marca</th>
                                 <th scope="col">Cantidad</th>
                                 <th scope="col">Precio</th>
+                                <th scope="col">Categoria</th>
                                 <th scope="col">Acciones</th> 
                             </tr>
                         </thead> 
@@ -199,6 +186,8 @@
                             <td  style="text-transform:uppercase">{{$articulo->descripcion == null ? "-" : $articulo->descripcion}}</td>
                             <td    style="text-transform:uppercase">{{ $articulo->cantidad }} {{  $articulo->id_unidad_tipo ==  1 ? "PZA" :  ( $articulo->id_unidad_tipo ==  2 ? "CAJ":($articulo->id_unidad_tipo ==  3 ? "BULT":"PAQ") ) }}</td>
                             <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->precio,2, ".", ",")}}</td>  
+                            <td  style="text-transform:uppercase">{{$articulo->nombre_cat}}</td>
+
                             <td> 
 
                                  <i wire:click="view({{$articulo->id}})"    data-bs-toggle="modal" data-bs-target="#modal_articulo"  title="Visualizar" 
