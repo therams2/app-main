@@ -160,11 +160,11 @@
             &nbsp
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" wire:click="changeAction()"  data-bs-target="#modal_articulo"><i  class="bx bx-add-to-queue "></i></button> 
         </div> 
-       
+        <hr class="my-0" />
         <div class="card-body">
             <!--Table-->
             <div class="table-responsive">
-                <table class="table table-dark table-striped">
+                <table class="table   table-striped">
     
                         <tbody>
                             <thead>
@@ -203,7 +203,9 @@
                             @endforeach           
                         </tbody>
                     </table>
-                    {{ $articulos->links() }}
             </div>
+
         </div>
+        {{ $articulos->links() }}
+
 </div>
