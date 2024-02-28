@@ -114,7 +114,7 @@ class ShowCatArticulos extends Component
 
         if($this->generacode){
             $ultimoId = cat_articulos::latest()->value('id');
-            $arrayData['code']    =  $ultimoId + 1;
+            $arrayData['code']    =  "001-" . ($ultimoId + 1);
         }
 
        
