@@ -89,7 +89,7 @@ class ShowCatArticulos extends Component
     public function save(){
         $arrayData = $this->validate(
             [
-                'code'          => 'required',
+                'code'          => 'nullable',
                 'nombre'        => 'required',
                 'cantidad'      => 'required',
                 'idunidadtipo'  => 'required',
@@ -99,7 +99,7 @@ class ShowCatArticulos extends Component
                 'costoIni'      => 'nullable',
             ],
             [
-                'code.required'             => '* Requerido',
+               
                 'nombre.required'           => '* Requerido',
                 'cantidad.required'         => '* Requerido',
                 'idunidadtipo.required'     => '* Requerido',
@@ -154,7 +154,7 @@ class ShowCatArticulos extends Component
         
         $arrayData = $this->validate(
             [
-                'code'          => 'required',
+                'code'          => 'nullable',
                 'nombre'        => 'required',
                 'cantidad'      => 'required',
                 'idunidadtipo'  => 'required',
@@ -164,7 +164,7 @@ class ShowCatArticulos extends Component
                 'costoIni'      => 'nullable',
             ],
             [
-                'code.required'             => '* Requerido',
+               
                 'nombre.required'           => '* Requerido',
                 'cantidad.required'         => '* Requerido',
                 'idunidadtipo.required'     => '* Requerido',
