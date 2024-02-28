@@ -89,7 +89,7 @@ class ShowCatArticulos extends Component
     public function save(){
         $arrayData = $this->validate(
             [
-                'code'          => 'required',
+                'code'          => 'nullable',
                 'nombre'        => 'required',
                 'cantidad'      => 'required',
                 'idunidadtipo'  => 'required',
@@ -161,7 +161,7 @@ class ShowCatArticulos extends Component
     public function edit(){
         $arrayData = $this->validate(
             [
-                'code'          => 'required',
+                'code'          => 'nullable',
                 'nombre'        => 'required',
                 'cantidad'      => 'required',
                 'idunidadtipo'  => 'required',
