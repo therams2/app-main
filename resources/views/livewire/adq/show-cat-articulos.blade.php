@@ -19,7 +19,7 @@
                 <div class="modal-body">
                     <div class="row">
                             <div class="col-xs-12 col-md-6">
-                                <label for="code" class="form-label">Code:</label>
+                                <label for="code" class="form-label">Code</label>
                                 <input class="form-control" type="text" id="code"  style="text-transform:uppercase"  name="code" value=""  @if($isDisabled) disabled  @endif
                                     autofocus wire:model="code" />
                                     @error('code') 
@@ -29,7 +29,7 @@
                                    
 
                             <div class="col-xs-12 col-md-6">
-                                <label for="nombre" class="form-label">Nombre:</label>
+                                <label for="nombre" class="form-label">Nombre</label>
                                 <input class="form-control" type="text" id="nombre"  style="text-transform:uppercase" name="nombre" value=""  @if($isDisabled) disabled  @endif
                                     autofocus wire:model="nombre" />
                                     @error('nombre') 
@@ -39,7 +39,7 @@
                             </div>
                     
                             <div class="col-xs-12 col-md-6">
-                                <label for="descripcion" class="form-label">Concepto/Marca:</label>
+                                <label for="descripcion" class="form-label">Concepto/Marca</label>
                                 <input class="form-control" type="text" name="descripcion"  style="text-transform:uppercase" id="descripcion" value=""  @if($isDisabled) disabled  @endif
                                     wire:model="descripcion" />
                                     @error('descripcion') 
@@ -48,8 +48,8 @@
                             </div>
 
                             <div class="col-xs-12 col-md-6">
-                                <label class="form-label">Unidad:</label>
-                                <select class="select2 form-select" wire:model="idunidadtipo"  @if($isDisabled) disabled  @endif>
+                                <label class="form-label">Unidad</label>
+                                <select class="select2 form-select" wire:model="id_unidad_tipo"  @if($isDisabled) disabled  @endif>
                                     <option value="1">PIEZA</option>
                                     <option value="2">PESO</option>
                                     <option value="3">CAJA</option>
@@ -59,32 +59,8 @@
                           
                             </div> 
 
-                            @if($isEneableItems)
-                                
                             <div class="col-xs-12 col-md-6">
-                                <label for="cantidad" class="form-label">Peso:</label>
-                                <input class="form-control" type="number" id="cantidad" name="peso" value="0" placeholder=""  @if($isDisabled) disabled  @endif
-                                    wire:model="peso" />
-                            </div>
-
-                            <div class="col-xs-12 col-md-6">
-                                <label class="form-label">Unidad De Medida:</label>
-                                <select class="select2 form-select" wire:model="id_unidad_medida"  @if($isDisabled) disabled  @endif>
-                                    <option value="1">KG</option>
-                                    <option value="2">GR</option> 
-                                </select>
-                            </div> 
-                            <div class="col-xs-12 col-md-6">
-                                <label class="form-label" for="costoIni">Costo:</label>
-                                <div class="input-group input-group-merge">
-                                 
-                                    <input type="number" id="costoIni" name="costo" value="0" class="form-control" @if($isDisabled) disabled  @endif
-                                      wire:model="costoIni" />
-                                </div>
-                            </div>
-                            @else
-                            <div class="col-xs-12 col-md-6">
-                                <label for="cantidad" class="form-label">Cantidad:</label>
+                                <label for="cantidad" class="form-label">Cantidad</label>
                                 <input class="form-control" type="number" id="cantidad" name="cantidad" value="0" placeholder=""  @if($isDisabled) disabled  @endif
                                     wire:model="cantidad" />
                                     @error('cantidad') 
@@ -93,7 +69,7 @@
                             </div>
 
                             <div class="col-xs-12 col-md-6">
-                                <label class="form-label" for="precio">Precio:</label>
+                                <label class="form-label" for="precio">Precio</label>
                                 <div class="input-group input-group-merge">
                                  
                                     <input type="number" id="precio" name="precio" value="0" class="form-control" @if($isDisabled) disabled  @endif
@@ -105,13 +81,9 @@
                                     @enderror
                             </div>
                           
-                            
-                            @endif
-
-
 
                             <div class="col-xs-12 col-md-6">
-                            <label class="form-label" for="categoria">Categoria: *</label>
+                            <label class="form-label" for="categoria">Categoria *</label>
                             <div class="input-group">
                              
                                 <select class="select2 form-select" wire:model="id_categoria" @if($isDisabled) disabled  @endif>
@@ -202,8 +174,7 @@
                                     <th scope="col">Concepto/Marca</th>
                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Precio</th>
-                                    <th scope="col">Costo</th>
-                                    <th scope="col">Peso</th>
+                                    <th scope="col">Categoria</th>
                                     <th scope="col">Acciones</th> 
                                 </tr>
                             </thead> 
@@ -213,11 +184,9 @@
                                 <td  style="text-transform:uppercase">{{$articulo->code}}</td>
                                 <td  style="text-transform:uppercase">{{$articulo->nombre}}</td>
                                 <td  style="text-transform:uppercase">{{$articulo->descripcion == null ? "-" : $articulo->descripcion}}</td>
-                                <td    style="text-transform:uppercase">{{ $articulo->cantidad }} {{  $articulo->idunidadtipo ==  1 ? "PZA" :  ( $articulo->idunidadtipo ==  2 ? "CAJ":($articulo->idunidadtipo ==  3 ? "BULT":"PAQ") ) }}</td>
+                                <td    style="text-transform:uppercase">{{ $articulo->cantidad }} {{  $articulo->id_unidad_tipo ==  1 ? "PZA" :  ( $articulo->id_unidad_tipo ==  2 ? "CAJ":($articulo->id_unidad_tipo ==  3 ? "BULT":"PAQ") ) }}</td>
                                 <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->precio,2, ".", ",")}}</td>  
-                                <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->costo_ini,2, ".", ",")}}</td>  
-                                <td  align ='right' style="text-transform:uppercase">{{$articulo->peso}} {{$articulo->id_unidad_medida == 1 ? "KG" : ($articulo->id_unidad_medida == 2  ? "GR" : "-") }}</td>  
-                               
+                                <td  style="text-transform:uppercase">{{$articulo->nombre_cat}} {{$articulo->id_cat}}</td>
 
                                 <td> 
 
@@ -226,6 +195,7 @@
 
                                     <i  wire:click="showEdit({{$articulo->id}})"   data-bs-toggle="modal" data-bs-target="#modal_articulo"  title="Editar" 
                                             class="bx bx-edit-alt me-1"></i> 
+
                                 <i wire:click="assignId({{$articulo->id}})"  data-bs-toggle="modal" data-bs-target="#delete_modal_articulo" title="Eliminar" 
                                     class="bx bx-trash-alt me-1"></i> 
                                 </td>

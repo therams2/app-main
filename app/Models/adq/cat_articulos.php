@@ -14,7 +14,6 @@ class cat_articulos extends Model
         'code',
         'descripcion',
         'precio',
-        'peso',
         'nombre',
         'cantidad',
         'costo_ini',

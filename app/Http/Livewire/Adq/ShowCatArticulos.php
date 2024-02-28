@@ -17,15 +17,13 @@ class ShowCatArticulos extends Component
     public $precio;
     public $code;
     public $costoIni;
-    public $idunidadtipo        = 1;
-    public $peso;
+    public $id_unidad_tipo; 
     // var de configuracion
     public $isEdit; 
     public $idArticulo;
-    public $id_categoria        = 1 ;
-    public $id_unidad_medida    = 1 ;
+    public $id_categoria = -1;
+    public $id_unidad_medida = -1;
     public $isDisabled;
-    public $isEneableItems = false;
     public $getCategorias = [];
 
     public $search; 
@@ -42,8 +40,6 @@ class ShowCatArticulos extends Component
                         'adq_cat_articulos.id_unidad_tipo',
                         'adq_cat_articulos.precio',
                         'adq_cat_articulos.code',
-                        'adq_cat_articulos.peso',
-                        'adq_cat_articulos.id_unidad_medida',
                         'acc.nombre as nombre_cat',
                         'acc.id as id_cat')
         ->leftjoin('adq_cat_categorias as acc', 'acc.id', '=', 'adq_cat_articulos.id')
@@ -60,22 +56,8 @@ class ShowCatArticulos extends Component
         
         return view('livewire.adq.show-cat-articulos', compact('articulos' ));
     }
-     
-    public function updatedidunidadtipo()
-    {
-        if($this->idunidadtipo == 2){
-            $this->isEneableItems = true;
-            $this->cantidad             =   0;
-            $this->precio               =   0;
-           
-        }else{
-        $this->isEneableItems = false;
-            $this->cantidad             =   null;
-            $this->precio               =   null;
-            $this->peso                 =   null;
-            $this->costoIni             =   null;
-        }
-    }
+    
+ 
 
     public function changeAction()
     {
@@ -91,25 +73,24 @@ class ShowCatArticulos extends Component
                 'code'          => 'required',
                 'nombre'        => 'required',
                 'cantidad'      => 'required',
-                'idunidadtipo'  => 'required',
-                'precio'        => 'nullable', 
+                'id_unidad_tipo'     => 'required',
+                'precio'        => 'required',
                 'descripcion'   => 'nullable',
-                'peso'          => 'nullable',
-                'costoIni'      => 'nullable',
             ],
             [
                 'code.required'             => '* Requerido',
                 'nombre.required'           => '* Requerido',
                 'cantidad.required'         => '* Requerido',
-                'idunidadtipo.required'     => '* Requerido',
-              
+                'id_unidad_tipo.required'        => '* Requerido',
+                'precio.required'           => '* Requerido',
             ]
         ); 
        
-        $arrayData['costo_ini']         =  $arrayData['costoIni'];
+       // $arrayData['costo_ini']         = $arrayData['costoIni']; 
         $arrayData['id_categoria']      =  $this->id_categoria;
         $arrayData['id_unidad_medida']  =  $this->id_unidad_medida;
-        $arrayData['id_unidad_tipo']    =  $this->idunidadtipo;
+       
+      
         cat_articulos::create($arrayData);
         $this->cleanFields();
     }
@@ -125,7 +106,7 @@ class ShowCatArticulos extends Component
         $this->isDisabled = false;
         $this->idArticulo = $id;
 
-        $articulo = cat_articulos::select('nombre','descripcion','cantidad','peso','precio','code','costo_ini as costoIni', 'id_categoria','id_unidad_medida','id_unidad_tipo') 
+        $articulo = cat_articulos::select('nombre','descripcion','cantidad','precio','code','costo_ini as costoIni', 'id_categoria','id_unidad_medida','id_unidad_tipo') 
         ->where('id', '=', $id)
         ->first();
        
@@ -137,14 +118,7 @@ class ShowCatArticulos extends Component
         $this->costoIni         =   $articulo->costoIni;
         $this->id_categoria     =   $articulo->id_categoria;
         $this->id_unidad_medida =   $articulo->id_unidad_medida;
-        $this->idunidadtipo     =   $articulo->id_unidad_tipo;
-        $this->peso             =   $articulo->peso;
-
-        if($this->idunidadtipo == 2){
-            $this->isEneableItems = true;}
-            else{
-            $this->isEneableItems = false;
-        }
+        $this->id_unidad_tipo        =   $articulo->id_unidad_tipo;
     }
 
 
@@ -154,27 +128,25 @@ class ShowCatArticulos extends Component
         $arrayData = $this->validate(
             [
                 'code'          => 'required',
-                'nombre'        => 'required',
+                'nombre'        => 'required', 
                 'cantidad'      => 'required',
-                'idunidadtipo'  => 'required',
-                'precio'        => 'nullable',
+                'id_unidad_tipo'     => 'required',
+                'precio'        => 'required',
                 'descripcion'   => 'nullable',
-                'peso'          => 'nullable',
-                'costoIni'      => 'nullable',
             ],
             [
                 'code.required'             => '* Requerido',
                 'nombre.required'           => '* Requerido',
                 'cantidad.required'         => '* Requerido',
-                'idunidadtipo.required'     => '* Requerido',
+                'id_unidad_tipo.required'   => '* Requerido',
+                'precio.required'           => '* Requerido',
             ]
         ); 
   
+        //$arrayData['costo_ini']         =   $arrayData['costoIni']; 
+        $arrayData['id_categoria']      =   $this->id_categoria; 
+        $arrayData['id_unidad_medida']  =   $this->id_unidad_medida;      
        
-        $arrayData['costo_ini']         = $arrayData['costoIni']; 
-        $arrayData['id_categoria']      =  $this->id_categoria;
-        $arrayData['id_unidad_medida']  =  $this->id_unidad_medida;
-        $arrayData['id_unidad_tipo']    =  $this->idunidadtipo;
         $articulo = cat_articulos::find($this->idArticulo);
         $articulo->update($arrayData);
     }
@@ -183,7 +155,7 @@ class ShowCatArticulos extends Component
      
         $this->isDisabled = true;
 
-        $articulo = cat_articulos::select('nombre','descripcion','cantidad','peso','precio','code','costo_ini as costoIni', 'id_categoria','id_unidad_medida','id_unidad_tipo') 
+        $articulo = cat_articulos::select('nombre','descripcion','cantidad','precio','code','costo_ini as costoIni', 'id_categoria','id_unidad_medida','id_unidad_tipo') 
         ->where('id', '=', $id)
         ->first();
        
@@ -191,12 +163,11 @@ class ShowCatArticulos extends Component
         $this->descripcion      =   $articulo->descripcion;
         $this->cantidad         =   $articulo->cantidad;
         $this->precio           =   $articulo->precio;
-        $this->peso             =   $articulo->peso;
         $this->code             =   $articulo->code;
         $this->costoIni         =   $articulo->costoIni;
         $this->id_categoria     =   $articulo->id_categoria;
-        $this->id_unidad_medida =   $articulo->id_unidad_medida;
-        $this->idunidadtipo     =   $articulo->idunidadtipo;
+        $this->id_unidad_medida      =   $articulo->id_unidad_medida;
+        $this->id_unidad_tipo        =   $articulo->id_unidad_tipo;
     }
 
     public function assignId($id){
@@ -207,19 +178,15 @@ class ShowCatArticulos extends Component
     }
     
     public function cleanFields(){
-        $this->nombre               =    "";
-        $this->descripcion          =    "";
-        $this->cantidad             =    "";
-        $this->precio               =    "";
-        $this->peso                 =    null;
-        $this->code                 =    "";
-        $this->costoIni             =    null;
-        $this->id_categoria         =    1;
-        $this->id_unidad_medida     =    1;
-        $this->idunidadtipo         =    1;
-        $this->isEneableItems       =    false;
-
-
+        $this->nombre               =   "";
+        $this->descripcion          =   "";
+        $this->cantidad             =   "";
+        $this->precio               =   "";
+        $this->code                 =   "";
+        $this->costoIni             =   "";
+        $this->id_categoria         =   -1;
+        $this->id_unidad_medida     =   -1;
+        $this->id_unidad_tipo            =   "1";
     }
 
     public function delete(){
