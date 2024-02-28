@@ -89,7 +89,7 @@ class ShowCatArticulos extends Component
     public function save(){
         $arrayData = $this->validate(
             [
-                'code'          => 'nullable',
+                'code'          => 'required',
                 'nombre'        => 'required',
                 'cantidad'      => 'required',
                 'idunidadtipo'  => 'required',
@@ -159,14 +159,13 @@ class ShowCatArticulos extends Component
 
 
     public function edit(){
-        
         $arrayData = $this->validate(
             [
-                'code'          => 'nullable',
+                'code'          => 'required',
                 'nombre'        => 'required',
                 'cantidad'      => 'required',
                 'idunidadtipo'  => 'required',
-                'precio'        => 'nullable',
+                'precio'        => 'nullable', 
                 'descripcion'   => 'nullable',
                 'peso'          => 'nullable',
                 'costoIni'      => 'nullable',
@@ -176,15 +175,16 @@ class ShowCatArticulos extends Component
                 'nombre.required'           => '* Requerido',
                 'cantidad.required'         => '* Requerido',
                 'idunidadtipo.required'     => '* Requerido',
+              
             ]
         ); 
-  
        
-        $arrayData['costo_ini']         = $arrayData['costoIni']; 
+        $arrayData['costo_ini']         =  $arrayData['costoIni'];
         $arrayData['id_categoria']      =  $this->id_categoria;
         $arrayData['id_unidad_medida']  =  $this->id_unidad_medida;
         $arrayData['id_unidad_tipo']    =  $this->idunidadtipo;
         $articulo = cat_articulos::find($this->idArticulo);
+        $articulo->update($arrayData);
     }
     
     public function view($id){
