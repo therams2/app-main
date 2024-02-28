@@ -23,7 +23,7 @@ class ShowCatArticulos extends Component
     public $isEdit; 
     public $idArticulo;
     public $id_categoria        = 1 ;
-    public $id_unidad_medida    = 1 ;
+    public $id_unidad_medida    = 0 ;
     public $isDisabled;
     public $isEneableItems = false;
     public $getCategorias = [];
@@ -43,6 +43,7 @@ class ShowCatArticulos extends Component
                         'adq_cat_articulos.precio',
                         'adq_cat_articulos.code',
                         'adq_cat_articulos.peso',
+                        'adq_cat_articulos.costo_ini',
                         'adq_cat_articulos.id_unidad_medida',
                         'acc.nombre as nombre_cat',
                         'acc.id as id_cat')
@@ -215,7 +216,7 @@ class ShowCatArticulos extends Component
         $this->code                 =    "";
         $this->costoIni             =    null;
         $this->id_categoria         =    1;
-        $this->id_unidad_medida     =    1;
+        $this->id_unidad_medida     =    0;
         $this->idunidadtipo         =    1;
         $this->isEneableItems       =    false;
 

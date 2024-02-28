@@ -70,6 +70,7 @@
                             <div class="col-xs-12 col-md-6">
                                 <label class="form-label">Unidad De Medida:</label>
                                 <select class="select2 form-select" wire:model="id_unidad_medida"  @if($isDisabled) disabled  @endif>
+                                    <option value="0">Selecciona</option>
                                     <option value="1">KG</option>
                                     <option value="2">GR</option> 
                                 </select>
