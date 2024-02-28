@@ -19,6 +19,7 @@ class ShowCatArticulos extends Component
     public $costoIni;
     public $idunidadtipo        = 1;
     public $peso;
+    public $generacode = false;
     // var de configuracion
     public $isEdit; 
     public $idArticulo;
@@ -110,7 +111,15 @@ class ShowCatArticulos extends Component
         $arrayData['id_categoria']      =  $this->id_categoria;
         $arrayData['id_unidad_medida']  =  $this->id_unidad_medida;
         $arrayData['id_unidad_tipo']    =  $this->idunidadtipo;
+
+        if($this->generacode){
+            $ultimoId = cat_articulos::latest()->value('id');
+            $arrayData['code']    =  $ultimoId + 1;
+        }
+
+       
         cat_articulos::create($arrayData);
+
         $this->cleanFields();
     }
     public function mount()
@@ -176,7 +185,6 @@ class ShowCatArticulos extends Component
         $arrayData['id_unidad_medida']  =  $this->id_unidad_medida;
         $arrayData['id_unidad_tipo']    =  $this->idunidadtipo;
         $articulo = cat_articulos::find($this->idArticulo);
-        $articulo->update($arrayData);
     }
     
     public function view($id){
@@ -218,6 +226,7 @@ class ShowCatArticulos extends Component
         $this->id_unidad_medida     =    0;
         $this->idunidadtipo         =    1;
         $this->isEneableItems       =    false;
+        $this->generacode           =    false;
 
 
     }

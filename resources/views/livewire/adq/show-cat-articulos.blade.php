@@ -19,14 +19,18 @@
                 <div class="modal-body">
                     <div class="row">
                             <div class="col-xs-12 col-md-6">
+                            <label for="generarCodigo" class="form-label">Generar código</label>
+                                <input type="checkbox" id="generarCodigo" name="generarCodigo" wire:model="generacode" />
+                                <h1>
                                 <label for="code" class="form-label">Code:</label>
                                 <input class="form-control" type="text" id="code"  style="text-transform:uppercase"  name="code" value=""  @if($isDisabled) disabled  @endif
-                                    autofocus wire:model="code" />
+                                    @if($generacode) disabled @endif autofocus wire:model="code" />
+                                    
                                     @error('code') 
                                     <span class="text-danger" style="font-size: 12px;">{{ $message }}</span>
                                     @enderror
                             </div>
-                                   
+                            
 
                             <div class="col-xs-12 col-md-6">
                                 <label for="nombre" class="form-label">Nombre:</label>
