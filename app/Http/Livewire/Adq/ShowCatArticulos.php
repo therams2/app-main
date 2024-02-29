@@ -214,7 +214,6 @@ class ShowCatArticulos extends Component
            
             $count = 1;
             $clave = cat_categorias::where('id', $this->id_categoria)->value('clave');
-            dd( $clave);
             do {               
                 $codeExist =  cat_articulos::where('code',  str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)))->exists();
                 $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)) ;
