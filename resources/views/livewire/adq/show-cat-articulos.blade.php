@@ -134,7 +134,7 @@
                         <div class="mt-2">
                         @if(!$isDisabled)
                         @if ($isEdit)
-                        <button type="submit" class="btn btn-primary me-2" wire:click="edit" data-bs-dismiss="modal">Guardar Cambios</button> 
+                        <button type="submit" class="btn btn-primary me-2" wire:click="edit" data-bs-dismiss="modal">Guardar</button> 
                         @else
                         <button type="submit" class="btn btn-primary me-2" wire:click="save"  >Guardar</button> 
                         @endif
@@ -247,3 +247,9 @@
         {{ $articulos->links() }}
 
 </div>
+
+@livewireScripts
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<x-livewire-alert::scripts />
