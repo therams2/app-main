@@ -19,25 +19,23 @@
                 <div class="modal-body">
                     <div class="row">
 
+                            
                             <div class="col-xs-12 col-md-6">
-                          
+                            <label for="code" class="form-label">Code:</label>
+                            <input class="form-control" type="text" id="code" style="text-transform: uppercase;" name="code" value=""
+                                @if($isDisabled) disabled @endif @if($generacode) disabled @endif autofocus wire:model="code" />
+                            @error('code') 
+                                <span class="text-danger" style="font-size: 12px;">{{ $message }}</span>
+                            @enderror
+                            </div>
+                            <div class="col-xs-12 col-md-6"> 
                                 <label for="generarCodigo" class="form-label">¿Generar código?:</label>
                                 <input type="checkbox" id="generarCodigo" name="generarCodigo"  wire:model="generacode"
                                     @if($isDisabled) disabled @endif />
                             </div>
-                            <div class="col-xs-12 col-md-6">
-                                <label for="code" class="form-label">Code:</label>
-                                <input class="form-control" type="text" id="code"  style="text-transform:uppercase"  name="code" value=""  @if($isDisabled) disabled  @endif
-                                    @if($generacode) disabled @endif autofocus wire:model="code" />
-                                    
-                                    @error('code') 
-                                    <span class="text-danger" style="font-size: 12px;">{{ $message }}</span>
-                                    @enderror
-                            </div>
-                            
 
                             <div class="col-xs-12 col-md-6">
-                                <label for="nombre" class="form-label">Nombre:</label>
+                                <label for="nombre" class="form-label" style="margin-top: 25px;">Nombre:</label>
                                 <input class="form-control" type="text" id="nombre"  style="text-transform:uppercase" name="nombre" value=""  @if($isDisabled) disabled  @endif
                                     autofocus wire:model="nombre" />
                                     @error('nombre') 
@@ -47,7 +45,7 @@
                             </div>
                     
                             <div class="col-xs-12 col-md-6">
-                                <label for="descripcion" class="form-label">Concepto/Marca:</label>
+                                <label for="descripcion" class="form-label" style="margin-top: 25px;">Concepto/Marca:</label>
                                 <input class="form-control" type="text" name="descripcion"  style="text-transform:uppercase" id="descripcion" value=""  @if($isDisabled) disabled  @endif
                                     wire:model="descripcion" />
                                     @error('descripcion') 
@@ -56,7 +54,7 @@
                             </div>
 
                             <div class="col-xs-12 col-md-6">
-                                <label class="form-label">Unidad:</label>
+                                <label class="form-label" style="margin-top: 25px;">Unidad:</label>
                                 <select class="select2 form-select" wire:model="idunidadtipo"  @if($isDisabled) disabled  @endif>
                                     <option value="1">PIEZA</option>
                                     <option value="2">PESO</option>
@@ -69,21 +67,29 @@
                             @if($isEneableItems)
                                 
                             <div class="col-xs-12 col-md-6">
-                                <label for="cantidad" class="form-label">Peso:</label>
+                                <label for="cantidad" class="form-label" style="margin-top: 25px;">Peso:</label>
                                 <input class="form-control" type="number" id="cantidad" name="peso" value="0" placeholder=""  @if($isDisabled) disabled  @endif
                                     wire:model="peso" />
                             </div>
 
                             <div class="col-xs-12 col-md-6">
-                                <label class="form-label">Unidad De Medida:</label>
+                                <label class="form-label" style="margin-top: 25px;">Unidad De Medida:</label>
                                 <select class="select2 form-select" wire:model="id_unidad_medida"  @if($isDisabled) disabled  @endif>
                                     <option >SELECCIONA</option>
                                     <option value="1">KG</option>
                                     <option value="2">GR</option> 
                                 </select>
-                            </div> 
+                            </div>
                             <div class="col-xs-12 col-md-6">
-                                <label class="form-label" for="costoIni">Costo:</label>
+                                <label class="form-label" for="preciokilo" style="margin-top: 25px;">Precio Kilo:</label>
+                                <div class="input-group input-group-merge">
+                                 
+                                    <input type="number" id="preciokilo" name="preciokilo" value="0" class="form-control" @if($isDisabled) disabled  @endif
+                                      wire:model="precio_kilo" />
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label class="form-label" for="costoIni" style="margin-top: 25px;" >Costo:</label>
                                 <div class="input-group input-group-merge">
                                  
                                     <input type="number" id="costoIni" name="costo" value="0" class="form-control" @if($isDisabled) disabled  @endif
@@ -92,7 +98,7 @@
                             </div>
                             @else
                             <div class="col-xs-12 col-md-6">
-                                <label for="cantidad" class="form-label">Cantidad:</label>
+                                <label for="cantidad" class="form-label" style="margin-top: 25px;">Cantidad:</label>
                                 <input class="form-control" type="number" id="cantidad" name="cantidad" value="0" placeholder=""  @if($isDisabled) disabled  @endif
                                     wire:model="cantidad" />
                                     @error('cantidad') 
@@ -101,7 +107,7 @@
                             </div>
 
                             <div class="col-xs-12 col-md-6">
-                                <label class="form-label" for="precio">Precio:</label>
+                                <label class="form-label" for="precio" style="margin-top: 25px;">Precio:</label>
                                 <div class="input-group input-group-merge">
                                  
                                     <input type="number" id="precio" name="precio" value="0" class="form-control" @if($isDisabled) disabled  @endif
@@ -119,7 +125,7 @@
 
 
                             <div class="col-xs-12 col-md-6">
-                            <label class="form-label" for="categoria">Categoria: *</label>
+                            <label class="form-label" for="categoria" style="margin-top: 25px;">Categoria: *</label>
                             <div class="input-group">
                              
                                 <select class="select2 form-select" wire:model="id_categoria" @if($isDisabled) disabled  @endif>

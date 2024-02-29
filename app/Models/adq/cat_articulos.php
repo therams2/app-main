@@ -20,6 +20,7 @@ class cat_articulos extends Model
         'costo_ini',
         'id_categoria',
         'id_unidad_medida',
-        'id_unidad_tipo'
+        'id_unidad_tipo',
+        'precio_kilo'
     ];
 }

@@ -22,6 +22,7 @@ class ShowCatArticulos extends Component
     public $costoIni;
     public $idunidadtipo        = 1;
     public $peso;
+    public $precio_kilo;
     public $generacode = false;
     // var de configuracion
     public $isEdit; 
@@ -71,13 +72,14 @@ class ShowCatArticulos extends Component
             $this->isEneableItems = true;
             $this->cantidad             =   0;
             $this->precio               =   0;
-           
+            $this->precio_kilo          =   0;
         }else{
         $this->isEneableItems = false;
             $this->cantidad             =   null;
             $this->precio               =   null;
             $this->peso                 =   null;
             $this->costoIni             =   null;
+            $this->precio_kilo          =   null;
         }
     }
 
@@ -100,6 +102,7 @@ class ShowCatArticulos extends Component
                 'descripcion'   => 'nullable',
                 'peso'          => 'nullable',
                 'costoIni'      => 'nullable',
+                'precio_kilo'   => 'nullable'
             ],
             [
                
@@ -131,6 +134,7 @@ class ShowCatArticulos extends Component
             'showConfirmButton' => false,
             'onConfirmed' => '',
            ]);
+
     }
     public function mount()
     { 
@@ -144,7 +148,7 @@ class ShowCatArticulos extends Component
         $this->isDisabled = false;
         $this->idArticulo = $id;
 
-        $articulo = cat_articulos::select('nombre','descripcion','cantidad','peso','precio','code','costo_ini as costoIni', 'id_categoria','id_unidad_medida','id_unidad_tipo') 
+        $articulo = cat_articulos::select('nombre','descripcion','cantidad','peso','precio','code','costo_ini as costoIni', 'id_categoria','id_unidad_medida','id_unidad_tipo','precio_kilo') 
         ->where('id', '=', $id)
         ->first();
        
@@ -158,6 +162,7 @@ class ShowCatArticulos extends Component
         $this->id_unidad_medida =   $articulo->id_unidad_medida;
         $this->idunidadtipo     =   $articulo->id_unidad_tipo;
         $this->peso             =   $articulo->peso;
+        $this->precio_kilo      =   $articulo->precio_kilo;
 
         if($this->idunidadtipo == 2){
             $this->isEneableItems = true;}
@@ -179,6 +184,7 @@ class ShowCatArticulos extends Component
                 'descripcion'   => 'nullable',
                 'peso'          => 'nullable',
                 'costoIni'      => 'nullable',
+                'precio_kilo'   => 'nullable'
             ],
             [
                
@@ -209,7 +215,7 @@ class ShowCatArticulos extends Component
      
         $this->isDisabled = true;
 
-        $articulo = cat_articulos::select('nombre','descripcion','cantidad','peso','precio','code','costo_ini as costoIni', 'id_categoria','id_unidad_medida','id_unidad_tipo') 
+        $articulo = cat_articulos::select('nombre','descripcion','cantidad','peso','precio','code','costo_ini as costoIni', 'id_categoria','id_unidad_medida','id_unidad_tipo','precio_kilo') 
         ->where('id', '=', $id)
         ->first();
        
@@ -217,12 +223,13 @@ class ShowCatArticulos extends Component
         $this->descripcion      =   $articulo->descripcion;
         $this->cantidad         =   $articulo->cantidad;
         $this->precio           =   $articulo->precio;
-        $this->peso             =   $articulo->peso;
         $this->code             =   $articulo->code;
         $this->costoIni         =   $articulo->costoIni;
         $this->id_categoria     =   $articulo->id_categoria;
         $this->id_unidad_medida =   $articulo->id_unidad_medida;
-        $this->idunidadtipo     =   $articulo->idunidadtipo;
+        $this->idunidadtipo     =   $articulo->id_unidad_tipo;
+        $this->peso             =   $articulo->peso;
+        $this->precio_kilo      =   $articulo->precio_kilo;
     }
 
     public function assignId($id){
@@ -245,6 +252,7 @@ class ShowCatArticulos extends Component
         $this->idunidadtipo         =    1;
         $this->isEneableItems       =    false;
         $this->generacode           =    false;
+        $this->precio_kilo           =   null;
 
 
     }
