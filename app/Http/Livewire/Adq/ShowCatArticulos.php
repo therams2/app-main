@@ -6,12 +6,9 @@ use Livewire\Component;
 use App\Models\adq\cat_articulos;
 use App\Models\adq\cat_categorias;
 use Livewire\WithPagination;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
-
 class ShowCatArticulos extends Component
 {
     use WithPagination;
-    use LivewireAlert;
     // var de datos
     public $nombre;
     protected $paginationTheme = 'bootstrap';
@@ -124,13 +121,6 @@ class ShowCatArticulos extends Component
         cat_articulos::create($arrayData);
 
         $this->cleanFields();
-        $this->alert('success', 'Articulo agregado correctamente', [
-            'position' => 'top-end',
-            'timer' => 3000,
-            'toast' => true,
-            'showConfirmButton' => false,
-            'onConfirmed' => '',
-           ]);
     }
     public function mount()
     { 
@@ -195,14 +185,6 @@ class ShowCatArticulos extends Component
         $arrayData['id_unidad_tipo']    =  $this->idunidadtipo;
         $articulo = cat_articulos::find($this->idArticulo);
         $articulo->update($arrayData);
-        
-        $this->alert('success', 'Articulo actualizado correctamente', [
-            'position' => 'top-end',
-            'timer' => 3000,
-            'toast' => true,
-            'showConfirmButton' => false,
-            'onConfirmed' => '',
-           ]);
     }
     
     public function view($id){
