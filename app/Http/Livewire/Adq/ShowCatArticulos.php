@@ -80,6 +80,8 @@ class ShowCatArticulos extends Component
             $this->peso                 =   null;
             $this->costoIni             =   null;
             $this->precio_kilo          =   null;
+            $this->id_unidad_medida     =   null;
+            
         }
     }
 
