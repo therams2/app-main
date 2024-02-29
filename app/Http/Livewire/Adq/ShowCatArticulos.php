@@ -121,15 +121,12 @@ class ShowCatArticulos extends Component
         $arrayData['id_unidad_tipo']    =  $this->idunidadtipo;
 
         if($this->generacode){
+            $count = cat_articulos::where('id_categoria', $this->id_categoria)->count();
            
-            $count = 1;
             $clave = cat_categorias::where('id', $this->id_categoria)->value('clave');
-                
-            do {               
-                $codeExist =  cat_articulos::where('code',  str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)))->exists();
-                $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)) ;
-                $count++; 
-            } while ($codeExist);
+            
+            //$ultimoId = cat_articulos::latest()->value('id');
+            $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count + 1), 3, "0", STR_PAD_LEFT));
         }
 
        
@@ -211,16 +208,11 @@ class ShowCatArticulos extends Component
         $arrayData['id_unidad_tipo']    =  $this->idunidadtipo;
 
         if($this->generacode){
-           
-            $count = 1;
+            $count = cat_articulos::where('id_categoria', $this->id_categoria)->count();
             $clave = cat_categorias::where('id', $this->id_categoria)->value('clave');
-            do {               
-                $codeExist =  cat_articulos::where('code',  str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)))->exists();
-                $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)) ;
-                $count++; 
-            } while ($codeExist);
+            
+            $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count + 1), 3, "0", STR_PAD_LEFT));
         }
-
 
 
         $articulo = cat_articulos::find($this->idArticulo);
