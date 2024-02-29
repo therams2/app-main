@@ -121,8 +121,12 @@ class ShowCatArticulos extends Component
         $arrayData['id_unidad_tipo']    =  $this->idunidadtipo;
 
         if($this->generacode){
-            $ultimoId = cat_articulos::latest()->value('id');
-            $arrayData['code']    =  "001-" . ($ultimoId + 1);
+            $count = cat_articulos::where('id_categoria', $this->id_categoria)->count();
+           
+            $clave = cat_categorias::where('id', $this->id_categoria)->value('clave');
+            
+            //$ultimoId = cat_articulos::latest()->value('id');
+            $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count + 1), 3, "0", STR_PAD_LEFT));
         }
 
        
