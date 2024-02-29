@@ -124,16 +124,12 @@ class ShowCatArticulos extends Component
            
             $count = 1;
             $clave = cat_categorias::where('id', $this->id_categoria)->value('clave');
-
+                
             do {               
                 $codeExist =  cat_articulos::where('code',  str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)))->exists();
-                if ($codeExist) {
-                    $count++;
-                } else { 
-                    $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)) ;
-                    break;  
-                }
-            } while ($count);
+                $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)) ;
+                $count++; 
+            } while ($codeExist);
         }
 
        
@@ -221,13 +217,9 @@ class ShowCatArticulos extends Component
 
             do {               
                 $codeExist =  cat_articulos::where('code',  str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)))->exists();
-                if ($codeExist) {
-                    $count++;
-                } else { 
-                    $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)) ;
-                    break;  
-                }
-            } while ($count);
+                $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)) ;
+                $count++; 
+            } while ($codeExist);
         }
 
 
