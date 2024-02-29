@@ -121,12 +121,19 @@ class ShowCatArticulos extends Component
         $arrayData['id_unidad_tipo']    =  $this->idunidadtipo;
 
         if($this->generacode){
-            $count = cat_articulos::where('id_categoria', $this->id_categoria)->count();
            
+            $count = 1;
             $clave = cat_categorias::where('id', $this->id_categoria)->value('clave');
-            
-            //$ultimoId = cat_articulos::latest()->value('id');
-            $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count + 1), 3, "0", STR_PAD_LEFT));
+
+            do {               
+                $codeExist =  cat_articulos::where('code',  str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)))->exists();
+                if ($codeExist) {
+                    $count++;
+                } else { 
+                    $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)) ;
+                    break;  
+                }
+            } while ($count);
         }
 
        
@@ -150,6 +157,7 @@ class ShowCatArticulos extends Component
 
 
     public function showEdit($id){
+        $this->generacode           =    false;
         $this->isEdit = true;
         $this->isDisabled = false;
         $this->idArticulo = $id;
@@ -205,6 +213,25 @@ class ShowCatArticulos extends Component
         $arrayData['id_categoria']      =  $this->id_categoria;
         $arrayData['id_unidad_medida']  =  $this->id_unidad_medida;
         $arrayData['id_unidad_tipo']    =  $this->idunidadtipo;
+
+        if($this->generacode){
+           
+            $count = 1;
+            $clave = cat_categorias::where('id', $this->id_categoria)->value('clave');
+
+            do {               
+                $codeExist =  cat_articulos::where('code',  str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)))->exists();
+                if ($codeExist) {
+                    $count++;
+                } else { 
+                    $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count), 3, "0", STR_PAD_LEFT)) ;
+                    break;  
+                }
+            } while ($count);
+        }
+
+
+
         $articulo = cat_articulos::find($this->idArticulo);
         $articulo->update($arrayData);
         
