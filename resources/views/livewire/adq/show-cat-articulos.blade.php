@@ -124,7 +124,7 @@
                              
                                 <select class="select2 form-select" wire:model="id_categoria" @if($isDisabled) disabled  @endif>
                                     @foreach ($getCategorias as $categoria)
-                                    <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+                                    <option value="{{$categoria->id}}">{{str_pad($categoria->clave, 3, "0", STR_PAD_LEFT)}}-{{$categoria->nombre}}</option>
                                     @endforeach
                                 </select>                                                                  
                             </div>
@@ -225,8 +225,6 @@
                                 <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->precio,2, ".", ",")}}</td>  
                                 <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->costo_ini,2, ".", ",")}}</td>  
                                 <td  align ='right' style="text-transform:uppercase">{{$articulo->peso}} {{$articulo->id_unidad_medida == 1 ? "KG" : ($articulo->id_unidad_medida == 2  ? "GR" : "-") }}</td>  
-                               
-
                                 <td> 
 
                                     <i wire:click="view({{$articulo->id}})"    data-bs-toggle="modal" data-bs-target="#modal_articulo"  title="Visualizar" 
