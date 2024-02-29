@@ -61,8 +61,7 @@
                                     <option value="1">PIEZA</option>
                                     <option value="2">PESO</option>
                                     <option value="3">CAJA</option>
-                                    <option value="4">BULTO</option>
-                                    <option value="5">PAQUETE</option>
+                                    <option value="4">PAQUETE</option>
                                 </select>
                           
                             </div> 
@@ -222,7 +221,7 @@
                                 <td  style="text-transform:uppercase">{{$articulo->code}}</td>
                                 <td  style="text-transform:uppercase">{{$articulo->nombre}}</td>
                                 <td  style="text-transform:uppercase">{{$articulo->descripcion == null ? "-" : $articulo->descripcion}}</td>
-                                <td    style="text-transform:uppercase">{{ $articulo->cantidad }} {{  $articulo->idunidadtipo ==  1 ? "PZA" :  ( $articulo->idunidadtipo ==  2 ? "CAJ":($articulo->idunidadtipo ==  3 ? "BULT":"PAQ") ) }}</td>
+                                <td    style="text-transform:uppercase">{{ $articulo->cantidad == 0 ? "-": $articulo->cantidad}} {{  $articulo->idunidadtipo ==  1 ? "PZA" :  ( $articulo->idunidadtipo ==  2 ? "":($articulo->idunidadtipo ==  3 ? "CAJA":"PAQ") ) }}</td>
                                 <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->precio,2, ".", ",")}}</td>  
                                 <td  align ='right' style="text-transform:uppercase">${{number_format($articulo->costo_ini,2, ".", ",")}}</td>  
                                 <td  align ='right' style="text-transform:uppercase">{{$articulo->peso}} {{$articulo->id_unidad_medida == 1 ? "KG" : ($articulo->id_unidad_medida == 2  ? "GR" : "-") }}</td>  
