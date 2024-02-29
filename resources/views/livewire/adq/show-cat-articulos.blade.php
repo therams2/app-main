@@ -18,10 +18,14 @@
                     </div> 
                 <div class="modal-body">
                     <div class="row">
+
                             <div class="col-xs-12 col-md-6">
-                            <label for="generarCodigo" class="form-label">Generar código</label>
-                                <input type="checkbox" id="generarCodigo" name="generarCodigo" wire:model="generacode" />
-                                <h1>
+                          
+                                <label for="generarCodigo" class="form-label">¿Generar código?:</label>
+                                <input type="checkbox" id="generarCodigo" name="generarCodigo"  wire:model="generacode"
+                                    @if($isDisabled) disabled @endif />
+                            </div>
+                            <div class="col-xs-12 col-md-6">
                                 <label for="code" class="form-label">Code:</label>
                                 <input class="form-control" type="text" id="code"  style="text-transform:uppercase"  name="code" value=""  @if($isDisabled) disabled  @endif
                                     @if($generacode) disabled @endif autofocus wire:model="code" />
@@ -74,7 +78,7 @@
                             <div class="col-xs-12 col-md-6">
                                 <label class="form-label">Unidad De Medida:</label>
                                 <select class="select2 form-select" wire:model="id_unidad_medida"  @if($isDisabled) disabled  @endif>
-                                    <option value="0">Selecciona</option>
+                                    <option >SELECCIONA</option>
                                     <option value="1">KG</option>
                                     <option value="2">GR</option> 
                                 </select>
