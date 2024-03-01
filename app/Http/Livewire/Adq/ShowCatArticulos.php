@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Adq;
 use Livewire\Component;
 use App\Models\adq\cat_articulos;
 use App\Models\adq\cat_categorias;
+use App\Models\adq\cat_indices_categorias;
 use Livewire\WithPagination;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -27,7 +28,7 @@ class ShowCatArticulos extends Component
     // var de configuracion
     public $isEdit; 
     public $idArticulo;
-    public $id_categoria        = 1 ;
+    public $id_categoria;
     public $id_unidad_medida    = null ;
     public $isDisabled;
     public $isEneableItems = false;
@@ -114,19 +115,36 @@ class ShowCatArticulos extends Component
               
             ]
         ); 
-       
+        //valida que la cat sea siempre la clave 1
+        if(!$this->id_categoria)
+            $this->id_categoria = cat_categorias::where('clave', 1 )->value('id'); // Arreglar esto a estatico
+
         $arrayData['costo_ini']         =  $arrayData['costoIni'];
         $arrayData['id_categoria']      =  $this->id_categoria;
         $arrayData['id_unidad_medida']  =  $this->id_unidad_medida;
         $arrayData['id_unidad_tipo']    =  $this->idunidadtipo;
 
         if($this->generacode){
-            $count = cat_articulos::where('id_categoria', $this->id_categoria)->count();
-           
+
             $clave = cat_categorias::where('id', $this->id_categoria)->value('clave');
             
-            //$ultimoId = cat_articulos::latest()->value('id');
-            $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count + 1), 3, "0", STR_PAD_LEFT));
+            $indice = "INDEX".$clave;
+             
+            $index = cat_indices_categorias::pluck( $indice)->first();
+
+            if( $index ){
+                $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($index + 1), 3, "0", STR_PAD_LEFT));
+
+                $firtsRow =  cat_indices_categorias::first();
+                $firtsRow->update([ $indice => $index + 1 ]);
+            }else{
+                // si es nulo es el primer registro
+                $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad((1), 3, "0", STR_PAD_LEFT));
+
+
+                $firtsRow =   cat_indices_categorias::first();
+                $firtsRow->update([ $indice => 1]);
+            }
         }
 
        
@@ -214,7 +232,28 @@ class ShowCatArticulos extends Component
             $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count + 1), 3, "0", STR_PAD_LEFT));
         }
 
+             if($this->generacode){
+            
+            $clave = cat_categorias::where('id', $this->id_categoria)->value('clave');
+            
+            $indice = "INDEX".$clave;
+             
+            $index = cat_indices_categorias::pluck( $indice)->first();
 
+            if( $index ){
+                $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($index + 1), 3, "0", STR_PAD_LEFT));
+
+                $firtsRow =  cat_indices_categorias::first();
+                $firtsRow->update([ $indice => $index + 1 ]);
+            }else{
+                // si es nulo es el primer registro
+                $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad((1), 3, "0", STR_PAD_LEFT));
+
+
+                $firtsRow =   cat_indices_categorias::first();
+                $firtsRow->update([ $indice => 1]);
+            }
+        }
         $articulo = cat_articulos::find($this->idArticulo);
         $articulo->update($arrayData);
         
@@ -263,7 +302,7 @@ class ShowCatArticulos extends Component
         $this->peso                 =    null;
         $this->code                 =    "";
         $this->costoIni             =    null;
-        $this->id_categoria         =    1;
+        $this->id_categoria;
         $this->id_unidad_medida     =    null;
         $this->idunidadtipo         =    1;
         $this->isEneableItems       =    false;
