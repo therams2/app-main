@@ -226,14 +226,7 @@ class ShowCatArticulos extends Component
         $arrayData['id_unidad_tipo']    =  $this->idunidadtipo;
 
         if($this->generacode){
-            $count = cat_articulos::where('id_categoria', $this->id_categoria)->count();
-            $clave = cat_categorias::where('id', $this->id_categoria)->value('clave');
-            
-            $arrayData['code']    =   str_pad($clave, 3, "0", STR_PAD_LEFT)."".(str_pad(($count + 1), 3, "0", STR_PAD_LEFT));
-        }
 
-             if($this->generacode){
-            
             $clave = cat_categorias::where('id', $this->id_categoria)->value('clave');
             
             $indice = "INDEX".$clave;
