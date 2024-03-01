@@ -219,7 +219,9 @@ class ShowCatArticulos extends Component
               
             ]
         ); 
-       
+        if(!$this->id_categoria)
+            $this->id_categoria = cat_categorias::where('clave', 1 )->value('id'); // Arreglar esto a estatico
+        
         $arrayData['costo_ini']         =  $arrayData['costoIni'];
         $arrayData['id_categoria']      =  $this->id_categoria;
         $arrayData['id_unidad_medida']  =  $this->id_unidad_medida;
