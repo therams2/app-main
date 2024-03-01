@@ -63,15 +63,15 @@
             <!-- Cards -->
              
             <li class="menu-item">
-              <a href="{{ route('articulos')}}" class="menu-link">
+              <a href="{{ route('ingresoInventario')}}" class="menu-link">
                 <i class="menu-icon material-icons">queue</i>
-                <div >Articulos</div>
+                <div >Ingreso</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="{{ route('articulos')}}" class="menu-link">
                 <i class="menu-icon material-icons">dataset</i>
-                <div >Inventario</div>
+                <div >Articulos</div>
               </a>
             </li>
             <li class="menu-item">

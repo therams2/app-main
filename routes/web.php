@@ -6,6 +6,7 @@ use App\Http\Livewire\Clasificadores\Organigramas;
 use App\Http\Livewire\Clasificadores\OrganigramasArbol;
 use App\Http\Livewire\Adq\ShowCatArticulos;
 use App\Http\Livewire\Adq\ShowCatCategorias;
+use App\Http\Livewire\Adq\ShowCatIngresoInv;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,4 +40,5 @@ Route::get('/funcionario', Funcionario::class)->name('funcionario');
 Route::get('/nombramientos', Nombramientos::class)->name('nombramientos');
 Route::get('/adq-cat-articulos', ShowCatArticulos::class)->name('articulos');
 Route::get('/adq-cat-categorias', ShowCatCategorias::class)->name('categorias');
+Route::get('/adq-cat-ingresos_inventario', ShowCatIngresoInv::class)->name('ingresoInventario');
 
