@@ -1,6 +1,27 @@
 <div>
+            <div wire:ignore.self class="modal" tabindex="-1"id="modal_confirm"  role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title">Confirmación</h5>
+                    
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Desea aprobar el lote de inventario nuevo?.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Aprobar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+                </div>
+            </div>
+            </div> 
+
+
          <!-- Create New Register Modal-->
-        <div wire:ignore.self class="modal fade" id="id_modal_create" tabindex="-1" role="dialog"
+        <div wire:ignore.self class="modal fade" id="id_modal_create" tabindex="-1" role="dialog" 
             aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">            
@@ -25,7 +46,7 @@
                                     </div>
 
                                     <div class="col-xs-12 col-md-6">
-                                        <label class="form-label" for="precio" style="margin-top: 25px;">Precio:</label>
+                                        <label class="form-label" for="precio" style="margin-top: 25px;">Precio Actual:</label>
                                         <div class="input-group input-group-merge">
                                         <input type="number" id="precio" name="precio" value="0" class="form-control" wire:model="precionuevo" @if($disableItems) disabled  @endif/>
                                         </div>
@@ -38,7 +59,7 @@
 
                              
                                     <div class="col-xs-12 col-md-6">
-                                        <label class="form-label" for="preciokilo" style="margin-top: 25px;">Precio Kilo:</label>
+                                        <label class="form-label" for="preciokilo" style="margin-top: 25px;">Precio Kilo Actual:</label>
                                         <div class="input-group input-group-merge"> 
                                             <input type="number" id="preciokilo" name="preciokilo" value="0" class="form-control" wire:model="preciokilonuevo" @if(!$disableItems) disabled  @endif/>
                                         </div>
@@ -47,7 +68,7 @@
                                     <div class="col-xs-12 col-md-6">
                                         <label class="form-label" for="costoIni" style="margin-top: 25px;" >Costo:</label>
                                         <div class="input-group input-group-merge"> 
-                                            <input type="number" id="costoIni" name="costo" value="0" class="form-control" wire:model="costonuevo" />
+                                            <input type="number" id="costoIni" name="costo" value="0" class="form-control" wire:model="costonuevo" @if(!$disableItems) disabled  @endif/>
                                         </div>
                                     </div>
 
@@ -67,14 +88,13 @@
         <div class="card-body d-flex">
             <x-jet-input placeholder="Buscar" type="text"/>
             &nbsp
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#id_modal_create" ><i  class="bx bx-add-to-queue "></i></button> 
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#id_modal_create" wire:click="onclickModal()"><i  class="bx bx-add-to-queue "></i></button> 
         </div> 
        <hr class="my-0" />
         <div class="card-body">
             <!--Table-->
             <div class="table-responsive">
-            <table class="table table-striped  ">
- 
+            <table class="table">
                     <tbody>
                         <thead>
                             <tr>
@@ -85,49 +105,33 @@
                                 <th scope="col">PRECIO</th>
                                 <th scope="col">COSTO</th>
                                 <th scope="col">PESO</th>
-                                <th scope="col">COSTO POR KILO</th> 
+                                <th scope="col">PRECIO POR KILO</th> 
                                 <th scope="col">ESTATUS</th> 
                                 <th scope="col">ACCIONES</th> 
+                                
                             </tr>
                         </thead> 
-                        <tr>
-                        <td  style="text-transform:uppercase"> 1 </td>
-                        <td  style="text-transform:uppercase"> 7502009740435 </td>
-                        <td  style="text-transform:uppercase"> TABLETA LARITOL/ LARITOL / PIEZA /</td>
-                        <td  style="text-transform:uppercase"> 10 </td>
-                        <td  style="text-transform:uppercase"> $8 </td>
-                        <td  style="text-transform:uppercase"> $7.50</td>
-                        <td  style="text-transform:uppercase"> PRUEBA DE INGRESO DE NUEVO INVENTARIO</td>
-                        <td  style="text-transform:uppercase"> -</td>
-                        <td  style="text-transform:uppercase"> APROBADA (EL ESTATUS DEFINE SI SE APLICO YA EL NUEVO INGRESO DE NUEVOS ARTICULOS O SI ESTA POR PENDIENTE A APLICARLO, O SI SE CANCELO)</td>
-                        <td  
-                   
-                        <i class="bx bx-show me-1"></i> 
-
-                        <i class="bx bx-edit-alt me-1"></i> 
-
-                        <i class="bx bx-trash-alt me-1" ></i> 
-                        
-                        </td>
-                        </tr> 
-                        <tr>
-                        <td  style="text-transform:uppercase"> 1 </td>
-                        <td  style="text-transform:uppercase"> 0110025 </td>
-                        <td  style="text-transform:uppercase"> JAMON DE PAVO/ FUD </td>
-                        <td  style="text-transform:uppercase"> - </td>
-                        <td  style="text-transform:uppercase"> - </td>
-                        <td  style="text-transform:uppercase"> $60</td>
-                        <td  style="text-transform:uppercase"> 3KG</td>
-                        <td  style="text-transform:uppercase"> $15</td>
-                        <td  style="text-transform:uppercase"> PENDIENTE </td>
-                        <td   
-                        <i class="bx bx-show me-1"></i> 
-                        <i class="bx bx-edit-alt me-1"></i> 
-                        <i class="bx bx-trash-alt me-1" ></i> 
-                        </td>
-                        </tr>                    
+                        @foreach ($ingresosInv as $ingresoInv) 
+                        <tr style="{{ $ingresoInv->estatus == 'PTE' ? 'background-color: #FEFE6C;' : 'background-color: #36F77F' }}"> 
+                            <td  style="text-transform:uppercase"> {{$ingresoInv->id}}</td>
+                            <td  style="text-transform:uppercase"> {{$ingresoInv->code}}</td>
+                            <td  style="text-transform:uppercase"> {{$ingresoInv->nombre.' '.$ingresoInv->descripcion}}</td>
+                            <td  style="text-transform:uppercase"> {{$ingresoInv->cantidadnuevo}}</td>
+                            <td  style="text-transform:uppercase"> {{$ingresoInv->precionuevo}}</td>
+                            <td  style="text-transform:uppercase"> {{$ingresoInv->costonuevo}}</td>
+                            <td  style="text-transform:uppercase"> {{$ingresoInv->pesonuevo}}</td>
+                            <td  style="text-transform:uppercase"> {{$ingresoInv->preciokilonuevo}}</td>
+                            <td  style="text-transform:uppercase"> {{$ingresoInv->estatus == 'PTE' ? 'PENDIENTE': 'APROBADO'}}</td>
+                            <td> @if($ingresoInv->estatus == 'PTE') <i title="Aprobar" class="bx bx-check me-1" data-bs-toggle="modal" data-bs-target="#modal_confirm"></i>  @endif </td>
+                            </tr> 
+                        @endforeach      
                     </tbody>
                 </table>
             </div>
         </div>
 </div>
+@livewireScripts
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<x-livewire-alert::scripts />

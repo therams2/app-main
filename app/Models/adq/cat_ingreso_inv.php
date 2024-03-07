@@ -9,4 +9,14 @@ class cat_ingreso_inv extends Model
 {
     use HasFactory;
     protected $table = 'adq_cat_ingreso_invs';
+    protected $fillable = [
+        'cantidadnuevo',
+        'precionuevo',
+        'costonuevo',
+        'pesonuevo',
+        'costonuevo',
+        'preciokilonuevo',
+        'idcatarticulos',
+        'estatus'
+    ];
 }
