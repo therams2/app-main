@@ -25,3 +25,4 @@ vendor/jantinnerezo/livewire-alert/tests/TestCase.php
 vendor/jantinnerezo/livewire-alert/tests/TestComponent.php
 vendor/jantinnerezo/livewire-alert/webpack.mix.js
 vendor/jantinnerezo/livewire-alert/yarn.lock
+vendor/composer/autoload_static.php
