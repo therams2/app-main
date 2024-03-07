@@ -57,6 +57,12 @@
                                     <input class="form-control" type="number" id="cantidad" name="peso" value="0" placeholder=""  wire:model="pesonuevo" @if(!$disableItems) disabled  @endif/>
                                     </div>
 
+                                    <div class="col-xs-12 col-md-6">
+                                        <label class="form-label" for="costoIni" style="margin-top: 25px;" >Costo:</label>
+                                        <div class="input-group input-group-merge"> 
+                                            <input type="number" id="costoIni" name="costo" value="0" class="form-control" wire:model="costonuevo" @if(!$disableItems) disabled  @endif/>
+                                        </div>
+                                    </div>
                              
                                     <div class="col-xs-12 col-md-6">
                                         <label class="form-label" for="preciokilo" style="margin-top: 25px;">Precio Kilo Actual:</label>
@@ -65,12 +71,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-12 col-md-6">
-                                        <label class="form-label" for="costoIni" style="margin-top: 25px;" >Costo:</label>
-                                        <div class="input-group input-group-merge"> 
-                                            <input type="number" id="costoIni" name="costo" value="0" class="form-control" wire:model="costonuevo" @if(!$disableItems) disabled  @endif/>
-                                        </div>
-                                    </div>
+                                
 
                                     
                          </div>
@@ -105,7 +106,7 @@
                                 <th scope="col">PRECIO</th>
                                 <th scope="col">COSTO</th>
                                 <th scope="col">PESO</th>
-                                <th scope="col">PRECIO POR KILO</th> 
+                                <th scope="col">PRECIO NUEVO POR KILO</th> 
                                 <th scope="col">ESTATUS</th> 
                                 <th scope="col">ACCIONES</th> 
                                 
