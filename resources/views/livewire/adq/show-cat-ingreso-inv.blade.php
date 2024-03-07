@@ -11,43 +11,43 @@
                             <div class="row">
                                     <div class="col-xs-12 col-md-6">
                                     <label for="code" class="form-label" style="margin-top: 25px;">Code:</label>
-                                    <input class="form-control" type="text" id="code" style="text-transform: uppercase;" name="code" value="" wire:model="code"/>
+                                    <input class="form-control" type="text" id="code"   style="text-transform: uppercase;" name="code" value="" wire:model="code"  />
                                     </div>
                             
                                     <div class="col-xs-12 col-md-6">
                                         <label for="descripcion" class="form-label" style="margin-top: 25px;">Concepto:</label>
-                                        <input class="form-control" type="text" name="descripcion"  style="text-transform:uppercase" id="descripcion" value="" wire:model="concepto"/>
+                                        <input class="form-control" type="text" name="descripcion"  style="text-transform:uppercase" id="descripcion" value="" wire:model="concepto"  disabled  />
                                     </div>
 
                                     <div class="col-xs-12 col-md-6">
                                         <label for="cantidad" class="form-label" style="margin-top: 25px;">Cantidad:</label>
-                                        <input class="form-control" type="number" id="cantidad" name="cantidad" value="0" placeholder="" wire:model="cantidad" /> 
+                                        <input class="form-control" type="number" id="cantidad" name="cantidad" value="0" placeholder="" wire:model="cantidadnuevo" @if($disableItems) disabled  @endif/> 
                                     </div>
 
                                     <div class="col-xs-12 col-md-6">
                                         <label class="form-label" for="precio" style="margin-top: 25px;">Precio:</label>
                                         <div class="input-group input-group-merge">
-                                        <input type="number" id="precio" name="precio" value="0" class="form-control" wire:model="precio"/>
+                                        <input type="number" id="precio" name="precio" value="0" class="form-control" wire:model="precionuevo" @if($disableItems) disabled  @endif/>
                                         </div>
                                     </div>
 
                                     <div class="col-xs-12 col-md-6">
                                     <label for="cantidad" class="form-label" style="margin-top: 25px;">Peso:</label>
-                                    <input class="form-control" type="number" id="cantidad" name="peso" value="0" placeholder=""  wire:model="peso" />
+                                    <input class="form-control" type="number" id="cantidad" name="peso" value="0" placeholder=""  wire:model="pesonuevo" @if(!$disableItems) disabled  @endif/>
                                     </div>
 
                              
                                     <div class="col-xs-12 col-md-6">
                                         <label class="form-label" for="preciokilo" style="margin-top: 25px;">Precio Kilo:</label>
                                         <div class="input-group input-group-merge"> 
-                                            <input type="number" id="preciokilo" name="preciokilo" value="0" class="form-control" wire:model="precio_kilo"/>
+                                            <input type="number" id="preciokilo" name="preciokilo" value="0" class="form-control" wire:model="preciokilonuevo" @if(!$disableItems) disabled  @endif/>
                                         </div>
                                     </div>
 
                                     <div class="col-xs-12 col-md-6">
                                         <label class="form-label" for="costoIni" style="margin-top: 25px;" >Costo:</label>
                                         <div class="input-group input-group-merge"> 
-                                            <input type="number" id="costoIni" name="costo" value="0" class="form-control" wire:model="costoIni"/>
+                                            <input type="number" id="costoIni" name="costo" value="0" class="form-control" wire:model="costonuevo" />
                                         </div>
                                     </div>
 
