@@ -49,13 +49,13 @@
                </div> 
 
                 <div class="col-xs-12 col-md-12">
-                <label for="code" class="form-label">Importe:</label>
-                <input class="form-control" type="text" id="code" style="text-transform: uppercase;" name="code" value=""/>
+                <label for="importe" class="form-label">Importe:</label>
+                <input class="form-control" type="text" id="importe" style="text-transform: uppercase;" name="importe" value=""/>
                 </div>
 
                 <div class="col-xs-12 col-md-12">
-                <label for="code" class="form-label">Cambio:</label>
-                <input class="form-control" type="text" id="code" style="text-transform: uppercase;" name="code" value=""/>
+                <label for="cambio" class="form-label">Cambio:</label>
+                <input class="form-control" type="text" id="cambio" style="text-transform: uppercase;" name="cambio" value=""/>
                 </div>
                 
                 
@@ -90,7 +90,7 @@
                         @foreach ($arrayDataCars as $arrayDataCar) 
                         <tr> 
                         <td  style="text-transform:uppercase"> {{$arrayDataCar->code}} </td>
-                        <td  style="text-transform:uppercase"> {{$arrayDataCar->descripcion}} </td>
+                        <td  style="text-transform:uppercase"> {{$arrayDataCar->nombre}}/{{$arrayDataCar->descripcion}} </td>
                         <td  style="text-transform:uppercase"> 1 </td>
                         <td  style="text-transform:uppercase"> {{$arrayDataCar->precio}} </td>
                         <td> <i class="bx bx-trash-alt me-1" ></i> </td>

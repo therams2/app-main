@@ -13,13 +13,13 @@ class ShowVentas extends Component
         return view('livewire.egre.show-ventas');
     }
 
-    public function addItemCar(){
-         
-        $articulo = cat_articulos::where('code', $this->additem)->first();
-    
-        if($articulo){
-            $this->arrayDataCars[] = $articulo;
+    public function addItemCar(){     
+        $articulo = cat_articulos::where('code', $this->additem)->get();
+        if(count($this->arrayDataCars)==0){
+            $this->arrayDataCars = $articulo;
+        } else{
+            $this->arrayDataCars =  $this->arrayDataCars->concat($articulo);
         }
-         
+        //dd($this->arrayDataCars);
     }
 }
