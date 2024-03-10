@@ -15,10 +15,10 @@ class ShowVentas extends Component
 
     public function addItemCar(){
          
-        $articulo = cat_articulos::where('code', $this->additem)->get();
+        $articulo = cat_articulos::where('code', $this->additem)->first();
     
         if($articulo){
-            $this->arrayDataCars = $articulo;
+            $this->arrayDataCars[] = $articulo;
         }
          
     }
