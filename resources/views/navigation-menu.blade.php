@@ -83,7 +83,7 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">INGRESOS</span></li>
 
             <li class="menu-item">
-              <a href="{{ route('articulos')}}" class="menu-link">
+              <a href="{{ route('ventas')}}" class="menu-link">
                 <i class="menu-icon material-icons">shop</i>
                 <div >Ventas</div>
               </a>
