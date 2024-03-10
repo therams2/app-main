@@ -21,6 +21,8 @@ class ShowCatIngresoInv extends Component
     public $search;
 
     public $disableItems = false;
+    public $dataItemSelected;
+    public $idItemSelected;
 
     public function render()
     {
@@ -37,6 +39,7 @@ class ShowCatIngresoInv extends Component
                     'aca.nombre',
                     'aca.code',
                     'aca.descripcion',
+                    'aca.id as idarticulo'
                     )
         ->leftjoin('adq_cat_articulos as aca', 'aca.id', '=', 'adq_cat_ingreso_invs.idcatarticulos')
         ->where('aca.nombre','like', '%'        . $this->search . '%')
@@ -80,6 +83,43 @@ class ShowCatIngresoInv extends Component
            ]);
 
     }
+    public function aprobado(){
+        
+         
+            // Encuentra el modelo CatArticulo por su ID
+            $catArticulo = cat_articulos::findOrFail($this->dataItemSelected["idarticulo"]);
+
+            // Actualiza el campo cantidad con el valor recibido
+
+            if($catArticulo->id_unidad_tipo == 2){
+                $catArticulo->precio_kilo   =   $this->dataItemSelected["preciokilonuevo"];
+                $catArticulo->costo_ini     =   $catArticulo->costo_ini     +  $this->dataItemSelected["costonuevo"];
+                $catArticulo->peso          =   $catArticulo->peso          +  $this->dataItemSelected["pesonuevo"];
+
+            }else{
+                $catArticulo->cantidad      = $catArticulo->cantidad      +  $this->dataItemSelected["cantidadnuevo"];
+                $catArticulo->precio        = $ $this->dataItemSelected["precionuevo"];
+            }
+           
+            $catArticulo->save();
+
+            $catInv = cat_ingreso_inv::findOrFail($this->dataItemSelected["id"]);
+            $catInv->estatus = "APB";
+            $catInv->save();
+
+            $this->alert('success', 'Tu inventario ha sido actualizado correctamente.', [
+                'position' => 'top-end',
+                'timer' => 3000,
+                'toast' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+               ]);
+    }
+
+    public function loadSelectedItem($data){
+         
+        $this->dataItemSelected = $data;
+    }
     public function updatedcode(){
         $this->cleanItems();
         $articulo = cat_articulos::where('code', $this->code)->first();
@@ -110,6 +150,23 @@ class ShowCatIngresoInv extends Component
             $this->pesonuevo        = 0;
             $this->costonuevo       = 0;
             $this->preciokilonuevo  = 0;
+    }
+    public function itemSelected($id){
+        $this->idItemSelected = $id;
+    }
+    public function cancelar(){
+        
+        $catInv = cat_ingreso_inv::findOrFail($this->idItemSelected);
+        $catInv->estatus = "CAN";
+        $catInv->save();
+        $this->alert('success', 'Lote de articulos cancelado', [
+            'position' => 'top-end',
+            'timer' => 3000,
+            'toast' => true,
+            'showConfirmButton' => false,
+            'onConfirmed' => '',
+           ]);
+
     }
 
 }

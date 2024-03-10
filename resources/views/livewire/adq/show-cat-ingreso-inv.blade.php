@@ -12,8 +12,29 @@
                     <p>¿Desea aprobar el lote de inventario nuevo?.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Aprobar</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" wire:click="aprobado">Aprobar</button>
+                    <button type="button" class="btn btn-outline-secondary me-2 " data-bs-dismiss="modal">  Cerrar</button>  
+                </div>
+                </div>
+            </div>
+            </div> 
+
+
+            <div wire:ignore.self class="modal" tabindex="-1"id="modal_delete"  role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title">Confirmación</h5>
+                    
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Desea cancelar el lote de inventario nuevo?.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" wire:click="cancelar">Aceptar</button>
+                    <button type="button" class="btn btn-outline-secondary me-2 " data-bs-dismiss="modal">  Cerrar</button>  
                 </div>
                 </div>
             </div>
@@ -113,7 +134,7 @@
                             </tr>
                         </thead> 
                         @foreach ($ingresosInv as $ingresoInv) 
-                        <tr style="{{ $ingresoInv->estatus == 'PTE' ? 'background-color: #FEFE6C;' : 'background-color: #36F77F' }}"> 
+                        <tr style="{{ $ingresoInv->estatus == 'PTE' ? 'background-color: #F4FF81;' : ($ingresoInv->estatus == 'APB' ? 'background-color: #B9F6CA':'background-color: #EEEEEE') }}"> 
                             <td  style="text-transform:uppercase"> {{$ingresoInv->id}}</td>
                             <td  style="text-transform:uppercase"> {{$ingresoInv->code}}</td>
                             <td  style="text-transform:uppercase"> {{$ingresoInv->nombre.' '.$ingresoInv->descripcion}}</td>
@@ -122,8 +143,11 @@
                             <td  style="text-transform:uppercase"> {{$ingresoInv->costonuevo}}</td>
                             <td  style="text-transform:uppercase"> {{$ingresoInv->pesonuevo}}</td>
                             <td  style="text-transform:uppercase"> {{$ingresoInv->preciokilonuevo}}</td>
-                            <td  style="text-transform:uppercase"> {{$ingresoInv->estatus == 'PTE' ? 'PENDIENTE': 'APROBADO'}}</td>
-                            <td> @if($ingresoInv->estatus == 'PTE') <i title="Aprobar" class="bx bx-check me-1" data-bs-toggle="modal" data-bs-target="#modal_confirm"></i>  @endif </td>
+                            <td  style="text-transform:uppercase"> {{$ingresoInv->estatus == 'PTE' ? 'PENDIENTE': ($ingresoInv->estatus == 'APB' ? "APROBADO":"CANCELADO")}}</td>
+                            <td> @if($ingresoInv->estatus == 'PTE') <i title="Aprobar" wire:click="loadSelectedItem({{$ingresoInv}})" class="bx bx-check me-1" data-bs-toggle="modal" data-bs-target="#modal_confirm"></i>  
+                            
+                            <i title="Cancelar" wire:click="itemSelected({{$ingresoInv->id}})" class="bx bx-block me-1" data-bs-toggle="modal" data-bs-target="#modal_delete"></i>
+                            @endif </td>
                             </tr> 
                         @endforeach      
                     </tbody>
