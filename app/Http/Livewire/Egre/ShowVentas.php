@@ -15,8 +15,11 @@ class ShowVentas extends Component
     public $importe = 0; 
     public $cambio = 0; 
     public $total = 0 ; 
+    public  $isArtPeso = false;
     public  $searchResults = [];
     public $producto;
+    public $precio_kilo = 0;
+    public $peso = 0;
     public function render()
     { 
         return view('livewire.egre.show-ventas');
@@ -41,22 +44,45 @@ class ShowVentas extends Component
             $this->searchResults = [];
         }
     }
+    public function changePeso(){
+        $this->isArtPeso  = true;
+        $this->addItemCar(); 
+    }   
     public function addItemCar(){    
        // $articulo = DB::select('SELECT  nombre, code, descripcion,precio,id, '.\DB::raw( ($this->generateid  + 1 ).' as idcar')  .' FROM adq_cat_articulos WHERE code = ?', [$this->additem]); 
         
-       
+      
+
+       $articulo = cat_articulos::select( 'nombre', 'code', 'descripcion', 'precio','id','id_unidad_tipo','precio_kilo' )->where('code', $this->additem)->first();
+
+       if( $articulo ){
+        if(!$this->isArtPeso){    
+            if($articulo->id_unidad_tipo == 2  ){ // activar cuando es por peso
+            $this->isArtPeso = true;
+            $this->precio_kilo = $articulo->precio_kilo;
+            $this->emit('mostrarModal'); 
+            return;
+            }
+        }
+
        $this->cambio  = 0;
        $this->producto  = "";
-
-       $articulo = cat_articulos::select( 'nombre', 'code', 'descripcion', 'precio','id' )->where('code', $this->additem)->first();
         
-       if( $articulo ){
-
-        
-        
-        //obtenemos cantidad
          
-        foreach ($this->arrayDataCars as $indice => $arrayDataCar){
+        
+
+        if($articulo->id_unidad_tipo == 2  ){ 
+            $nuevaColeccion = collect([ 
+                'nombre'        =>  $articulo->nombre,
+                'code'          =>  $articulo->code,
+                'descripcion'   =>  $articulo->descripcion,
+                'precio'        =>  $this->precio_kilo * ($this->peso / 1000),  
+                'cantidad'      =>  0,  
+                'id'            =>  $articulo->id,  
+                'idcar'         =>  $this->generateid
+        ]);
+        }else{
+            foreach ($this->arrayDataCars as $indice => $arrayDataCar){
             if($arrayDataCar["code"] == $this->additem){
                 // Existe solo modificamos cantidad + 1
                 $this->arrayDataCars[$indice]["cantidad"] = $arrayDataCar["cantidad"] + 1;
@@ -64,31 +90,34 @@ class ShowVentas extends Component
                 $this->calcularTotal();
                 return;
             }
+            }
+            $nuevaColeccion = collect([ 
+                'nombre'        =>  $articulo->nombre,
+                'code'          =>  $articulo->code,
+                'descripcion'   =>  $articulo->descripcion,
+                'precio'        =>  $articulo->precio,  
+                'cantidad'      =>  1,  
+                'id'            =>  $articulo->id,  
+                'idcar'         =>  $this->generateid
+        ]);
         }
-
-
-        $nuevaColeccion = collect([ 
-                    'nombre'        =>  $articulo->nombre,
-                    'code'          =>  $articulo->code,
-                    'descripcion'   =>  $articulo->descripcion,
-                    'precio'        =>  $articulo->precio,  
-                    'cantidad'      =>  1,  
-                    'id'            =>  $articulo->id,  
-                    'idcar'         =>  $this->generateid
-            ]);
+        
 
             if(count($this->arrayDataCars) == 0){
                 $this->arrayDataCars[] = $nuevaColeccion;
                 $this->generateid++;
                 $this->additem = "";
+               $this->peso = 0;
                 $this->calcularTotal();
               } else{ 
                $this->arrayDataCars[] = $nuevaColeccion;
                $this->generateid++;
                $this->additem = "";
+               $this->peso = 0;
                $this->calcularTotal();
             }
         }
+        $this->isArtPeso =false;
     }
     public function calcularTotal(){    
          $subtotal = 0;

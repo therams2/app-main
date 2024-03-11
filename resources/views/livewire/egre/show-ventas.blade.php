@@ -1,33 +1,27 @@
 <div>
          <!-- Create New Register Modal-->
-        <div wire:ignore.self class="modal fade" id="id_modal_create" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+         <div wire:ignore.self   class="modal fade" id="idModalPeso" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabelPeso" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">            
                     <div class="modal-header bg-primary">
-                    <h5 class="modal-title" id="exampleModalLabel">Nuevo Ingreso de Inventario</h5>
+                    <h5 class="modal-title" id="exampleModalLabelPeso">VENTA POR PESO</h5>
                     </div> 
                         <div class="modal-body">
                             <div class="row">
                                     <div class="col-xs-12 col-md-6">
-                                    <label for="code" class="form-label">Code:</label>
-                                    <input class="form-control" type="text" id="code" style="text-transform: uppercase;" name="code" value=""/>
+                                    <label for="precio_kilo" class="form-label">PRECIO DEL KILO:</label>
+                                    <input class="form-control" type="text" id="precio_kilo" wire:model="precio_kilo" style="text-transform: uppercase;" name="precio_kilo" value=""/>
                                     </div>
 
                                     <div class="col-xs-12 col-md-6">
-                                        <label for="nombre" class="form-label" style="margin-top: 25px;">Nombre:</label>
-                                        <input class="form-control" type="text" id="nombre"  style="text-transform:uppercase" name="nombre" value=""/>
-                                    </div>
-                            
-                                    <div class="col-xs-12 col-md-6">
-                                        <label for="descripcion" class="form-label" style="margin-top: 25px;">Concepto/Marca:</label>
-                                        <input class="form-control" type="text" name="descripcion"  style="text-transform:uppercase" id="descripcion" value="" />
-                                    </div>
+                                        <label for="peso" class="form-label">Peso en gramos:</label>
+                                        <input class="form-control" type="text" id="peso" wire:model="peso" style="text-transform:uppercase" name="peso" value=""/>
+                                    </div> 
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary me-2" wire:click="save" data-bs-target="#modal_articulo"  data-bs-toggle="modal">Guardar</button>
-                                <button type="button" class="btn btn-outline-secondary me-2 "data-bs-target="#modal_articulo"  data-bs-toggle="modal" >Cerrar</button>
+                        <button type="button" class="btn btn-primary me-2" wire:click="changePeso" data-bs-target="#modal_articulo" data-bs-toggle="modal">Calcular</button>
                         </div>
                 </div>
             </div>
@@ -42,7 +36,6 @@
         <div class="row">
             <div class="col">
             <div class="col-xs-12 col-md-12">
-               
                     <label for="code" class="form-label">BUSCAR PRODUCTO:    </label>
                     <input 
                         type="text"
@@ -151,6 +144,13 @@
         
         var ejemploComponente = @this; 
         ejemploComponente.set('additem', claveSeleccionada);
-     
+
+        function mostrarVentanaEmergente() {
+        var numero = prompt("Por favor, introduce un número:");
+  
+        } 
     }
+    Livewire.on('mostrarModal', function () {
+        $('#idModalPeso').modal('show'); // Aquí asumimos que estás utilizando jQuery y Bootstrap Modal
+    });
 </script>
