@@ -24,7 +24,8 @@ class ShowVentas extends Component
        // $articulo = DB::select('SELECT  nombre, code, descripcion,precio,id, '.\DB::raw( ($this->generateid  + 1 ).' as idcar')  .' FROM adq_cat_articulos WHERE code = ?', [$this->additem]); 
         
        
-
+       $this->cambio  = 0;
+       
        $articulo = cat_articulos::select( 'nombre', 'code', 'descripcion', 'precio','id' )->where('code', $this->additem)->first();
         
        if( $articulo ){
@@ -94,14 +95,14 @@ class ShowVentas extends Component
             'showConfirmButton' => false,
             'onConfirmed' => '',
            ]);
-        
+           $this->limpiarTodo();
     }
     public function limpiarTodo(){
          $this->arrayDataCars = []; 
          $this->generateid = 1; 
          $this->additem = ""; 
          $this->importe = 0; 
-         $this->cambio  = 0; 
+        // $this->cambio  = 0; 
          $this->total   = 0 ; 
         
     }
