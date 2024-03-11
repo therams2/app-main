@@ -15,11 +15,32 @@ class ShowVentas extends Component
     public $importe = 0; 
     public $cambio = 0; 
     public $total = 0 ; 
+    public  $searchResults = [];
+    public $producto;
     public function render()
     { 
         return view('livewire.egre.show-ventas');
     }
-
+    public function updatedproducto()
+    {
+        if($this->producto != '') {
+            // An array of SearchResults
+            $this->searchResults =  cat_articulos::select(
+                'adq_cat_articulos.id',
+                'adq_cat_articulos.nombre',
+                'adq_cat_articulos.descripcion',
+                'adq_cat_articulos.code' )
+            ->where('adq_cat_articulos.nombre','like', '%'        . $this->producto . '%')
+            ->orwhere('adq_cat_articulos.descripcion','like', '%' . $this->producto . '%')
+            ->orwhere('precio','like', '%'      . $this->producto . '%')
+            ->orwhere('code','like', '%'        . $this->producto . '%')
+            ->orderByDesc('id') 
+            ->get();
+            
+        } else {
+            $this->searchResults = [];
+        }
+    }
     public function addItemCar(){    
        // $articulo = DB::select('SELECT  nombre, code, descripcion,precio,id, '.\DB::raw( ($this->generateid  + 1 ).' as idcar')  .' FROM adq_cat_articulos WHERE code = ?', [$this->additem]); 
         

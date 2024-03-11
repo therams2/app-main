@@ -42,11 +42,25 @@
         <div class="row">
             <div class="col">
             <div class="col-xs-12 col-md-12">
+               
+                    <label for="code" class="form-label">BUSCAR PRODUCTO:    </label>
+                    <input 
+                        type="text"
+                        list="streetAddressOptions"
+                        wire:model="producto" 
+                        class="form-control" oninput="seleccionarProducto()" > 
+                    <datalist id="streetAddressOptions" >
+                        @foreach($searchResults as $result)
+                            <option data-key="{{ $result->code }}"  value="{{ $result->nombre }}" ></option>
+                        @endforeach
+                    </datalist> 
+                </div> 
+
+            <div class="col-xs-12 col-md-12">
                 <label for="code" class="form-label">CODIGO DE PRODUCTO:    </label>
                 <i wire:click="addItemCar"  class="bx bx-plus-circle "></i>
                 <input class="form-control"  wire:keydown.enter="addItemCar" type="text" id="additem" autofocus style="text-transform: uppercase;"   @keydown.tab="addItemCar" name="additem" value="" wire:model="additem"/>
-                
-               </div> 
+               </div>  
 
                 <div class="col-xs-12 col-md-12">
                 <label for="importe" class="form-label">Importe:</label>
@@ -127,3 +141,16 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <x-livewire-alert::scripts />
+<script>
+    function seleccionarProducto() {
+        console.log("holi");
+        var input = document.querySelector('input[list="streetAddressOptions"]');
+        var selectedOption = document.querySelector('#streetAddressOptions option[value="' + input.value + '"]');
+        var claveSeleccionada = selectedOption.getAttribute('data-key');
+        console.log(claveSeleccionada);
+        
+        var ejemploComponente = @this; 
+        ejemploComponente.set('additem', claveSeleccionada);
+     
+    }
+</script>
