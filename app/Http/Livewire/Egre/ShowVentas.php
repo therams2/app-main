@@ -46,6 +46,7 @@ class ShowVentas extends Component
         
        
        $this->cambio  = 0;
+       $this->producto  = "";
 
        $articulo = cat_articulos::select( 'nombre', 'code', 'descripcion', 'precio','id' )->where('code', $this->additem)->first();
         
