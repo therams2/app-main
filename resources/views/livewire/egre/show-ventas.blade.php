@@ -44,7 +44,7 @@
             <div class="col-xs-12 col-md-12">
                 <label for="code" class="form-label">CODIGO DE PRODUCTO:    </label>
                 <i wire:click="addItemCar"  class="bx bx-plus-circle "></i>
-                <input class="form-control"  wire:keydown.enter="addItemCar" type="text" id="additem" autofocus style="text-transform: uppercase;" name="additem" value="" wire:model="additem"/>
+                <input class="form-control"  wire:keydown.enter="addItemCar" type="text" id="additem" autofocus style="text-transform: uppercase;"   @keydown.tab="addItemCar" name="additem" value="" wire:model="additem"/>
                 
                </div> 
 
@@ -55,7 +55,7 @@
 
                 <div class="col-xs-12 col-md-12">
                 <label for="cambio" class="form-label">Cambio:</label>
-                <input class="form-control" type="text" id="cambio" style="text-transform: uppercase;" name="cambio" value=""/>
+                <input class="form-control" type="text" id="cambio" style="text-transform: uppercase;" name="cambio" disabled value=""/>
                 </div>
                 
                 
@@ -84,15 +84,17 @@
                                 <th scope="col">CONCEPTO</th>
                                 <th scope="col">CANTIDAD</th>
                                 <th scope="col">PRECIO UNI</th>
+                                <th scope="col">SUBTOTAL</th>
                                 <th scope="col"></th> 
                             </tr>
                         </thead> 
                         @foreach ($arrayDataCars as $arrayDataCar) 
                         <tr> 
-                        <td  style="text-transform:uppercase"> {{$arrayDataCar->code}} </td>
-                        <td  style="text-transform:uppercase"> {{$arrayDataCar->nombre}}/{{$arrayDataCar->descripcion}} </td>
-                        <td  style="text-transform:uppercase"> 1 </td>
-                        <td  style="text-transform:uppercase"> {{$arrayDataCar->precio}} </td>
+                        <td  style="text-transform:uppercase"> {{$arrayDataCar["code"]}} </td>
+                        <td  style="text-transform:uppercase"> {{$arrayDataCar["nombre"]}}/{{$arrayDataCar["descripcion"]}} </td>
+                        <td  style="text-transform:uppercase"> {{$arrayDataCar["cantidad"]}} <i class="bx bx-edit me-1" ></i></td>
+                        <td  style="text-transform:uppercase"> ${{$arrayDataCar["precio"]}} </td>
+                        <td  style="text-transform:uppercase"> ${{$arrayDataCar["precio"] * $arrayDataCar["cantidad"]}} </td>
                         <td> <i class="bx bx-trash-alt me-1" ></i> </td>
                         </tr> 
                         @endforeach  
@@ -102,7 +104,9 @@
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col">Total</th>
-                            <th scope="col"></th> 
+                            <th scope="col">${{$total}} </th> 
+                            <th scope="col"></th>
+
                         </tr> 
                                  
                     </tbody>

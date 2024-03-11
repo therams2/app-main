@@ -21,6 +21,7 @@ class cat_articulos extends Model
         'id_categoria',
         'id_unidad_medida',
         'id_unidad_tipo',
-        'precio_kilo'
+        'precio_kilo',
+        'idcar'
     ];
 }
