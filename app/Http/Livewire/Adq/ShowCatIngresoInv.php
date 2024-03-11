@@ -23,6 +23,8 @@ class ShowCatIngresoInv extends Component
     public $disableItems = false;
     public $dataItemSelected;
     public $idItemSelected;
+    public $idUnidadMedida;
+    public $labelUnidadMedida = "";
 
     public function render()
     {
@@ -37,6 +39,7 @@ class ShowCatIngresoInv extends Component
                     'adq_cat_ingreso_invs.preciokilonuevo',
                     'adq_cat_ingreso_invs.precionuevo',
                     'aca.nombre',
+                    'aca.id_unidad_medida',
                     'aca.code',
                     'aca.descripcion',
                     'aca.id as idarticulo'
@@ -97,8 +100,8 @@ class ShowCatIngresoInv extends Component
                 $catArticulo->peso          =   $catArticulo->peso          +  $this->dataItemSelected["pesonuevo"];
 
             }else{
-                $catArticulo->cantidad      = $catArticulo->cantidad      +  $this->dataItemSelected["cantidadnuevo"];
-                $catArticulo->precio        = $ $this->dataItemSelected["precionuevo"];
+                $catArticulo->cantidad      = $catArticulo->cantidad        +  $this->dataItemSelected["cantidadnuevo"];
+                $catArticulo->precio        = $this->dataItemSelected["precionuevo"];
             }
            
             $catArticulo->save();
@@ -129,12 +132,18 @@ class ShowCatIngresoInv extends Component
                 $this->disableItems = true;
              
                 $this->preciokilonuevo  = $articulo->precio_kilo;
+                $this->concepto         = $articulo->nombre.' '.$articulo->descripcion.'' .($articulo->id_unidad_medida == 1 ? "KG":"GR");
+                $this->labelUnidadMedida      =  ($articulo->id_unidad_medida == 1 ? "EN KG":"EN GR");
+
             }else{
+                $this->labelUnidadMedida      = "";
+
                 $this->precionuevo      = $articulo->precio;
                 $this->disableItems     = false;
+                $this->concepto         = $articulo->nombre.' '.$articulo->descripcion;
+
             }
             $this->idcatarticulos   = $articulo->id;
-            $this->concepto         = $articulo->nombre.' '.$articulo->descripcion;
            
         }
     }
