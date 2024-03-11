@@ -25,7 +25,7 @@ class ShowVentas extends Component
         
        
        $this->cambio  = 0;
-       
+
        $articulo = cat_articulos::select( 'nombre', 'code', 'descripcion', 'precio','id' )->where('code', $this->additem)->first();
         
        if( $articulo ){
@@ -88,7 +88,7 @@ class ShowVentas extends Component
             return;
         }
         $this->cambio = $this->importe - $this->total;
-        $this->alert('success', 'Venta Realizada Correctamente', [
+        $this->alert('success', 'Venta Realizada Correctamente \n Cambio: '.$this->cambio, [
             'position' => 'top-end',
             'timer' => 3000,
             'toast' => true,
