@@ -72,23 +72,24 @@
                                         <input type="number" id="precio" name="precio" value="0" class="form-control" wire:model="precionuevo" @if($disableItems) disabled  @endif/>
                                         </div>
                                     </div>
-
                                     <div class="col-xs-12 col-md-6">
-                                    <label for="cantidad" class="form-label" style="margin-top: 25px;">Peso:</label>
-                                    <input class="form-control" type="number" id="cantidad" name="peso" value="0" placeholder=""  wire:model="pesonuevo" @if(!$disableItems) disabled  @endif/>
-                                    </div>
-
-                                    <div class="col-xs-12 col-md-6">
-                                        <label class="form-label" for="costoIni" style="margin-top: 25px;" >Costo:</label>
+                                        <label class="form-label" for="costonuevo" style="margin-top: 25px;" >Costo:</label>
                                         <div class="input-group input-group-merge"> 
-                                            <input type="number" id="costoIni" name="costo" value="0" class="form-control" wire:model="costonuevo" @if(!$disableItems) disabled  @endif/>
+                                            <input type="number" id="costonuevo" name="costonuevo" value="0" class="form-control" wire:model="costonuevo"/>
                                         </div>
                                     </div>
+
+                                    <div class="col-xs-12 col-md-6">
+                                    <label for="pesonuevo" class="form-label" style="margin-top: 25px;">Peso {{$labelUnidadMedida}}:</label>
+                                    <input class="form-control" type="number" id="pesonuevo" name="pesonuevo" value="0" placeholder=""  wire:model="pesonuevo" @if(!$disableItems) disabled  @endif/>
+                                    </div>
+
+                                   
                              
                                     <div class="col-xs-12 col-md-6">
-                                        <label class="form-label" for="preciokilo" style="margin-top: 25px;">Precio Kilo Actual:</label>
+                                        <label class="form-label" for="preciokilonuevo" style="margin-top: 25px;">Precio Kilo Actual:</label>
                                         <div class="input-group input-group-merge"> 
-                                            <input type="number" id="preciokilo" name="preciokilo" value="0" class="form-control" wire:model="preciokilonuevo" @if(!$disableItems) disabled  @endif/>
+                                            <input type="number" id="preciokilonuevo" name="preciokilonuevo" value="0" class="form-control" wire:model="preciokilonuevo" @if(!$disableItems) disabled  @endif/>
                                         </div>
                                     </div>
 
@@ -124,13 +125,12 @@
                                 <th scope="col">CODE</th>
                                 <th scope="col">CONCEPTO</th>
                                 <th scope="col">CANTIDAD</th>
-                                <th scope="col">PRECIO</th>
-                                <th scope="col">COSTO</th>
                                 <th scope="col">PESO</th>
+                                <th scope="col">COSTO</th>
+                                <th scope="col">PRECIO NUEVO</th>
                                 <th scope="col">PRECIO NUEVO POR KILO</th> 
-                                <th scope="col">ESTATUS</th> 
-                                <th scope="col">ACCIONES</th> 
-                                
+                                <th scope="col">ESTATUS</th>
+                                <th scope="col">ACCIONES</th>
                             </tr>
                         </thead> 
                         @foreach ($ingresosInv as $ingresoInv) 
@@ -139,9 +139,9 @@
                             <td  style="text-transform:uppercase"> {{$ingresoInv->code}}</td>
                             <td  style="text-transform:uppercase"> {{$ingresoInv->nombre.' '.$ingresoInv->descripcion}}</td>
                             <td  style="text-transform:uppercase"> {{$ingresoInv->cantidadnuevo}}</td>
-                            <td  style="text-transform:uppercase"> {{$ingresoInv->precionuevo}}</td>
+                            <td  style="text-transform:uppercase"> {{$ingresoInv->pesonuevo}}{{($ingresoInv->id_unidad_medida == 1 ? " KG":($ingresoInv->id_unidad_medida == 2 ? " GR":""))}}</td>
                             <td  style="text-transform:uppercase"> {{$ingresoInv->costonuevo}}</td>
-                            <td  style="text-transform:uppercase"> {{$ingresoInv->pesonuevo}}</td>
+                            <td  style="text-transform:uppercase"> {{$ingresoInv->precionuevo}}</td>
                             <td  style="text-transform:uppercase"> {{$ingresoInv->preciokilonuevo}}</td>
                             <td  style="text-transform:uppercase"> {{$ingresoInv->estatus == 'PTE' ? 'PENDIENTE': ($ingresoInv->estatus == 'APB' ? "APROBADO":"CANCELADO")}}</td>
                             <td> @if($ingresoInv->estatus == 'PTE') <i title="Aprobar" wire:click="loadSelectedItem({{$ingresoInv}})" class="bx bx-check me-1" data-bs-toggle="modal" data-bs-target="#modal_confirm"></i>  
