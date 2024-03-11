@@ -5,13 +5,15 @@ namespace App\Http\Livewire\Egre;
 use Livewire\Component;
 use App\Models\adq\cat_articulos;
 use Illuminate\Support\Facades\DB;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 class ShowVentas extends Component
 {
+    use LivewireAlert;
     public $arrayDataCars = []; 
     public $generateid = 1; 
     public $additem ; 
-    public $importe ; 
-    public $cambio ; 
+    public $importe = 0; 
+    public $cambio = 0; 
     public $total = 0 ; 
     public function render()
     { 
@@ -66,9 +68,41 @@ class ShowVentas extends Component
         }
     }
     public function calcularTotal(){    
-         
-         foreach ($this->arrayDataCars as $indice => $arrayDataCar){
-                $this->total    =  ($this->arrayDataCars[$indice]["cantidad"]*$this->arrayDataCars[$indice]["precio"]);
-         }    
+         $subtotal = 0;
+
+         foreach ($this->arrayDataCars as $indice => $arrayDataCar){ 
+            $subtotal    =   $subtotal + ($this->arrayDataCars[$indice]["cantidad"] * $this->arrayDataCars[$indice]["precio"]) ; 
+         }
+         $this->total =   $subtotal;
     } 
+    public function realizarVenta(){
+        if( $this->total >  $this->importe){
+            $this->alert('warning', 'El importe es menor que el total', [
+                'position' => 'top-end',
+                'timer' => 3000,
+                'toast' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+               ]);
+            return;
+        }
+        $this->cambio = $this->importe - $this->total;
+        $this->alert('success', 'Venta Realizada Correctamente', [
+            'position' => 'top-end',
+            'timer' => 3000,
+            'toast' => true,
+            'showConfirmButton' => false,
+            'onConfirmed' => '',
+           ]);
+        
+    }
+    public function limpiarTodo(){
+         $this->arrayDataCars = []; 
+         $this->generateid = 1; 
+         $this->additem = ""; 
+         $this->importe = 0; 
+         $this->cambio  = 0; 
+         $this->total   = 0 ; 
+        
+    }
 } 

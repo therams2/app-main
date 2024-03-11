@@ -50,20 +50,20 @@
 
                 <div class="col-xs-12 col-md-12">
                 <label for="importe" class="form-label">Importe:</label>
-                <input class="form-control" type="text" id="importe" style="text-transform: uppercase;" name="importe" value=""/>
+                <input class="form-control" type="number" id="importe" style="text-transform: uppercase;" wire:model="importe" name="importe" value=""/>
                 </div>
 
                 <div class="col-xs-12 col-md-12">
                 <label for="cambio" class="form-label">Cambio:</label>
-                <input class="form-control" type="text" id="cambio" style="text-transform: uppercase;" name="cambio" disabled value=""/>
+                <input class="form-control" type="number" id="cambio" style="text-transform: uppercase;" wire:model="cambio" name="cambio" disabled value=""/>
                 </div>
                 
                 
 
                 <div class="col-xs-12 col-md-12">
                  
-                <button type="button" class="btn btn-success">Realizar Venta</button>
-                <button type="button" class="btn btn-danger">Cancelar</button>
+                <button type="button" class="btn btn-success"  wire:click="realizarVenta" >Realizar Venta</button>
+                <button type="button" class="btn btn-danger"  wire:click="limpiarTodo">Cancelar</button>
                 </div>
 
                
@@ -121,3 +121,9 @@
             </div>
         </div>
 </div>
+
+@livewireScripts
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<x-livewire-alert::scripts />
