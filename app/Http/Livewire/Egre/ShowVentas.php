@@ -88,7 +88,7 @@ class ShowVentas extends Component
             return;
         }
         $this->cambio = $this->importe - $this->total;
-        $this->alert('success', 'Venta Realizada Correctamente \n Cambio: '.$this->cambio, [
+        $this->alert('success', 'Venta Realizada Correctamente  "\n" Cambio: '.$this->cambio, [
             'position' => 'top-end',
             'timer' => 3000,
             'toast' => true,
