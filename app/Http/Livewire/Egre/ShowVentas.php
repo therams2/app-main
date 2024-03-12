@@ -35,7 +35,6 @@ class ShowVentas extends Component
                 'adq_cat_articulos.code' )
             ->where('adq_cat_articulos.nombre','like', '%'        . $this->producto . '%')
             ->orwhere('adq_cat_articulos.descripcion','like', '%' . $this->producto . '%')
-            ->orwhere('precio','like', '%'      . $this->producto . '%')
             ->orwhere('code','like', '%'        . $this->producto . '%')
             ->orderByDesc('id') 
             ->get();
@@ -53,7 +52,7 @@ class ShowVentas extends Component
         
       
 
-       $articulo = cat_articulos::select( 'nombre', 'code', 'descripcion', 'precio','id','id_unidad_tipo','precio_kilo' )->where('code', $this->additem)->first();
+       $articulo = cat_articulos::select( 'nombre', 'code', 'descripcion', 'precio','id','id_unidad_tipo','precio_kilo','id_unidad_medida' )->where('code', $this->additem)->first();
 
        if( $articulo ){
         if(!$this->isArtPeso){    
@@ -76,21 +75,29 @@ class ShowVentas extends Component
                 'nombre'        =>  $articulo->nombre,
                 'code'          =>  $articulo->code,
                 'descripcion'   =>  $articulo->descripcion,
-                'precio'        =>  $this->precio_kilo * ($this->peso / 1000),  
-                'cantidad'      =>  0,  
+                'precio'        =>  round($this->precio_kilo * ($this->peso / 1000),2),
+                'cantidad'      =>  $this->peso,  
                 'id'            =>  $articulo->id,  
-                'idcar'         =>  $this->generateid
+                'idcar'         =>  $this->generateid,
+                'idunidadtipo'  =>  $articulo->id_unidad_tipo,  //dirige todo
+                'subtotal'      =>  round($this->precio_kilo * ($this->peso / 1000),2),
+                'idunidadmedida' => $articulo->id_unidad_medida
         ]);
         }else{
+            
+            // Modifica cantidad
             foreach ($this->arrayDataCars as $indice => $arrayDataCar){
-            if($arrayDataCar["code"] == $this->additem){
-                // Existe solo modificamos cantidad + 1
-                $this->arrayDataCars[$indice]["cantidad"] = $arrayDataCar["cantidad"] + 1;
-                $this->additem = "";
-                $this->calcularTotal();
-                return;
+                if($arrayDataCar["code"] == $this->additem){
+                    // Existe solo modificamos cantidad + 1
+                    $this->arrayDataCars[$indice]["cantidad"] = $arrayDataCar["cantidad"] + 1;
+
+                    $this->arrayDataCars[$indice]["subtotal"] =  round(($this->arrayDataCars[$indice]["cantidad"] *  $this->arrayDataCars[$indice]["precio"]),2);
+                    $this->additem = "";
+                    $this->calcularTotal();
+                    return;
+                }
             }
-            }
+
             $nuevaColeccion = collect([ 
                 'nombre'        =>  $articulo->nombre,
                 'code'          =>  $articulo->code,
@@ -98,16 +105,17 @@ class ShowVentas extends Component
                 'precio'        =>  $articulo->precio,  
                 'cantidad'      =>  1,  
                 'id'            =>  $articulo->id,  
-                'idcar'         =>  $this->generateid
+                'idcar'         =>  $this->generateid,
+                'idunidadtipo'  =>  $articulo->id_unidad_tipo,
+                'subtotal'      =>  round($articulo->precio,2),
+                'idunidadmedida' => $articulo->id_unidad_medida
         ]);
         }
-        
-
             if(count($this->arrayDataCars) == 0){
                 $this->arrayDataCars[] = $nuevaColeccion;
                 $this->generateid++;
                 $this->additem = "";
-               $this->peso = 0;
+                $this->peso = 0;
                 $this->calcularTotal();
               } else{ 
                $this->arrayDataCars[] = $nuevaColeccion;
@@ -119,13 +127,10 @@ class ShowVentas extends Component
         }
         $this->isArtPeso =false;
     }
-    public function calcularTotal(){    
-         $subtotal = 0;
-
+    public function calcularTotal(){
          foreach ($this->arrayDataCars as $indice => $arrayDataCar){ 
-            $subtotal    =   $subtotal + ($this->arrayDataCars[$indice]["cantidad"] * $this->arrayDataCars[$indice]["precio"]) ; 
+                $this->total =   round($this->total + $this->arrayDataCars[$indice]["subtotal"], 2);
          }
-         $this->total =   $subtotal;
     } 
     public function realizarVenta(){
         if( $this->total >  $this->importe){

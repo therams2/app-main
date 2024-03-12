@@ -11,12 +11,12 @@
                             <div class="row">
                                     <div class="col-xs-12 col-md-6">
                                     <label for="precio_kilo" class="form-label">PRECIO DEL KILO:</label>
-                                    <input class="form-control" type="text" id="precio_kilo" wire:model="precio_kilo" style="text-transform: uppercase;" name="precio_kilo" value=""/>
+                                    <input class="form-control" type="number" id="precio_kilo" disabled wire:model="precio_kilo" style="text-transform: uppercase;" name="precio_kilo" value=""/>
                                     </div>
 
                                     <div class="col-xs-12 col-md-6">
                                         <label for="peso" class="form-label">Peso en gramos:</label>
-                                        <input class="form-control" type="text" id="peso" wire:model="peso" style="text-transform:uppercase" name="peso" value=""/>
+                                        <input class="form-control" type="number" id="peso" wire:model="peso" style="text-transform:uppercase" name="peso" value=""/>
                                     </div> 
                             </div>
                     </div>
@@ -99,9 +99,9 @@
                         <tr> 
                         <td  style="text-transform:uppercase"> {{$arrayDataCar["code"]}} </td>
                         <td  style="text-transform:uppercase"> {{$arrayDataCar["nombre"]}}/{{$arrayDataCar["descripcion"]}} </td>
-                        <td  style="text-transform:uppercase"> {{$arrayDataCar["cantidad"]}} <i class="bx bx-edit me-1" ></i></td>
+                        <td  style="text-transform:uppercase"> {{$arrayDataCar["cantidad"]}}{{$arrayDataCar["idunidadtipo"] == 2 ? "GR": "" }} <i class="bx bx-edit me-1" ></i></td>
                         <td  style="text-transform:uppercase"> ${{$arrayDataCar["precio"]}} </td>
-                        <td  style="text-transform:uppercase"> ${{$arrayDataCar["precio"] * $arrayDataCar["cantidad"]}} </td>
+                        <td  style="text-transform:uppercase"> ${{$arrayDataCar["subtotal"]}} </td>
                         <td> <i class="bx bx-trash-alt me-1" ></i> </td>
                         </tr> 
                         @endforeach  
