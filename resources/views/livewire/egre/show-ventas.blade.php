@@ -99,10 +99,10 @@
                         <tr> 
                         <td  style="text-transform:uppercase"> {{$arrayDataCar["code"]}} </td>
                         <td  style="text-transform:uppercase"> {{$arrayDataCar["nombre"]}}/{{$arrayDataCar["descripcion"]}} </td>
-                        <td  style="text-transform:uppercase"> {{$arrayDataCar["cantidad"]}}{{$arrayDataCar["idunidadtipo"] == 2 ? "GR": "" }} <i class="bx bx-edit me-1" ></i></td>
+                        <td  style="text-transform:uppercase"> {{$arrayDataCar["cantidad"]}}{{$arrayDataCar["idunidadtipo"] == 2 ? "GR": "" }} <i  onclick='changeCantidad()' class="bx bx-edit me-1"  ></i></td>
                         <td  style="text-transform:uppercase"> ${{$arrayDataCar["precio"]}} </td>
                         <td  style="text-transform:uppercase"> ${{$arrayDataCar["subtotal"]}} </td>
-                        <td> <i class="bx bx-trash-alt me-1" ></i> </td>
+                        <td> <i class="bx bx-trash-alt me-1"   wire:click="delete({{$arrayDataCar["idcar"]}})" ></i> </td>
                         </tr> 
                         @endforeach  
                         <tr>
@@ -134,6 +134,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <x-livewire-alert::scripts />
+@script
 <script>
     function seleccionarProducto() {
         console.log("holi");
@@ -150,7 +151,17 @@
   
         } 
     }
+
+
     Livewire.on('mostrarModal', function () {
         $('#idModalPeso').modal('show'); // Aquí asumimos que estás utilizando jQuery y Bootstrap Modal
     });
+
+
+    function changeCantidad() {
+        var numero = prompt("Por favor, introduce un número:");
+         
+        Livewire.emit('changeCantidad1');
+    }
 </script>
+@endscript

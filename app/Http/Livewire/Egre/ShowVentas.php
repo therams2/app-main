@@ -43,6 +43,26 @@ class ShowVentas extends Component
             $this->searchResults = [];
         }
     }
+
+    public function delete($id ){
+        foreach ($this->arrayDataCars as $indice => $arrayDataCar){
+            if($arrayDataCar["idcar"] == $id){
+                unset($this->arrayDataCars[$indice]);
+                $this->calcularTotal();
+          
+                $this->alert('success', 'Eliminado correctamente', [
+                    'position' => 'top-end',
+                    'timer' => 3000,
+                    'toast' => true,
+                    'showConfirmButton' => false,
+                    'onConfirmed' => '',
+                   ]);
+            }
+        }
+    }  
+
+
+
     public function changePeso(){
         $this->isArtPeso  = true;
         $this->addItemCar(); 
@@ -127,11 +147,18 @@ class ShowVentas extends Component
         }
         $this->isArtPeso =false;
     }
-    public function calcularTotal(){
-         foreach ($this->arrayDataCars as $indice => $arrayDataCar){ 
-                $this->total =   round($this->total + $this->arrayDataCars[$indice]["subtotal"], 2);
-         }
-    } 
+    public function calcularTotal()
+    {
+        $this->total = 0;
+        if (count($this->arrayDataCars) > 0) {
+            foreach ($this->arrayDataCars as $indice => $arrayDataCar) {
+                $this->total = round($this->total + $this->arrayDataCars[$indice]["subtotal"], 2);
+            }
+        } else {
+            $this->total = 0;
+        }
+    }
+
     public function realizarVenta(){
         if( $this->total >  $this->importe){
             $this->alert('warning', 'El importe es menor que el total', [
