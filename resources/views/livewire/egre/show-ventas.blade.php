@@ -44,7 +44,7 @@
                         class="form-control" oninput="seleccionarProducto()" > 
                     <datalist id="streetAddressOptions" >
                         @foreach($searchResults as $result)
-                            <option data-key="{{ $result->code }}"  value="{{ $result->nombre }}" ></option>
+                            <option data-key="{{ $result->code }}"  value="{{ $result->nombre }} / {{ $result->descripcion }}" ></option>
                         @endforeach
                     </datalist> 
                 </div> 
