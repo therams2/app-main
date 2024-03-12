@@ -118,11 +118,13 @@ class ShowCatIngresoInv extends Component
                 'onConfirmed' => '',
                ]);
     }
-
+    
     public function loadSelectedItem($data){
          
         $this->dataItemSelected = $data;
     }
+
+
     public function updatedcode(){
         $this->cleanItems();
         $articulo = cat_articulos::where('code', $this->code)->first();

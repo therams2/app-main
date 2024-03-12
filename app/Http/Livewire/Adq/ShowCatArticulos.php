@@ -33,26 +33,45 @@ class ShowCatArticulos extends Component
     public $isDisabled;
     public $isEneableItems = false;
     public $getCategorias = [];
+    public $filtercategory = 0;
 
     public $search; 
  
     public function render()
     {
 
-        
-        $articulos = cat_articulos::select(
-                        'adq_cat_articulos.id',
-                        'adq_cat_articulos.nombre',
-                        'adq_cat_articulos.descripcion',
-                        'adq_cat_articulos.cantidad',
-                        'adq_cat_articulos.id_unidad_tipo as idunidadtipo',
-                        'adq_cat_articulos.precio',
-                        'adq_cat_articulos.code',
-                        'adq_cat_articulos.peso',
-                        'adq_cat_articulos.costo_ini',
-                        'adq_cat_articulos.id_unidad_medida',
-                        'acc.nombre as nombre_cat',
-                        'acc.id as id_cat')
+        if($this->filtercategory > 0){
+                $articulos = cat_articulos::select(
+                    'adq_cat_articulos.id',
+                    'adq_cat_articulos.nombre',
+                    'adq_cat_articulos.descripcion',
+                    'adq_cat_articulos.cantidad',
+                    'adq_cat_articulos.id_unidad_tipo as idunidadtipo',
+                    'adq_cat_articulos.precio',
+                    'adq_cat_articulos.code',
+                    'adq_cat_articulos.peso',
+                    'adq_cat_articulos.costo_ini',
+                    'adq_cat_articulos.id_unidad_medida',
+                    'acc.nombre as nombre_cat',
+                    'acc.id as id_cat')
+            ->leftjoin('adq_cat_categorias as acc', 'acc.id', '=', 'adq_cat_articulos.id')
+            ->where('id_categoria','='  , $this->filtercategory  ) 
+            ->orderByDesc('id') 
+            ->paginate(15);
+        }else{
+            $articulos = cat_articulos::select(
+                'adq_cat_articulos.id',
+                'adq_cat_articulos.nombre',
+                'adq_cat_articulos.descripcion',
+                'adq_cat_articulos.cantidad',
+                'adq_cat_articulos.id_unidad_tipo as idunidadtipo',
+                'adq_cat_articulos.precio',
+                'adq_cat_articulos.code',
+                'adq_cat_articulos.peso',
+                'adq_cat_articulos.costo_ini',
+                'adq_cat_articulos.id_unidad_medida',
+                'acc.nombre as nombre_cat',
+                'acc.id as id_cat')
         ->leftjoin('adq_cat_categorias as acc', 'acc.id', '=', 'adq_cat_articulos.id')
         ->where('adq_cat_articulos.nombre','like', '%'        . $this->search . '%')
         ->orwhere('adq_cat_articulos.descripcion','like', '%' . $this->search . '%')
@@ -62,11 +81,15 @@ class ShowCatArticulos extends Component
         ->orwhere('code','like', '%'        . $this->search . '%')
         ->orderByDesc('id') 
         ->paginate(15);
-        $getCategorias = cat_categorias::select()->get();
-        
+        }
+       
+        $getCategorias = cat_categorias::select()->get(); 
         return view('livewire.adq.show-cat-articulos', compact('articulos' ));
     }
      
+    public function updatedfiltercategory(){ 
+        $this->render();
+    }
     public function updatedidunidadtipo()
     {
         if($this->idunidadtipo == 2){

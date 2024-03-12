@@ -197,10 +197,32 @@
 
 
     <div class="card mb-4">
+      
+                                
+                          
+       
+
         <div class="card-body d-flex">
-            <x-jet-input placeholder="Buscar" type="text" wire:model="search" />
-            &nbsp
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" wire:click="changeAction()"  data-bs-target="#modal_articulo"><i  class="bx bx-add-to-queue "></i></button> 
+
+            <div class="col-xs-3 col-md-3">
+                <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" wire:click="changeAction()"  data-bs-target="#modal_articulo"><i  class="bx bx-add-to-queue "></i></button>  
+                        </div>
+                            &nbsp 
+                            <x-jet-input placeholder="Buscar" type="text" wire:model="search" />
+                </div> 
+            </div> 
+
+            <div class="col-xs-3 col-md-3"> 
+                                <select class="select2 form-select" wire:model="filtercategory">
+                                <option value="0">TODAS</option>
+                                @foreach ($getCategorias as $categoria)
+                                    <option value="{{$categoria->id}}">{{str_pad($categoria->clave, 3, "0", STR_PAD_LEFT)}}-{{$categoria->nombre}}</option>
+                                    @endforeach
+                </select>
+            </div> 
+        
         </div> 
         <hr class="my-0" />
         <div class="card-body">
