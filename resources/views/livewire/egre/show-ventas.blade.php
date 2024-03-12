@@ -81,7 +81,7 @@
                
                  <!--Table-->
                  <div class="table-responsive">
-            <table class="table table-bordered">
+                 <table class="table table-borderless">
  
                     <tbody>
                         <thead>
@@ -90,7 +90,7 @@
                                 <th scope="col">CODE</th>
                                 <th scope="col">CONCEPTO</th>
                                 <th scope="col">CANTIDAD</th>
-                                <th scope="col">PRECIO UNI</th>
+                                <th scope="col">PRECIO</th>
                                 <th scope="col">SUBTOTAL</th>
                                 <th scope="col"></th> 
                             </tr>
@@ -99,9 +99,9 @@
                         <tr> 
                         <td  style="text-transform:uppercase"> {{$arrayDataCar["code"]}} </td>
                         <td  style="text-transform:uppercase"> {{$arrayDataCar["nombre"]}}/{{$arrayDataCar["descripcion"]}} </td>
-                        <td  style="text-transform:uppercase"> {{$arrayDataCar["cantidad"]}}{{$arrayDataCar["idunidadtipo"] == 2 ? "GR": "" }} <i  onclick='changeCantidad()' class="bx bx-edit me-1"  ></i></td>
-                        <td  style="text-transform:uppercase"> ${{$arrayDataCar["precio"]}} </td>
-                        <td  style="text-transform:uppercase"> ${{$arrayDataCar["subtotal"]}} </td>
+                        <td  style="text-transform:uppercase"> {{$arrayDataCar["cantidad"]}}{{$arrayDataCar["idunidadtipo"] == 2 ? "GR": "" }} @if( $arrayDataCar["idunidadtipo"] !=2) <i wire:click="upItem({{$arrayDataCar["idcar"]}})" class="bx bx-chevron-up-circle me-1"></i> <i wire:click="downItem({{$arrayDataCar["idcar"]}})" class="bx bx-chevron-down-circle me-1"  ></i>@endif </td>
+                        <td  style="text-transform:uppercase"> ${{number_format($arrayDataCar["precio"],2, ".", ",")}} </td>
+                        <td  style="text-transform:uppercase"> ${{number_format($arrayDataCar["subtotal"],2, ".", ",")}} </td> 
                         <td> <i class="bx bx-trash-alt me-1"   wire:click="delete({{$arrayDataCar["idcar"]}})" ></i> </td>
                         </tr> 
                         @endforeach  
@@ -127,6 +127,12 @@
        
             </div>
         </div>
+
+
+
+      
+
+
 </div>
 
 @livewireScripts
@@ -134,34 +140,30 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <x-livewire-alert::scripts />
-@script
-<script>
-    function seleccionarProducto() {
-        console.log("holi");
-        var input = document.querySelector('input[list="streetAddressOptions"]');
-        var selectedOption = document.querySelector('#streetAddressOptions option[value="' + input.value + '"]');
-        var claveSeleccionada = selectedOption.getAttribute('data-key');
-        console.log(claveSeleccionada);
-        
-        var ejemploComponente = @this; 
-        ejemploComponente.set('additem', claveSeleccionada);
+ 
 
-        function mostrarVentanaEmergente() {
-        var numero = prompt("Por favor, introduce un número:");
-  
-        } 
-    }
+        <script>
+          
+            
+             
+           // Livewire.emit('changeCantidad1');
+
+            function seleccionarProducto() {
+            var input               = document.querySelector('input[list="streetAddressOptions"]');
+            var selectedOption      = document.querySelector('#streetAddressOptions option[value="' + input.value + '"]');
+            var claveSeleccionada   = selectedOption.getAttribute('data-key');
+            var ejemploComponente = @this; 
+            ejemploComponente.set('additem', claveSeleccionada); 
+            }
+
+            function mostrarVentanaEmergente() {
+            var numero = prompt("Por favor, introduce un número:");
+            } 
+
+            Livewire.on('mostrarModal', function () {
+            $('#idModalPeso').modal('show');
+            });
 
 
-    Livewire.on('mostrarModal', function () {
-        $('#idModalPeso').modal('show'); // Aquí asumimos que estás utilizando jQuery y Bootstrap Modal
-    });
 
-
-    function changeCantidad() {
-        var numero = prompt("Por favor, introduce un número:");
-         
-        Livewire.emit('changeCantidad1');
-    }
-</script>
-@endscript
+        </script>

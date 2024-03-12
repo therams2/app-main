@@ -9,6 +9,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 class ShowVentas extends Component
 {
     use LivewireAlert;
+    protected $listeners = ['changeCantidad1' => 'changeCantidad'];
     public $arrayDataCars = []; 
     public $generateid = 1; 
     public $additem ; 
@@ -20,6 +21,7 @@ class ShowVentas extends Component
     public $producto;
     public $precio_kilo = 0;
     public $peso = 0;
+    
     public function render()
     { 
         return view('livewire.egre.show-ventas');
@@ -62,7 +64,10 @@ class ShowVentas extends Component
     }  
 
 
-
+    public function changeCantidad($cant){
+     dd($cant);
+    }   
+    
     public function changePeso(){
         $this->isArtPeso  = true;
         $this->addItemCar(); 
@@ -189,4 +194,27 @@ class ShowVentas extends Component
          $this->total   = 0 ; 
         
     }
+    public function upItem($id){
+        foreach ($this->arrayDataCars as $indice => $arrayDataCar){
+            if($arrayDataCar["idcar"] == $id){
+                $this->arrayDataCars[$indice]["cantidad"] = $arrayDataCar["cantidad"] + 1; 
+                $this->arrayDataCars[$indice]["subtotal"] =  round(($this->arrayDataCars[$indice]["cantidad"] *  $this->arrayDataCars[$indice]["precio"]),2);    
+                $this->calcularTotal(); 
+            }
+        }
+       
+   }
+   public function downItem($id){
+    foreach ($this->arrayDataCars as $indice => $arrayDataCar){
+        if($arrayDataCar["idcar"] == $id){
+            if( $this->arrayDataCars[$indice]["cantidad"] > 1 && $this->arrayDataCars[$indice]["idunidadtipo"] != 2){
+                $this->arrayDataCars[$indice]["cantidad"] = $arrayDataCar["cantidad"] - 1; 
+                $this->arrayDataCars[$indice]["subtotal"] =  round(($this->arrayDataCars[$indice]["cantidad"] *  $this->arrayDataCars[$indice]["precio"]),2);
+                $this->calcularTotal(); 
+            } 
+        }
+    }
+       
+   }
+   
 } 
