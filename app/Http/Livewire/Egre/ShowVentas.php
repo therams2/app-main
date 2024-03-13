@@ -6,10 +6,17 @@ use Livewire\Component;
 use App\Models\adq\cat_articulos;
 use App\Models\egre\egre_ventas;
 use App\Models\ing\ingventasdet;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 class ShowVentas extends Component
 {
+    
+    use WithPagination;
+  
+    // var de datos
+  
+    protected $paginationTheme = 'bootstrap';
     use LivewireAlert;
     protected $listeners = ['changeCantidad1' => 'changeCantidad'];
     public $arrayDataCars = []; 
@@ -22,11 +29,20 @@ class ShowVentas extends Component
     public  $searchResults = [];
     public $producto;
     public $precio_kilo = 0;
-    public $peso = 0;
+    public $peso ;
     
     public function render()
-    { 
-        return view('livewire.egre.show-ventas');
+    {  
+        $ventas = egre_ventas::select(
+                'id',
+                'totalventa',
+                'importe',
+                'cambio',
+                'estatus'
+                ) 
+            ->orderByDesc('id') 
+            ->paginate(5);
+        return view('livewire.egre.show-ventas', compact('ventas' ));
     }
     public function updatedproducto()
     {

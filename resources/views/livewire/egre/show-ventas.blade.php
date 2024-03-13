@@ -1,4 +1,12 @@
+
+
 <div>
+<style>
+        .small-table {
+            font-size: 8px; /* Tamaño de fuente más pequeño */
+            /* Puedes agregar otros estilos para hacer la tabla más compacta si lo deseas */
+        }
+    </style>
          <!-- Create New Register Modal-->
          <div wire:ignore.self   class="modal fade" id="idModalPeso" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalLabelPeso" aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -11,7 +19,7 @@
                             <div class="row">
                                     <div class="col-xs-12 col-md-6">
                                     <label for="precio_kilo" class="form-label">PRECIO DEL KILO:</label>
-                                    <input class="form-control" type="number" id="precio_kilo" disabled wire:model="precio_kilo" style="text-transform: uppercase;" name="precio_kilo" value=""/>
+                                    <input class="form-control" type="number" id="precio_kilo" disabled wire:model="precio_kilo" autofocus style="text-transform: uppercase;" name="precio_kilo" value=""/>
                                     </div>
 
                                     <div class="col-xs-12 col-md-6">
@@ -60,14 +68,14 @@
                 <input class="form-control" type="number" id="importe" style="text-transform: uppercase;" wire:model="importe" name="importe" value=""/>
                 </div>
 
-                <div class="col-xs-6 col-md-6">
+                <div class="col-xs-6 col-md-6" style="margin-bottom: 20px;">
                 <label for="cambio" class="form-label">Cambio:</label>
                 <input class="form-control" type="number" id="cambio" style="text-transform: uppercase;" wire:model="cambio" name="cambio" disabled value=""/>
                 </div>
                 
                 
 
-                <div class="col-xs-6 col-md-6">
+                <div class="col-xs-6 col-md-6" style="margin-bottom: 20px;">
                  
                 <button type="button" class="btn btn-success"  wire:click="realizarVenta" >VENDER</button>
                
@@ -78,11 +86,11 @@
 
             </div>
 
-            <div class="col">
+            <div class="col" style="margin-bottom: 40px;">
                
                  <!--Table-->
                  <div class="table-responsive">
-                 <table class="table table-borderless">
+                 <table class="table table-striped table-dark">
  
                     <tbody>
                         <thead>
@@ -122,14 +130,43 @@
 
 
             </div>
-
+           
 
             
         </div>
-       
-      
+        <div class="row">
+        <div class="col">
+        <div class="col-xs-6 col-md-6">
+               <!--Table-->
+               <div class="table-responsive">
+               <table class="table table-striped small-table">
+                  <tbody>
+                      <thead>  
+                          <tr> 
+                              <th scope="col">FOLIO</th>
+                              <th scope="col">TOTAL</th>
+                              <th scope="col">IMPORTE</th>
+                              <th scope="col">CAMBIO</th>
+                              <th scope="col">ESTATUS</th> 
+                          </tr>
+                      </thead> 
+                      @foreach ($ventas as $venta) 
+                      <tr> 
+                      <td  style="text-transform:uppercase"> {{$venta["id"]}} </td>
+                      <td  style="text-transform:uppercase"> {{$venta["totalventa"]}} </td>
+                      <td  style="text-transform:uppercase"> {{$venta["importe"]}} </td>
+                      <td  style="text-transform:uppercase"> {{$venta["cambio"]}} </td>
+                      <td  style="text-transform:uppercase"> {{$venta["estatus"]}} </td> 
+                      </tr> 
+                      @endforeach   
+                  </tbody>
+              </table>
 
-
+              {{ $ventas->links() }}
+          </div>
+          </div>
+           
+          </div> 
 </div>
 
 @livewireScripts
