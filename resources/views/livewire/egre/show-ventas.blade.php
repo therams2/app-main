@@ -43,7 +43,7 @@
 
         <div class="row">
             <div class="col">
-            <div class="col-xs-6 col-md-6">
+            <div class="col-xs-12 col-md-12">
                     <label for="code" class="form-label">BUSCAR PRODUCTO:    </label>
                     <input 
                         type="text"
@@ -57,25 +57,25 @@
                     </datalist> 
                 </div> 
 
-            <div class="col-xs-6 col-md-6">
+            <div class="col-xs-12 col-md-12">
                 <label for="code" class="form-label">CODIGO DE PRODUCTO:    </label>
                 <i wire:click="addItemCar"  class="bx bx-plus-circle "></i>
                 <input class="form-control"  wire:keydown.enter="addItemCar" type="text" id="additem" autofocus style="text-transform: uppercase;"   @keydown.tab="addItemCar" name="additem" value="" wire:model="additem"/>
                </div>  
 
-                <div class="col-xs-6 col-md-6">
+                <div class="col-xs-12 col-md-12">
                 <label for="importe" class="form-label">Importe:</label>
                 <input class="form-control" type="number" id="importe" style="text-transform: uppercase;" wire:model="importe" name="importe" value=""/>
                 </div>
 
-                <div class="col-xs-6 col-md-6" style="margin-bottom: 20px;">
+                <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
                 <label for="cambio" class="form-label">Cambio:</label>
                 <input class="form-control" type="number" id="cambio" style="text-transform: uppercase;" wire:model="cambio" name="cambio" disabled value=""/>
                 </div>
                 
                 
 
-                <div class="col-xs-6 col-md-6" style="margin-bottom: 20px;">
+                <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
                  
                 <button type="button" class="btn btn-success"  wire:click="realizarVenta" >VENDER</button>
                
