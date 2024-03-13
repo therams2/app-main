@@ -81,7 +81,7 @@
                                 </select>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <label class="form-label" for="preciokilo" style="margin-top: 25px;">Precio Kilo:</label>
+                                <label class="form-label" for="preciokilo" style="margin-top: 25px;">Precio Del Kilo Al Publico:</label>
                                 <div class="input-group input-group-merge">
                                  
                                     <input type="number" id="preciokilo" name="preciokilo" value="0" class="form-control" @if($isDisabled) disabled  @endif
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <label class="form-label" for="costoIni" style="margin-top: 25px;" >Costo:</label>
+                                <label class="form-label" for="costoIni" style="margin-top: 25px;" >Pago A Proveedor:</label>
                                 <div class="input-group input-group-merge">
                                  
                                     <input type="number" id="costoIni" name="costo" value="0" class="form-control" @if($isDisabled) disabled  @endif

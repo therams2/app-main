@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Egre;
 
 use Livewire\Component;
 use App\Models\adq\cat_articulos;
+use App\Models\egre\egre_ventas;
+use App\Models\ing\ingventasdet;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 class ShowVentas extends Component
@@ -165,6 +167,8 @@ class ShowVentas extends Component
     }
 
     public function realizarVenta(){
+        try {
+        DB::beginTransaction();
         if( $this->total >  $this->importe){
             $this->alert('warning', 'El importe es menor que el total', [
                 'position' => 'top-end',
@@ -176,14 +180,82 @@ class ShowVentas extends Component
             return;
         }
         $this->cambio = $this->importe - $this->total;
-        $this->alert('success', 'Venta Realizada Correctamente <br> El cambio es:  $'.$this->cambio, [
-            'position' => 'top-end',
-            'timer' => 3000,
-            'toast' => true,
-            'showConfirmButton' => false,
-            'onConfirmed' => '',
-           ]);
+        
+       
+           $egreVenta = new egre_ventas(); 
+           $egreVenta->totalventa  =  $this->total; 
+           $egreVenta->importe     =  $this->importe; 
+           $egreVenta->cambio      =  $this->cambio;  
+           $egreVenta->estatus     = 'REAL';  
+           $egreVenta->save();
+           // Obtener el ID con el que se generó
+           $idGenerado = $egreVenta->id; 
+           foreach ($this->arrayDataCars as $indice => $arrayDataCar){
+                    $egreVenta = new ingventasdet(); 
+                    $egreVenta->idcar           = $this->arrayDataCars[$indice]["idcar"] ;
+                    $egreVenta->idcatventas     = $idGenerado ;
+                    $egreVenta->idcatarticulos  = $this->arrayDataCars[$indice]["id"] ;
+                    $egreVenta->idunidadtipo    = $this->arrayDataCars[$indice]["idunidadtipo"] ;
+                    $egreVenta->idunidadmedida  = $this->arrayDataCars[$indice]["idunidadmedida"] ;
+                    $egreVenta->concepto        = $this->arrayDataCars[$indice]["nombre"].'/'.$this->arrayDataCars[$indice]["descripcion"];
+                    $egreVenta->code            = $this->arrayDataCars[$indice]["code"] ;   
+                    $egreVenta->cantidad        = $this->arrayDataCars[$indice]["idunidadtipo"] == 2 ? ($this->arrayDataCars[$indice]["cantidad"]/1000) : $this->arrayDataCars[$indice]["cantidad"];//convermios gramos a kilos  
+                    $egreVenta->precio          = $this->arrayDataCars[$indice]["precio"] ;
+                    
+
+                    $articulo = cat_articulos::find($this->arrayDataCars[$indice]["id"] );
+                    if($this->arrayDataCars[$indice]["idunidadtipo"] != 2 ){
+                        $articulo->cantidad     =  $articulo->cantidad -  $this->arrayDataCars[$indice]["cantidad"];
+                        if($articulo->cantidad < 0){
+                            DB::rollBack();
+                            $this->alert('warning', 'No existe inventario suficiente para el producto:  '.$this->arrayDataCars[$indice]["nombre"].'/'.$this->arrayDataCars[$indice]["descripcion"], [
+                                'position' => 'top-end',
+                                'timer' => 15000,
+                                'toast' => true,
+                                'showConfirmButton' => false,
+                                'onConfirmed' => '',
+                               ]);
+                            return;
+                        }
+                    }else{
+                        $articulo->peso =  $articulo->peso -($this->arrayDataCars[$indice]["cantidad"]/1000);
+                        if($articulo->peso < 0){
+                            DB::rollBack();
+                            $this->alert('warning', 'No existe inventario suficiente para el producto:  '.$this->arrayDataCars[$indice]["nombre"].'/'.$this->arrayDataCars[$indice]["descripcion"], [
+                                'position' => 'top-end',
+                                'timer' => 15000,
+                                'toast' => true,
+                                'showConfirmButton' => false,
+                                'onConfirmed' => '',
+                               ]);
+                            return;
+                        }
+                    }
+                        $egreVenta->save();
+                        $articulo->save();
+            }  
            $this->limpiarTodo();
+          
+            DB::commit();
+            $this->alert('success', 'Venta Realizada Correctamente <br> El cambio es:  $'.$this->cambio, [
+                'position' => 'top-end',
+                'timer' => 15000,
+                'toast' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+               ]);
+            } catch (\Exception $e) {
+            // En caso de error, realizar un rollback
+            DB::rollBack();
+            $this->alert('success', 'Existe un problema al realizar la venta:  $'.$this->cambio, [
+                'position' => 'top-end',
+                'timer' => 15000,
+                'toast' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+               ]);
+            // Manejar el error como sea necesario
+        }
     }
     public function limpiarTodo(){
          $this->arrayDataCars = []; 

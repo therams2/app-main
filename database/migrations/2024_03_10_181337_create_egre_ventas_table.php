@@ -13,14 +13,12 @@ class CreateEgreVentasTable extends Migration
      */
     public function up()
     {
-        Schema::create('egre_ventas', function (Blueprint $table) {
+        Schema::create('ing_cat_ventas', function (Blueprint $table) {
             $table->id();
-            $table->integer('idcatarticulos');
-            $table->decimal('preciokilonuevo',   $precision = 15, $scale = 2)->nullable();
-            $table->string('concepto', 200);
+            $table->decimal('totalventa',$precision = 15, $scale = 2)->nullable();
             $table->decimal('importe',   $precision = 15, $scale = 2)->nullable();
             $table->decimal('cambio',    $precision = 15, $scale = 2)->nullable();
-            
+            $table->string('estatus', 10);
             $table->timestamps();
         });
     }
