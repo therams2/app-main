@@ -38,7 +38,8 @@ class ShowVentas extends Component
                 'totalventa',
                 'importe',
                 'cambio',
-                'estatus'
+                'estatus',
+                'created_at'
                 ) 
             ->orderByDesc('id') 
             ->paginate(5);

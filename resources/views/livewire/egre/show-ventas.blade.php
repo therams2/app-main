@@ -139,7 +139,8 @@
         <div class="col-xs-6 col-md-6">
                <!--Table-->
                <div class="table-responsive">
-               <table class="table table-striped small-table">
+               <table class="table table-success table-striped-columns small-table">
+   
                   <tbody>
                       <thead>  
                           <tr> 
@@ -147,6 +148,7 @@
                               <th scope="col">TOTAL</th>
                               <th scope="col">IMPORTE</th>
                               <th scope="col">CAMBIO</th>
+                              <th scope="col">FECHA</th>
                               <th scope="col">ESTATUS</th> 
                           </tr>
                       </thead> 
@@ -156,6 +158,7 @@
                       <td  style="text-transform:uppercase"> {{$venta["totalventa"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["importe"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["cambio"]}} </td>
+                      <td  style="text-transform:uppercase"> {{$venta["created_at"]}} </td> 
                       <td  style="text-transform:uppercase"> {{$venta["estatus"]}} </td> 
                       </tr> 
                       @endforeach   
