@@ -13,13 +13,13 @@
             <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">            
                     <div class="modal-header bg-primary">
-                    <h5 class="modal-title" id="exampleModalLabelPeso">VENTA POR PESO</h5>
+                    <h5 class="modal-title"  >VENTA POR PESO</h5>
                     </div> 
                         <div class="modal-body">
                             <div class="row">
 
                             <div class="col-xs-12 col-md-6">
-                                        <label for="peso" class="form-label">Peso en gramos:</label>
+                                        <label for="peso" class="form-label">PESO EN GRAMOS:</label>
                                         <input class="form-control" type="text" id="inpeso" wire:keydown.enter="changePeso"   wire:model="peso"  style="text-transform:uppercase" name="peso" value=""/>
                                     </div> 
 
@@ -33,6 +33,35 @@
                 </div>
             </div>
         </div>
+
+
+        <div wire:ignore.self   id="idModalIngEfectivo" tabindex="-1" role="dialog" class="modal hide fade in" data-bs-keyboard="false" data-bs-backdrop="static"
+            aria-labelledby="exampleModalLabelPeso" aria-hidden="true"  data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">            
+                    <div class="modal-header bg-primary">
+                    <h5 class="modal-title"  >INGRESO DE EFECTIVO</h5>
+                    </div> 
+                        <div class="modal-body">
+                            <div class="row">
+
+                            <div class="col-xs-12 col-md-6">
+                                        <label for="peso" class="form-label">EFECTIVO:</label>
+                                        <input class="form-control" type="text" id="inEfectivo" wire:keydown.enter="inputMoneyToCar"   wire:model="efectivo"  style="text-transform:uppercase" name="peso" value=""/>
+                                    </div>  
+
+                                    <div class="col-xs-12 col-md-6">
+                                    <label for="precio_kilo" class="form-label">CONCEPTO:</label>
+                                    <input class="form-control" type="text"  disabled   style="text-transform: uppercase;"   value="OTROS"/>
+                                    </div>  
+                    </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+
+
 
 
   
@@ -193,9 +222,10 @@
 
                
                 <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
-                <button type="button" class="btn btn-success btn-lg"  wire:click="realizarVenta" ><i  class="bx bx-dollar "></i></button>
-                <button type="button" class="btn btn-danger btn-lg"  wire:click="limpiarTodo"><i  class="bx bx-x-circle "></i></button>
-                <button type="button" class="btn btn-warning btn-lg"  wire:click="posponer"><i  class="bx bx-hourglass "></i></button>
+                <button type="button" class="btn btn-success btn-lg"  wire:click="realizarVenta" ><i title="Realizar Venta" class="bx bx-dollar "></i></button>
+                <button type="button" class="btn btn-danger btn-lg"  wire:click="limpiarTodo"><i  title="Cancelar Venta" class="bx bx-x-circle "></i></button>
+                <button type="button" class="btn btn-warning btn-lg"  wire:click="posponer"><i  title="Posponer Venta" class="bx bx-hourglass "></i></button>
+                <button type="button" class="btn btn-info btn-lg"  wire:click="inputMoney"><i  title="Introducir Efectivo" class="bx bx-money "></i></button>
              
                 </div> 
                
@@ -239,6 +269,17 @@
             function mostrarVentanaEmergente() {
             var numero = prompt("Por favor, introduce un número:");
             } 
+            
+
+            Livewire.on('mostrarModal2', function () {
+            $('#idModalIngEfectivo').modal('show');
+            $('#idModalIngEfectivo').modal({backdrop: 'static', keyboard: false})  
+            $('#idModalIngEfectivo').on('shown.bs.modal', function () {
+                $('#inEfectivo').focus();
+                });
+            });
+
+
 
             Livewire.on('mostrarModal', function () {
             $('#idModalPeso').modal('show');
@@ -252,6 +293,11 @@
               $('#idModalPeso').modal('hide');
               $('#additem').focus();
              
+            });
+
+            Livewire.on('ocultarModal2', function () { 
+              $('#idModalIngEfectivo').modal('hide');
+              $('#additem').focus();
             });
 
             Livewire.on('f5', function () { 

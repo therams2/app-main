@@ -30,6 +30,7 @@ class ShowVentas extends Component
     public $producto;
     public $precio_kilo = 0;
     public $peso ;
+    public $efectivo  ;
     
     public function render()
     {  
@@ -221,7 +222,7 @@ class ShowVentas extends Component
     public function addItemCar(){    
        // $articulo = DB::select('SELECT  nombre, code, descripcion,precio,id, '.\DB::raw( ($this->generateid  + 1 ).' as idcar')  .' FROM adq_cat_articulos WHERE code = ?', [$this->additem]); 
        
-       $articulo = cat_articulos::select( 'nombre', 'code', 'descripcion', 'precio','id','id_unidad_tipo','precio_kilo','id_unidad_medida' )->where('code', $this->additem)->first();
+       $articulo = cat_articulos::select( 'nombre', 'code', 'descripcion', 'precio','id','id_unidad_tipo','precio_kilo','id_unidad_medida' )->where('code', $this->additem)->where('code','<>', '000001')->first();
        
        if( $articulo ){
        
@@ -290,12 +291,15 @@ class ShowVentas extends Component
                 $this->generateid++;
                 $this->additem = "";
                 $this->peso = null;
+                $this->efectivo = null;
+                
                 $this->calcularTotal();
               } else{ 
                $this->arrayDataCars[] = $nuevaColeccion;
                $this->generateid++;
                $this->additem = "";
                $this->peso = null;
+               $this->efectivo = null;
                $this->calcularTotal();
             }
         }
@@ -412,9 +416,55 @@ class ShowVentas extends Component
          $this->generateid = 1; 
          $this->additem = ""; 
          $this->importe ; 
-         $this->peso; 
+         $this->peso     = null;
+         $this->efectivo = null;
          $this->total   = 0 ; 
         
+    }
+    public function inputMoney(){
+        $this->emit('mostrarModal2'); 
+       
+   }
+   public function inputMoneyToCar(){
+    if(!$this->efectivo > 0){
+        $this->alert('warning', 'Introduce la cantidad del efectivo', [
+            'position' => 'top-end',
+            'timer' => 3000,
+            'toast' => true,
+            'showConfirmButton' => false,
+            'onConfirmed' => '',
+           ]);
+           return;
+    }
+    $this->emit('ocultarModal2');
+        // Modifica cantidad   
+
+
+        $nuevaColeccion = collect([ 
+            'nombre'        =>  "OTROS",
+            'code'          =>  "000001",
+            'descripcion'   =>  "INGRESO DE EFECTIVO",
+            'precio'        =>  $this->efectivo,
+            'cantidad'      =>  1,  
+            'id'            =>  1350,  
+            'idcar'         =>  $this->generateid,
+            'idunidadtipo'  =>  null,
+            'subtotal'      =>  $this->efectivo,
+            'idunidadmedida' => null
+        ]);
+      
+        $this->arrayDataCars[] = $nuevaColeccion; 
+           $this-> generateid++;
+           $this->efectivo = null;
+           
+        $this->alert('success', 'Se ingreso efectivo al carrito de compras' , [
+            'position' => 'top-end',
+            'timer' => 8000,
+            'toast' => true,
+            'showConfirmButton' => false,
+            'onConfirmed' => '',
+           ]);
+           $this->calcularTotal();
     }
     public function upItem($id){
         foreach ($this->arrayDataCars as $indice => $arrayDataCar){
