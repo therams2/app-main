@@ -216,14 +216,13 @@ class ShowVentas extends Component
             $this->isArtPeso = true;
             $this->precio_kilo = $articulo->precio_kilo;
             $this->emit('mostrarModal'); 
-            $this->emit('focoGr'); 
             return;
             }
         }
-       $this->emit('ocultarModal'); 
-       $this->cambio  = 0;
-       $this->producto  = "";
-        
+        $this->emit('ocultarModal'); 
+        $this->cambio  = 0;
+        $this->producto  = "";
+            
          
         
 
@@ -272,13 +271,13 @@ class ShowVentas extends Component
                 $this->arrayDataCars[] = $nuevaColeccion;
                 $this->generateid++;
                 $this->additem = "";
-                $this->peso = 0;
+                $this->peso = null;
                 $this->calcularTotal();
               } else{ 
                $this->arrayDataCars[] = $nuevaColeccion;
                $this->generateid++;
                $this->additem = "";
-               $this->peso = 0;
+               $this->peso = null;
                $this->calcularTotal();
             }
         }
