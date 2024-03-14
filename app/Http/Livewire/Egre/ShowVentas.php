@@ -172,7 +172,7 @@ class ShowVentas extends Component
                         $egreVenta->idunidadmedida  = $this->arrayDataCars[$indice]["idunidadmedida"] ;
                         $egreVenta->concepto        = $this->arrayDataCars[$indice]["nombre"].'/'.$this->arrayDataCars[$indice]["descripcion"];
                         $egreVenta->code            = $this->arrayDataCars[$indice]["code"] ;   
-                        $egreVenta->cantidad        = $this->arrayDataCars[$indice]["idunidadtipo"] == 2 ? ($this->arrayDataCars[$indice]["cantidad"]/1000) : $this->arrayDataCars[$indice]["cantidad"];//convermios gramos a kilos  
+                        $egreVenta->cantidad        = $this->arrayDataCars[$indice]["cantidad"];
                         $egreVenta->precio          = $this->arrayDataCars[$indice]["precio"] ;
                         $egreVenta->save();
                 }  
