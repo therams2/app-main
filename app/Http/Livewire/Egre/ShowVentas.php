@@ -82,9 +82,120 @@ class ShowVentas extends Component
         }
     }  
 
+    public function cargarventa($id){
+ 
+       $ventas =  ingventasdet::select(
+            'id',
+            'idcatarticulos',
+            'idcar',
+            'idcatventas',
+            'idunidadtipo',
+            'idunidadmedida',
+            'concepto',
+            'code',
+            'cantidad',
+            'precio' )
+            ->where('idcatventas','=', $id ) 
+            ->orderByDesc('idcar') 
+            ->get();
 
-    public function changeCantidad($cant){
-     dd($cant);
+            $this->arrayDataCars = [];
+
+            foreach ($ventas as $venta) { 
+                $this-> generateid = $venta->idcar;
+
+                if($venta->idunidadtipo == 2){
+                    $nuevaColeccion = collect([ 
+                        'nombre'        =>  $venta->concepto,
+                        'code'          =>  $venta->code,
+                        'descripcion'   =>  "",
+                        'precio'        =>  $venta->precio,  
+                        'cantidad'      =>  $venta->cantidad,  
+                        'id'            =>  $venta->id,  
+                        'idcar'         =>  $venta->idcar,
+                        'idunidadtipo'  =>  $venta->idunidadtipo,
+                        'subtotal'      =>  $venta->precio,
+                        'idunidadmedida' => $venta->idunidadmedida
+                        ]); 
+                }else{
+                    $nuevaColeccion = collect([ 
+                        'nombre'        =>  $venta->concepto,
+                        'code'          =>  $venta->code,
+                        'descripcion'   =>  "",
+                        'precio'        =>  $venta->precio,  
+                        'cantidad'      =>  intval($venta->cantidad),  
+                        'id'            =>  $venta->id,  
+                        'idcar'         =>  $venta->idcar,
+                        'idunidadtipo'  =>  $venta->idunidadtipo,
+                        'subtotal'      =>  round($venta->cantidad * $venta->precio,2),
+                        'idunidadmedida' => $venta->idunidadmedida
+                        ]);
+                       
+                }
+                $this->alert('success', 'Venta Cargada Correctamente' , [
+                    'position' => 'top-end',
+                    'timer' => 8000,
+                    'toast' => true,
+                    'showConfirmButton' => false,
+                    'onConfirmed' => '',
+                   ]);
+                   
+               
+               egre_ventas::where('id',$id)->delete();
+               ingventasdet::where('idcatventas',$id)->delete();
+               
+                $this->arrayDataCars[] = $nuevaColeccion;
+                $this-> generateid++;
+                $this->calcularTotal();
+            } 
+    }
+    public function posponer( ){
+        try {
+            DB::beginTransaction(); 
+               $egreVenta = new egre_ventas(); 
+               $egreVenta->totalventa  =  $this->total; 
+               $egreVenta->importe     =  $this->importe; 
+               $egreVenta->cambio      =  $this->cambio;  
+               $egreVenta->estatus     = 'POS';  
+               $egreVenta->save();
+               // Obtener el ID con el que se generó
+               $idGenerado = $egreVenta->id; 
+               foreach ($this->arrayDataCars as $indice => $arrayDataCar){
+                        $egreVenta = new ingventasdet(); 
+                        $egreVenta->idcar           = $this->arrayDataCars[$indice]["idcar"] ;
+                        $egreVenta->idcatventas     = $idGenerado ;
+                        $egreVenta->idcatarticulos  = $this->arrayDataCars[$indice]["id"] ;
+                        $egreVenta->idunidadtipo    = $this->arrayDataCars[$indice]["idunidadtipo"] ;
+                        $egreVenta->idunidadmedida  = $this->arrayDataCars[$indice]["idunidadmedida"] ;
+                        $egreVenta->concepto        = $this->arrayDataCars[$indice]["nombre"].'/'.$this->arrayDataCars[$indice]["descripcion"];
+                        $egreVenta->code            = $this->arrayDataCars[$indice]["code"] ;   
+                        $egreVenta->cantidad        = $this->arrayDataCars[$indice]["idunidadtipo"] == 2 ? ($this->arrayDataCars[$indice]["cantidad"]/1000) : $this->arrayDataCars[$indice]["cantidad"];//convermios gramos a kilos  
+                        $egreVenta->precio          = $this->arrayDataCars[$indice]["precio"] ;
+                        $egreVenta->save();
+                }  
+               $this->limpiarTodo();
+               
+              
+                DB::commit();
+                $this->alert('success', 'Venta Pospuesta Correctamente', [
+                    'position' => 'top-end',
+                    'timer' => 9000,
+                    'toast' => true,
+                    'showConfirmButton' => false,
+                    'onConfirmed' => '',
+                   ]);
+                } catch (\Exception $e) {
+                // En caso de error, realizar un rollback
+                DB::rollBack();
+                $this->alert('success', 'Existe un problema al posponer la venta' , [
+                    'position' => 'top-end',
+                    'timer' => 15000,
+                    'toast' => true,
+                    'showConfirmButton' => false,
+                    'onConfirmed' => '',
+                   ]);
+                // Manejar el error como sea necesario
+            }
     }   
     
     public function changePeso(){
@@ -279,7 +390,7 @@ class ShowVentas extends Component
          $this->generateid = 1; 
          $this->additem = ""; 
          $this->importe = 0; 
-        // $this->cambio  = 0; 
+         $this->peso; 
          $this->total   = 0 ; 
         
     }

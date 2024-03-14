@@ -118,13 +118,13 @@
                           </tr>
                       </thead> 
                       @foreach ($ventas as $venta) 
-                      <tr> 
+                      <tr style="{{$venta["estatus"] == 'POS' ? 'background-color: #F4FF81;' : '' }}"> 
                       <td  style="text-transform:uppercase"> {{$venta["id"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["totalventa"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["importe"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["cambio"]}} </td>
                       <td  style="text-transform:uppercase"> {{substr($venta["created_at"], 0, 10)}} </td> 
-                      <td  style="text-transform:uppercase"> {{$venta["estatus"] == "REAL" ? "REALIZADA":"PENDIENTE"}} </td> 
+                      <td  style="text-transform:uppercase"> {{$venta["estatus"] == "REAL" ? "REALIZADA":"PENDIENTE"}} @if($venta["estatus"] == "POS")<i title="Cargar Venta" wire:click="cargarventa({{$venta["id"]}})" class="bx bx-arrow-from-bottom me-1"></i> @endif </td> 
                       </tr> 
                       @endforeach   
                   </tbody>
@@ -185,11 +185,13 @@
                 </div>
 
                 <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
-                 
                 <button type="button" class="btn btn-success"  wire:click="realizarVenta" >VENDER</button>
-               
                 <button type="button" class="btn btn-danger"  wire:click="limpiarTodo">CANCELAR</button>
+             
                 </div> 
+                <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
+                <button type="button" class="btn btn-warning"  wire:click="posponer">POSPONER</button>
+              </div>
               </div>
 
             </div>
