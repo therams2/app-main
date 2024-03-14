@@ -7,9 +7,9 @@
             /* Puedes agregar otros estilos para hacer la tabla más compacta si lo deseas */
         }
     </style>
-         <!-- Create New Register Modal-->
-         <div wire:ignore.self   class="modal fade" id="idModalPeso" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalLabelPeso" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+         
+         <div wire:ignore.self   id="idModalPeso" tabindex="-1" role="dialog" class="modal hide fade in" data-bs-keyboard="false" data-bs-backdrop="static"
+            aria-labelledby="exampleModalLabelPeso" aria-hidden="true"  data-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">            
                     <div class="modal-header bg-primary">
@@ -240,6 +240,7 @@
 
             Livewire.on('mostrarModal', function () {
             $('#idModalPeso').modal('show');
+            $('#idModalPeso').modal({backdrop: 'static', keyboard: false})  
             $('#idModalPeso').on('shown.bs.modal', function () {
                 $('#inpeso').focus();
                 });

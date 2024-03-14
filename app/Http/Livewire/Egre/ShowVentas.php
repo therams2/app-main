@@ -202,23 +202,41 @@ class ShowVentas extends Component
     }   
     
     public function changePeso(){
+
+        if(!$this->peso > 0){
+            $this->alert('warning', 'Introduce una cantidad en gramos', [
+                'position' => 'top-end',
+                'timer' => 3000,
+                'toast' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+               ]);
+               return;
+        }
+       
+        
         $this->isArtPeso  = true;
         $this->addItemCar(); 
     }   
     public function addItemCar(){    
        // $articulo = DB::select('SELECT  nombre, code, descripcion,precio,id, '.\DB::raw( ($this->generateid  + 1 ).' as idcar')  .' FROM adq_cat_articulos WHERE code = ?', [$this->additem]); 
-         
+       
        $articulo = cat_articulos::select( 'nombre', 'code', 'descripcion', 'precio','id','id_unidad_tipo','precio_kilo','id_unidad_medida' )->where('code', $this->additem)->first();
-
+       
        if( $articulo ){
+       
         if(!$this->isArtPeso){    
             if($articulo->id_unidad_tipo == 2  ){ // activar cuando es por peso
+                 
             $this->isArtPeso = true;
             $this->precio_kilo = $articulo->precio_kilo;
+           
             $this->emit('mostrarModal'); 
             return;
             }
         }
+        
+
         $this->emit('ocultarModal'); 
         $this->cambio  = 0;
         $this->producto  = "";
