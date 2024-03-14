@@ -101,7 +101,7 @@ class ShowVentas extends Component
             ->get();
 
             $this->arrayDataCars = [];
-
+ 
             foreach ($ventas as $venta) { 
                 $this-> generateid = $venta->idcar;
 
@@ -165,15 +165,22 @@ class ShowVentas extends Component
                // Obtener el ID con el que se generó
                $idGenerado = $egreVenta->id; 
                foreach ($this->arrayDataCars as $indice => $arrayDataCar){
-                        $egreVenta = new ingventasdet(); 
+                        $egreVenta = new ingventasdet();
+
+
                         $egreVenta->idcar           = $this->arrayDataCars[$indice]["idcar"] ;
                         $egreVenta->idcatventas     = $idGenerado ;
                         $egreVenta->idcatarticulos  = $this->arrayDataCars[$indice]["id"] ;
                         $egreVenta->idunidadtipo    = $this->arrayDataCars[$indice]["idunidadtipo"] ;
                         $egreVenta->idunidadmedida  = $this->arrayDataCars[$indice]["idunidadmedida"] ;
                         $egreVenta->concepto        = $this->arrayDataCars[$indice]["nombre"].'/'.$this->arrayDataCars[$indice]["descripcion"];
-                        $egreVenta->code            = $this->arrayDataCars[$indice]["code"] ;   
-                        $egreVenta->cantidad        = $this->arrayDataCars[$indice]["cantidad"];
+                        $egreVenta->code            = $this->arrayDataCars[$indice]["code"] ; 
+                        if($this->arrayDataCars[$indice]["idunidadtipo"] == 2){
+                            $egreVenta->cantidad        = ($this->arrayDataCars[$indice]["cantidad"]/1000);
+                        }else{
+                            $egreVenta->cantidad        = $this->arrayDataCars[$indice]["cantidad"];
+
+                        }
                         $egreVenta->precio          = $this->arrayDataCars[$indice]["precio"] ;
                         $egreVenta->save();
                 }  
@@ -226,84 +233,83 @@ class ShowVentas extends Component
        
        if( $articulo ){
        
-        if(!$this->isArtPeso){    
-            if($articulo->id_unidad_tipo == 2  ){ // activar cuando es por peso
-                 
-            $this->isArtPeso = true;
-            $this->precio_kilo = $articulo->precio_kilo;
-           
-            $this->emit('mostrarModal'); 
-            return;
-            }
-        }
-        
-
-        $this->emit('ocultarModal'); 
-        $this->cambio  = 0;
-        $this->producto  = "";
+            if(!$this->isArtPeso){    
+                if($articulo->id_unidad_tipo == 2  ){ // activar cuando es por peso
+                    
+                $this->isArtPeso = true;
+                $this->precio_kilo = $articulo->precio_kilo;
             
-         
-        
-
-        if($articulo->id_unidad_tipo == 2  ){ 
-            $nuevaColeccion = collect([ 
-                'nombre'        =>  $articulo->nombre,
-                'code'          =>  $articulo->code,
-                'descripcion'   =>  $articulo->descripcion,
-                'precio'        =>  round($this->precio_kilo * ($this->peso / 1000),2),
-                'cantidad'      =>  $this->peso,  
-                'id'            =>  $articulo->id,  
-                'idcar'         =>  $this->generateid,
-                'idunidadtipo'  =>  $articulo->id_unidad_tipo,  //dirige todo
-                'subtotal'      =>  round($this->precio_kilo * ($this->peso / 1000),2),
-                'idunidadmedida' => $articulo->id_unidad_medida
-        ]);
-        }else{
-            
-            // Modifica cantidad
-            foreach ($this->arrayDataCars as $indice => $arrayDataCar){
-                if($arrayDataCar["code"] == $this->additem){
-                    // Existe solo modificamos cantidad + 1
-                    $this->arrayDataCars[$indice]["cantidad"] = $arrayDataCar["cantidad"] + 1;
-
-                    $this->arrayDataCars[$indice]["subtotal"] =  round(($this->arrayDataCars[$indice]["cantidad"] *  $this->arrayDataCars[$indice]["precio"]),2);
-                    $this->additem = "";
-                    $this->calcularTotal();
-                    return;
+                $this->emit('mostrarModal'); 
+                return;
                 }
             }
+        
 
-            $nuevaColeccion = collect([ 
-                'nombre'        =>  $articulo->nombre,
-                'code'          =>  $articulo->code,
-                'descripcion'   =>  $articulo->descripcion,
-                'precio'        =>  $articulo->precio,  
-                'cantidad'      =>  1,  
-                'id'            =>  $articulo->id,  
-                'idcar'         =>  $this->generateid,
-                'idunidadtipo'  =>  $articulo->id_unidad_tipo,
-                'subtotal'      =>  round($articulo->precio,2),
-                'idunidadmedida' => $articulo->id_unidad_medida
-        ]);
-        }
-            if(count($this->arrayDataCars) == 0){
+            $this->emit('ocultarModal'); 
+            $this->cambio  = 0;
+            $this->producto  = "";
+                
+            
+        
+
+                    if($articulo->id_unidad_tipo == 2  ){ 
+                        $nuevaColeccion = collect([ 
+                            'nombre'        =>  $articulo->nombre,
+                            'code'          =>  $articulo->code,
+                            'descripcion'   =>  $articulo->descripcion,
+                            'precio'        =>  round($this->precio_kilo * ($this->peso / 1000),2),
+                            'cantidad'      =>  $this->peso,  
+                            'id'            =>  $articulo->id,  
+                            'idcar'         =>  $this->generateid,
+                            'idunidadtipo'  =>  $articulo->id_unidad_tipo,  //dirige todo
+                            'subtotal'      =>  round($this->precio_kilo * ($this->peso / 1000),2),
+                            'idunidadmedida' => $articulo->id_unidad_medida
+                    ]);
+                    }else{
+                        
+                        // Modifica cantidad
+                        foreach ($this->arrayDataCars as $indice => $arrayDataCar){
+                            if($arrayDataCar["code"] == $this->additem){
+                                // Existe solo modificamos cantidad + 1
+                                $this->arrayDataCars[$indice]["cantidad"] = $arrayDataCar["cantidad"] + 1;
+
+                                $this->arrayDataCars[$indice]["subtotal"] =  round(($this->arrayDataCars[$indice]["cantidad"] *  $this->arrayDataCars[$indice]["precio"]),2);
+                                $this->additem = "";
+                                $this->calcularTotal();
+                                return;
+                            }
+                        }
+                            $nuevaColeccion = collect([ 
+                                'nombre'        =>  $articulo->nombre,
+                                'code'          =>  $articulo->code,
+                                'descripcion'   =>  $articulo->descripcion,
+                                'precio'        =>  $articulo->precio,  
+                                'cantidad'      =>  1,  
+                                'id'            =>  $articulo->id,  
+                                'idcar'         =>  $this->generateid,
+                                'idunidadtipo'  =>  $articulo->id_unidad_tipo,
+                                'subtotal'      =>  round($articulo->precio,2),
+                                'idunidadmedida' => $articulo->id_unidad_medida
+                        ]);
+                }
+                if(count($this->arrayDataCars) == 0){
+                    $this->arrayDataCars[] = $nuevaColeccion;
+                    $this->generateid++;
+                    $this->additem = "";
+                    $this->peso = null;
+                    $this->efectivo = null;
+                    $this->calcularTotal();
+                } else{ 
                 $this->arrayDataCars[] = $nuevaColeccion;
                 $this->generateid++;
                 $this->additem = "";
                 $this->peso = null;
                 $this->efectivo = null;
-                
                 $this->calcularTotal();
-              } else{ 
-               $this->arrayDataCars[] = $nuevaColeccion;
-               $this->generateid++;
-               $this->additem = "";
-               $this->peso = null;
-               $this->efectivo = null;
-               $this->calcularTotal();
-            }
+                }
+                $this->isArtPeso =false;    // Cambiar a falso?
         }
-        $this->isArtPeso =false;
+       
     }
     public function calcularTotal()
     {
@@ -412,15 +418,9 @@ class ShowVentas extends Component
         }
     }
     public function limpiarTodo(){
-         $this->arrayDataCars = []; 
-         $this->generateid = 1; 
-         $this->additem = ""; 
-         $this->importe ; 
-         $this->peso     = null;
-         $this->efectivo = null;
-         $this->total   = 0 ; 
-        
+            $this->emit('f5'); 
     }
+
     public function inputMoney(){
         $this->emit('mostrarModal2'); 
        
@@ -453,10 +453,10 @@ class ShowVentas extends Component
             'idunidadmedida' => null
         ]);
       
-        $this->arrayDataCars[] = $nuevaColeccion; 
+           $this->arrayDataCars[] = $nuevaColeccion; 
            $this-> generateid++;
            $this->efectivo = null;
-           
+
         $this->alert('success', 'Se ingreso efectivo al carrito de compras' , [
             'position' => 'top-end',
             'timer' => 8000,
