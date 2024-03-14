@@ -113,7 +113,7 @@
                               <th scope="col">IMPORTE</th>
                               <th scope="col">CAMBIO</th>
                               <th scope="col">FECHA</th>
-                              <th scope="col">ESTATUS</th> 
+                             
                           </tr>
                       </thead> 
                       @foreach ($ventas as $venta) 
@@ -123,8 +123,7 @@
                       <td  style="text-transform:uppercase"> {{$venta["importe"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["cambio"]}} </td>
                       <td  style="text-transform:uppercase"> {{substr($venta["created_at"], 0, 10)}} </td> 
-                      <td  style="text-transform:uppercase"> {{$venta["estatus"] == "REAL" ? "REALIZADA":"PENDIENTE"}} @if($venta["estatus"] == "POS")<i title="Cargar Venta" wire:click="cargarventa({{$venta["id"]}})" class="bx bx-arrow-from-bottom me-1"></i> @endif </td> 
-                      </tr> 
+                       </tr> 
                       @endforeach   
                   </tbody>
               </table>
