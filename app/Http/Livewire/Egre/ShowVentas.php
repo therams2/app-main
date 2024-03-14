@@ -51,8 +51,8 @@ class ShowVentas extends Component
             // An array of SearchResults
             $this->searchResults =  cat_articulos::select(
                 'adq_cat_articulos.id',
-                'adq_cat_articulos.nombre',
-                'adq_cat_articulos.descripcion',
+                DB::raw('UPPER(adq_cat_articulos.nombre) AS nombre'),
+                DB::raw('UPPER(adq_cat_articulos.descripcion) AS descripcion'),
                 'adq_cat_articulos.code' )
             ->where('adq_cat_articulos.nombre','like', '%'        . $this->producto . '%')
             ->orwhere('adq_cat_articulos.descripcion','like', '%' . $this->producto . '%')
