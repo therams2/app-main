@@ -187,6 +187,7 @@ class ShowVentas extends Component
                     'showConfirmButton' => false,
                     'onConfirmed' => '',
                    ]);
+                $this->emit('f5'); 
                 } catch (\Exception $e) {
                 // En caso de error, realizar un rollback
                 DB::rollBack();
@@ -197,7 +198,6 @@ class ShowVentas extends Component
                     'showConfirmButton' => false,
                     'onConfirmed' => '',
                    ]);
-                // Manejar el error como sea necesario
             }
     }   
     
@@ -388,7 +388,7 @@ class ShowVentas extends Component
           
             DB::commit();
             $this->alert('success', 'Venta Realizada <br> El cambio es:  $'.$this->cambio, [
-                'position' => 'center',
+                'position' => 'top-end',
                 'timer' => 9000,
                 'toast' => true,
                 'showConfirmButton' => false,

@@ -253,5 +253,10 @@
               $('#additem').focus();
              
             });
+
+            Livewire.on('f5', function () { 
+              window.location.reload();
+            });
+
  
         </script>
