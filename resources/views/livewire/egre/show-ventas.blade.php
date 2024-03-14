@@ -10,27 +10,26 @@
          <!-- Create New Register Modal-->
          <div wire:ignore.self   class="modal fade" id="idModalPeso" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalLabelPeso" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">            
                     <div class="modal-header bg-primary">
                     <h5 class="modal-title" id="exampleModalLabelPeso">VENTA POR PESO</h5>
                     </div> 
                         <div class="modal-body">
                             <div class="row">
-                                    <div class="col-xs-12 col-md-6">
-                                    <label for="precio_kilo" class="form-label">PRECIO DEL KILO:</label>
-                                    <input class="form-control" type="number" id="precio_kilo" disabled wire:model="precio_kilo" autofocus style="text-transform: uppercase;" name="precio_kilo" value=""/>
-                                    </div>
+
+                            <div class="col-xs-12 col-md-6">
+                                        <label for="peso" class="form-label">Peso en gramos:</label>
+                                        <input class="form-control" type="text" id="inpeso" wire:keydown.enter="changePeso"   wire:model="peso"  style="text-transform:uppercase" name="peso" value=""/>
+                                    </div> 
 
                                     <div class="col-xs-12 col-md-6">
-                                        <label for="peso" class="form-label">Peso en gramos:</label>
-                                        <input class="form-control" type="number" id="peso" wire:model="peso" style="text-transform:uppercase" name="peso" value=""/>
+                                    <label for="precio_kilo" class="form-label">PRECIO DEL KILO:</label>
+                                    <input class="form-control" type="number" id="precio_kilo" disabled wire:model="precio_kilo"  style="text-transform: uppercase;" name="precio_kilo" value=""/>
                                     </div> 
                             </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary me-2" wire:click="changePeso" data-bs-target="#modal_articulo" data-bs-toggle="modal">Calcular</button>
-                        </div>
+                   
                 </div>
             </div>
         </div>
@@ -70,7 +69,7 @@
                             </tr>
                         </thead> 
                         @foreach ($arrayDataCars as $arrayDataCar) 
-                        <tr> 
+                        <tr style=  'background-color: #F5F5F5;' > 
                         <td  style="text-transform:uppercase"> {{$arrayDataCar["code"]}} </td>
                         <td  style="text-transform:uppercase"> {{$arrayDataCar["nombre"]}}/{{$arrayDataCar["descripcion"]}} </td>
                         <td  style="text-transform:uppercase"> {{$arrayDataCar["cantidad"]}}{{$arrayDataCar["idunidadtipo"] == 2 ? "GR": "" }} @if( $arrayDataCar["idunidadtipo"] !=2) <i wire:click="upItem({{$arrayDataCar["idcar"]}})" class="bx bx-chevron-up-circle me-1"></i> <i wire:click="downItem({{$arrayDataCar["idcar"]}})" class="bx bx-chevron-down-circle me-1"  ></i>@endif </td>
@@ -118,7 +117,7 @@
                           </tr>
                       </thead> 
                       @foreach ($ventas as $venta) 
-                      <tr style="{{$venta["estatus"] == 'POS' ? 'background-color: #F4FF81;' : '' }}"> 
+                      <tr style="{{$venta["estatus"] == 'POS' ? 'background-color: #F4FF81;' : 'background-color:#DCEDC8' }}"> 
                       <td  style="text-transform:uppercase"> {{$venta["id"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["totalventa"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["importe"]}} </td>
@@ -141,24 +140,36 @@
 
         <!-- Right side columns -->
         <div class="col-lg-4">
+      <!-- Budget Report -->
+          <div class="card">
+             
 
-          <!-- Recent Activity -->
+            <div class="card-body pb-0">
+              <h5 class="card-title">Total: <span> ${{$total}}</span></h5>
+              <h5 class="card-title">Cambio: <span> ${{$cambio}}</span></h5>
+              
+
+            </div>
+          </div> 
+          <div class="my-3"></div> <!-- Este div añade el espacio -->
           <div class="card">
              
 
             <div class="card-body">
-              <h5 class="card-title">  <span>Acciones</span></h5>
+                <h5 class="card-title">  <span>BUSCAR PRODUCTO:</span></h5>
 
-              <div class="activity">
+                  <div class="activity">
 
                 <div class="activity-item d-flex">
                  
-                    <label for="code" class="form-label">BUSCAR PRODUCTO:    </label>
+                  
                     <input 
                         type="text"
                         list="streetAddressOptions"
                         wire:model="producto" 
-                        class="form-control" oninput="seleccionarProducto()" > 
+                        style="background-color:#F5F5F5  "
+                        class="form-control" oninput="seleccionarProducto()"
+                         /> 
                     <datalist id="streetAddressOptions" >
                         @foreach($searchResults as $result)
                             <option data-key="{{ $result->code }}"  value="{{ $result->nombre }} / {{ $result->descripcion }}" ></option>
@@ -174,28 +185,27 @@
                </div>  
                 </div><!-- End activity item-->
 
-                <div class="col-xs-12 col-md-12">
+                <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
                 <label for="importe" class="form-label">Importe:</label>
                 <input class="form-control" type="number" id="importe" style="text-transform: uppercase;" wire:model="importe" name="importe" value=""/>
                 </div>
 
+               
                 <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
-                <label for="cambio" class="form-label">Cambio:</label>
-                <input class="form-control" type="number" id="cambio" style="text-transform: uppercase;" wire:model="cambio" name="cambio" disabled value=""/>
-                </div>
-
-                <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
-                <button type="button" class="btn btn-success"  wire:click="realizarVenta" >VENDER</button>
-                <button type="button" class="btn btn-danger"  wire:click="limpiarTodo">CANCELAR</button>
+                <button type="button" class="btn btn-success btn-lg"  wire:click="realizarVenta" ><i  class="bx bx-dollar "></i></button>
+                <button type="button" class="btn btn-danger btn-lg"  wire:click="limpiarTodo"><i  class="bx bx-x-circle "></i></button>
+                <button type="button" class="btn btn-warning btn-lg"  wire:click="posponer"><i  class="bx bx-hourglass "></i></button>
              
                 </div> 
-                <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
-                <button type="button" class="btn btn-warning"  wire:click="posponer">POSPONER</button>
-              </div>
-              </div>
-
-            </div>
+               
+               
+              </div> 
           </div><!-- End Recent Activity --> 
+         
+
+
+
+
         </div><!-- End Right side columns -->
 
       </div>
@@ -222,7 +232,7 @@
             var claveSeleccionada   = selectedOption.getAttribute('data-key');
             var ejemploComponente = @this; 
             ejemploComponente.set('additem', claveSeleccionada); 
-
+            document.getElementById("additem").focus();
             }
 
             function mostrarVentanaEmergente() {
@@ -231,8 +241,15 @@
 
             Livewire.on('mostrarModal', function () {
             $('#idModalPeso').modal('show');
+            $('#idModalPeso').on('shown.bs.modal', function () {
+                $('#inpeso').focus();
+                });
             });
 
-
-
+            Livewire.on('ocultarModal', function () { 
+              $('#idModalPeso').modal('hide');
+              $('#additem').focus();
+             
+            });
+ 
         </script>

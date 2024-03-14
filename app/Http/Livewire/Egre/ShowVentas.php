@@ -22,7 +22,7 @@ class ShowVentas extends Component
     public $arrayDataCars = []; 
     public $generateid = 1; 
     public $additem ; 
-    public $importe = 0; 
+    public $importe; 
     public $cambio = 0; 
     public $total = 0 ; 
     public  $isArtPeso = false;
@@ -81,7 +81,7 @@ class ShowVentas extends Component
             }
         }
     }  
-
+   
     public function cargarventa($id){
  
        $ventas =  ingventasdet::select(
@@ -150,6 +150,9 @@ class ShowVentas extends Component
             } 
     }
     public function posponer( ){
+        if(count($this->arrayDataCars) == 0){
+            return;
+            }
         try {
             DB::beginTransaction(); 
                $egreVenta = new egre_ventas(); 
@@ -204,9 +207,7 @@ class ShowVentas extends Component
     }   
     public function addItemCar(){    
        // $articulo = DB::select('SELECT  nombre, code, descripcion,precio,id, '.\DB::raw( ($this->generateid  + 1 ).' as idcar')  .' FROM adq_cat_articulos WHERE code = ?', [$this->additem]); 
-        
-      
-
+         
        $articulo = cat_articulos::select( 'nombre', 'code', 'descripcion', 'precio','id','id_unidad_tipo','precio_kilo','id_unidad_medida' )->where('code', $this->additem)->first();
 
        if( $articulo ){
@@ -215,10 +216,11 @@ class ShowVentas extends Component
             $this->isArtPeso = true;
             $this->precio_kilo = $articulo->precio_kilo;
             $this->emit('mostrarModal'); 
+            $this->emit('focoGr'); 
             return;
             }
         }
-
+       $this->emit('ocultarModal'); 
        $this->cambio  = 0;
        $this->producto  = "";
         
@@ -295,6 +297,9 @@ class ShowVentas extends Component
     }
 
     public function realizarVenta(){
+        if(count($this->arrayDataCars) == 0){
+            return;
+            }
         try {
         DB::beginTransaction();
         if( $this->total >  $this->importe){
@@ -389,7 +394,7 @@ class ShowVentas extends Component
          $this->arrayDataCars = []; 
          $this->generateid = 1; 
          $this->additem = ""; 
-         $this->importe = 0; 
+         $this->importe ; 
          $this->peso; 
          $this->total   = 0 ; 
         
