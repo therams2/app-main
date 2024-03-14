@@ -112,7 +112,7 @@ class ShowVentas extends Component
                         'descripcion'   =>  "",
                         'precio'        =>  $venta->precio,  
                         'cantidad'      =>  $venta->cantidad,  
-                        'id'            =>  $venta->id,  
+                        'id'            =>  $venta->idcatventas,  
                         'idcar'         =>  $venta->idcar,
                         'idunidadtipo'  =>  $venta->idunidadtipo,
                         'subtotal'      =>  $venta->precio,
@@ -125,7 +125,7 @@ class ShowVentas extends Component
                         'descripcion'   =>  "",
                         'precio'        =>  $venta->precio,  
                         'cantidad'      =>  intval($venta->cantidad),  
-                        'id'            =>  $venta->id,  
+                        'id'            =>  $venta->idcatventas,   //id producto
                         'idcar'         =>  $venta->idcar,
                         'idunidadtipo'  =>  $venta->idunidadtipo,
                         'subtotal'      =>  round($venta->cantidad * $venta->precio,2),
@@ -167,7 +167,7 @@ class ShowVentas extends Component
                foreach ($this->arrayDataCars as $indice => $arrayDataCar){
                         $egreVenta = new ingventasdet();
 
-
+                        
                         $egreVenta->idcar           = $this->arrayDataCars[$indice]["idcar"] ;
                         $egreVenta->idcatventas     = $idGenerado ;
                         $egreVenta->idcatarticulos  = $this->arrayDataCars[$indice]["id"] ;
@@ -175,12 +175,7 @@ class ShowVentas extends Component
                         $egreVenta->idunidadmedida  = $this->arrayDataCars[$indice]["idunidadmedida"] ;
                         $egreVenta->concepto        = $this->arrayDataCars[$indice]["nombre"].'/'.$this->arrayDataCars[$indice]["descripcion"];
                         $egreVenta->code            = $this->arrayDataCars[$indice]["code"] ; 
-                        if($this->arrayDataCars[$indice]["idunidadtipo"] == 2){
-                            $egreVenta->cantidad        = ($this->arrayDataCars[$indice]["cantidad"]/1000);
-                        }else{
-                            $egreVenta->cantidad        = $this->arrayDataCars[$indice]["cantidad"];
-
-                        }
+                        $egreVenta->cantidad        = $this->arrayDataCars[$indice]["cantidad"];
                         $egreVenta->precio          = $this->arrayDataCars[$indice]["precio"] ;
                         $egreVenta->save();
                 }  
