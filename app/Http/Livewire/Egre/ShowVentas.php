@@ -112,7 +112,7 @@ class ShowVentas extends Component
                         'descripcion'   =>  "",
                         'precio'        =>  $venta->precio,  
                         'cantidad'      =>  $venta->cantidad,  
-                        'id'            =>  $venta->idcatventas,  
+                        'id'            =>  $venta->idcatarticulos,  
                         'idcar'         =>  $venta->idcar,
                         'idunidadtipo'  =>  $venta->idunidadtipo,
                         'subtotal'      =>  $venta->precio,
@@ -125,7 +125,7 @@ class ShowVentas extends Component
                         'descripcion'   =>  "",
                         'precio'        =>  $venta->precio,  
                         'cantidad'      =>  intval($venta->cantidad),  
-                        'id'            =>  $venta->idcatventas,   //id producto
+                        'id'            =>  $venta->idcatarticulos,   //id producto
                         'idcar'         =>  $venta->idcar,
                         'idunidadtipo'  =>  $venta->idunidadtipo,
                         'subtotal'      =>  round($venta->cantidad * $venta->precio,2),
@@ -413,7 +413,13 @@ class ShowVentas extends Component
         }
     }
     public function limpiarTodo(){
-            $this->emit('f5'); 
+        $this->arrayDataCars = []; 
+        $this->generateid   = 1; 
+        $this->additem      = ""; 
+        $this->importe  =   null; 
+        $this->peso     =   null;
+        $this->efectivo =   null;
+        $this->total    =   0 ; 
     }
 
     public function inputMoney(){
