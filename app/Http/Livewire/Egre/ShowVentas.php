@@ -132,7 +132,7 @@ class ShowVentas extends Component
                         ]);
                        
                 }
-                $this->alert('success', 'Venta Cargada Correctamente' , [
+                $this->alert('success', 'Venta Cargada' , [
                     'position' => 'top-end',
                     'timer' => 8000,
                     'toast' => true,
@@ -180,7 +180,7 @@ class ShowVentas extends Component
                
               
                 DB::commit();
-                $this->alert('success', 'Venta Pospuesta Correctamente', [
+                $this->alert('success', 'Venta Pospuesta', [
                     'position' => 'top-end',
                     'timer' => 9000,
                     'toast' => true,
@@ -387,9 +387,9 @@ class ShowVentas extends Component
            $this->limpiarTodo();
           
             DB::commit();
-            $this->alert('success', 'Venta Realizada Correctamente <br> El cambio es:  $'.$this->cambio, [
-                'position' => 'top-end',
-                'timer' => 15000,
+            $this->alert('success', 'Venta Realizada <br> El cambio es:  $'.$this->cambio, [
+                'position' => 'center',
+                'timer' => 9000,
                 'toast' => true,
                 'showConfirmButton' => false,
                 'onConfirmed' => '',
