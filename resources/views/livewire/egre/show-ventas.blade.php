@@ -123,7 +123,7 @@
                       <td  style="text-transform:uppercase"> {{$venta["totalventa"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["importe"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["cambio"]}} </td>
-                      <td  style="text-transform:uppercase"> {{$venta["created_at"]}} </td> 
+                      <td  style="text-transform:uppercase"> {{substr($venta["created_at"], 0, 10)}} </td> 
                       <td  style="text-transform:uppercase"> {{$venta["estatus"] == "REAL" ? "REALIZADA":"PENDIENTE"}} </td> 
                       </tr> 
                       @endforeach   
