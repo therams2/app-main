@@ -36,61 +36,26 @@
         </div>
 
 
-        <div class="card mb-4">
-        
-       <hr class="my-0" />
-        <div class="card-body">
+  
+  <main id="main" class="main">
 
-        <div class="row">
-            <div class="col">
-            <div class="col-xs-12 col-md-12">
-                    <label for="code" class="form-label">BUSCAR PRODUCTO:    </label>
-                    <input 
-                        type="text"
-                        list="streetAddressOptions"
-                        wire:model="producto" 
-                        class="form-control" oninput="seleccionarProducto()" > 
-                    <datalist id="streetAddressOptions" >
-                        @foreach($searchResults as $result)
-                            <option data-key="{{ $result->code }}"  value="{{ $result->nombre }} / {{ $result->descripcion }}" ></option>
-                        @endforeach
-                    </datalist> 
-                </div> 
+     
+    <section class="section dashboard">
+      <div class="row">
 
-            <div class="col-xs-12 col-md-12">
-                <label for="code" class="form-label">CODIGO DE PRODUCTO:    </label>
-                <i wire:click="addItemCar"  class="bx bx-plus-circle "></i>
-                <input class="form-control"  wire:keydown.enter="addItemCar" type="text" id="additem" autofocus style="text-transform: uppercase;"   @keydown.tab="addItemCar" name="additem" value="" wire:model="additem"/>
-               </div>  
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">  
+            <!-- Recent Sales -->
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
 
-                <div class="col-xs-12 col-md-12">
-                <label for="importe" class="form-label">Importe:</label>
-                <input class="form-control" type="number" id="importe" style="text-transform: uppercase;" wire:model="importe" name="importe" value=""/>
-                </div>
-
-                <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
-                <label for="cambio" class="form-label">Cambio:</label>
-                <input class="form-control" type="number" id="cambio" style="text-transform: uppercase;" wire:model="cambio" name="cambio" disabled value=""/>
-                </div>
-                
-                
-
-                <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
                  
-                <button type="button" class="btn btn-success"  wire:click="realizarVenta" >VENDER</button>
-               
-                <button type="button" class="btn btn-danger"  wire:click="limpiarTodo">CAN</button>
-                </div>
 
-               
+                <div class="card-body">
+                  <h5 class="card-title">Carrito de Compras <span></span></h5>
 
-            </div>
-
-            <div class="col" style="margin-bottom: 40px;">
-               
-                 <!--Table-->
-                 <div class="table-responsive">
-                 <table class="table table-borderless">
+                   <table class="table table-borderless">
  
                     <tbody>
                         <thead>
@@ -128,18 +93,18 @@
                     </tbody>
                 </table>
 
+                </div>
 
-            </div>
-           
+              </div>
+            </div><!-- End Recent Sales -->
 
-            
-        </div>
-        <div class="row">
-        <div class="col">
-        <div class="col-xs-6 col-md-6">
-               <!--Table-->
-               <div class="table-responsive">
-               <table class="table table-success table-striped-columns small-table">
+            <!-- Top Selling -->
+            <div class="col-12 pt-4">
+              <div class="card top-selling overflow-auto"> 
+                <div class="card-body pb-0">
+                  <h5 class="card-title">Ultimas Ventas <span> </span></h5>
+
+                  <table class="table table-borderless">
    
                   <tbody>
                       <thead>  
@@ -159,18 +124,82 @@
                       <td  style="text-transform:uppercase"> {{$venta["importe"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["cambio"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["created_at"]}} </td> 
-                      <td  style="text-transform:uppercase"> {{$venta["estatus"]}} </td> 
+                      <td  style="text-transform:uppercase"> {{$venta["estatus"] == "REAL" ? "REALIZADA":"PENDIENTE"}} </td> 
                       </tr> 
                       @endforeach   
                   </tbody>
               </table>
-
               {{ $ventas->links() }}
+
+                </div>
+
+              </div>
+            </div><!-- End Top Selling -->
+
           </div>
-          </div>
-           
-          </div> 
-</div>
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+        <div class="col-lg-4">
+
+          <!-- Recent Activity -->
+          <div class="card">
+             
+
+            <div class="card-body">
+              <h5 class="card-title">  <span>Acciones</span></h5>
+
+              <div class="activity">
+
+                <div class="activity-item d-flex">
+                 
+                    <label for="code" class="form-label">BUSCAR PRODUCTO:    </label>
+                    <input 
+                        type="text"
+                        list="streetAddressOptions"
+                        wire:model="producto" 
+                        class="form-control" oninput="seleccionarProducto()" > 
+                    <datalist id="streetAddressOptions" >
+                        @foreach($searchResults as $result)
+                            <option data-key="{{ $result->code }}"  value="{{ $result->nombre }} / {{ $result->descripcion }}" ></option>
+                        @endforeach
+                    </datalist> 
+                 
+                </div><!-- End activity item-->
+
+                <div class="col-xs-12 col-md-12">
+                <label for="code" class="form-label">CODIGO DE PRODUCTO:    </label>
+                <i wire:click="addItemCar"  class="bx bx-plus-circle "></i>
+                <input class="form-control"  wire:keydown.enter="addItemCar" type="text" id="additem" autofocus style="text-transform: uppercase;"   @keydown.tab="addItemCar" name="additem" value="" wire:model="additem"/>
+               </div>  
+                </div><!-- End activity item-->
+
+                <div class="col-xs-12 col-md-12">
+                <label for="importe" class="form-label">Importe:</label>
+                <input class="form-control" type="number" id="importe" style="text-transform: uppercase;" wire:model="importe" name="importe" value=""/>
+                </div>
+
+                <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
+                <label for="cambio" class="form-label">Cambio:</label>
+                <input class="form-control" type="number" id="cambio" style="text-transform: uppercase;" wire:model="cambio" name="cambio" disabled value=""/>
+                </div>
+
+                <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
+                 
+                <button type="button" class="btn btn-success"  wire:click="realizarVenta" >VENDER</button>
+               
+                <button type="button" class="btn btn-danger"  wire:click="limpiarTodo">CANCELAR</button>
+                </div> 
+              </div>
+
+            </div>
+          </div><!-- End Recent Activity --> 
+        </div><!-- End Right side columns -->
+
+      </div>
+    </section>
+
+  </main><!-- End #main --> 
 
 @livewireScripts
 
