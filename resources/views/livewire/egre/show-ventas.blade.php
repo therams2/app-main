@@ -113,6 +113,7 @@
                               <th scope="col">IMPORTE</th>
                               <th scope="col">CAMBIO</th>
                               <th scope="col">FECHA</th>
+                              <th scope="col"></th>
                              
                           </tr>
                       </thead> 
@@ -123,6 +124,7 @@
                       <td  style="text-transform:uppercase"> {{$venta["importe"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["cambio"]}} </td>
                       <td  style="text-transform:uppercase"> {{substr($venta["created_at"], 0, 10)}} </td> 
+                      <td  style="text-transform:uppercase">  @if($venta["estatus"] == "POS")<i title="Cargar Venta" wire:click="cargarventa({{$venta["id"]}})" class="bx bx-arrow-from-bottom me-1"></i> @endif </td> 
                        </tr> 
                       @endforeach   
                   </tbody>

@@ -157,8 +157,8 @@ class ShowVentas extends Component
             DB::beginTransaction(); 
                $egreVenta = new egre_ventas(); 
                $egreVenta->totalventa  =  $this->total; 
-               $egreVenta->importe     =  $this->importe; 
-               $egreVenta->cambio      =  $this->cambio;  
+               $egreVenta->importe     =  0; 
+               $egreVenta->cambio      =  0;  
                $egreVenta->estatus     = 'POS';  
                $egreVenta->save();
                // Obtener el ID con el que se generó
