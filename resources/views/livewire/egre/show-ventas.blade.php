@@ -52,7 +52,7 @@
                  
 
                 <div class="card-body">
-                  <h5 class="card-title">Carrito de Compras <span></span></h5>
+                  <h5 class="card-title">CARRITO DE COMPRAS <span></span></h5>
 
                    <table class="table table-borderless">
  
@@ -101,7 +101,7 @@
             <div class="col-12 pt-4">
               <div class="card top-selling overflow-auto"> 
                 <div class="card-body pb-0">
-                  <h5 class="card-title">Ultimas Ventas <span> </span></h5>
+                  <h5 class="card-title">ULTIMOS MOVIMIENTOS <span> </span></h5>
 
                   <table class="table table-borderless">
    
@@ -146,8 +146,8 @@
              
 
             <div class="card-body pb-0">
-              <h5 class="card-title">Total: <span> ${{$total}}</span></h5>
-              <h5 class="card-title">Cambio: <span> ${{$cambio}}</span></h5>
+              <h5 class="card-title">TOTAL: <span> ${{$total}}</span></h5>
+              <h5 class="card-title">CAMBIO: <span> ${{$cambio}}</span></h5>
               
 
             </div>
