@@ -194,6 +194,7 @@
                  
                   
                     <input 
+                      id='buscardor'
                         type="text"
                         list="streetAddressOptions"
                         wire:model="producto" 
@@ -222,10 +223,10 @@
 
                
                 <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
-                <button type="button" class="btn btn-success btn-lg"  wire:click="realizarVenta" ><i title="Realizar Venta" class="bx bx-dollar "></i></button>
-                <button type="button" class="btn btn-danger btn-lg"  wire:click="limpiarTodo"><i  title="Cancelar Venta" class="bx bx-x-circle "></i></button>
-                <button type="button" class="btn btn-warning btn-lg"  wire:click="posponer"><i  title="Posponer Venta" class="bx bx-hourglass "></i></button>
-                <button type="button" class="btn btn-info btn-lg"  wire:click="inputMoney"><i  title="Introducir Efectivo" class="bx bx-money "></i></button>
+                <button type="button" id='relventa' class="btn btn-success btn-lg"  wire:click="realizarVenta" ><i title="Realizar Venta" class="bx bx-dollar "></i></button>
+                <button type="button" id='canventa' class="btn btn-danger btn-lg"  wire:click="limpiarTodo"><i  title="Cancelar Venta" class="bx bx-x-circle "></i></button>
+                <button type="button" id='posventa' class="btn btn-warning btn-lg"  wire:click="posponer"><i  title="Posponer Venta" class="bx bx-hourglass "></i></button>
+                <button type="button" id="introdinero" class="btn btn-info btn-lg"  wire:click="inputMoney"><i  title="Introducir Efectivo" class="bx bx-money "></i></button>
              
                 </div> 
                
@@ -253,9 +254,46 @@
 
         <script>
           
-            
-             
-           // Livewire.emit('changeCantidad1');
+          document.addEventListener('keydown', function(event) {
+              // Verificar si la tecla presionada es F6
+              if (event.keyCode === 117) {
+                document.getElementById("buscardor").focus();
+              }
+              if (event.keyCode === 118) {
+                document.getElementById("additem").focus();
+              }
+              if (event.keyCode === 119) {
+                document.getElementById("importe").focus();
+              }
+
+              if (event.keyCode === 120) {
+                var boton = document.getElementById("relventa");
+                if (boton) {
+                  boton.click();
+                }
+              }
+
+              if (event.keyCode === 121) {
+                var boton = document.getElementById("canventa");
+                if (boton) {
+                  boton.click();
+                }
+              }
+
+              if (event.keyCode === 122) { 
+                var boton = document.getElementById("posventa");
+                if (boton) {
+                  boton.click();
+                } 
+              }
+
+              if (event.keyCode === 123) {
+                var boton = document.getElementById("introdinero");
+                if (boton) {
+                  boton.click();
+                }
+              }
+            });
 
             function seleccionarProducto() {
             var input               = document.querySelector('input[list="streetAddressOptions"]');
