@@ -6,6 +6,13 @@
             font-size: 8px; /* Tamaño de fuente más pequeño */
             /* Puedes agregar otros estilos para hacer la tabla más compacta si lo deseas */
         }
+       
+
+    
+    .table-custom tbody tr th td {
+        font-weight: bold; /* Texto más negrita */
+    }
+    
     </style>
          
          <div wire:ignore.self   id="idModalPeso" tabindex="-1" role="dialog" class="modal hide fade in" data-bs-keyboard="false" data-bs-backdrop="static"
@@ -87,43 +94,39 @@
                 <div class="card-body">
                   <h5 class="card-title">CARRITO DE COMPRAS <span></span></h5>
 
-                   <table class="table table-borderless">
- 
-                    <tbody>
-                        <thead>
-                            <tr>
-                        
-                                <th scope="col">CODE</th>
-                                <th scope="col">CONCEPTO</th>
-                                <th scope="col">CANTIDAD</th>
-                                <th scope="col">PRECIO</th>
-                                <th scope="col">SUBTOTAL</th>
-                                <th scope="col"></th> 
-                            </tr>
-                        </thead> 
-                        @foreach ($arrayDataCars as $arrayDataCar) 
-                        <tr style=  'background-color: #F5F5F5;' > 
-                        <td  style="text-transform:uppercase"> {{$arrayDataCar["code"]}} </td>
-                        <td  style="text-transform:uppercase"> {{$arrayDataCar["nombre"]}}/{{$arrayDataCar["descripcion"]}} </td>
-                        <td  style="text-transform:uppercase"> {{$arrayDataCar["cantidad"]}}{{$arrayDataCar["idunidadtipo"] == 2 ? "GR": "" }} @if( $arrayDataCar["idunidadtipo"] !=2) <i wire:click="upItem({{$arrayDataCar["idcar"]}})" class="bx bx-chevron-up-circle me-1"></i> <i wire:click="downItem({{$arrayDataCar["idcar"]}})" class="bx bx-chevron-down-circle me-1"  ></i>@endif </td>
-                        <td  style="text-transform:uppercase"> ${{number_format($arrayDataCar["precio"],2, ".", ",")}} </td>
-                        <td  style="text-transform:uppercase"> ${{number_format($arrayDataCar["subtotal"],2, ".", ",")}} </td> 
-                        <td> <i class="bx bx-trash-alt me-1"   wire:click="delete({{$arrayDataCar["idcar"]}})" ></i> </td>
-                        </tr> 
-                        @endforeach  
-                        <tr>
-                        
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                            <th scope="col">Total</th>
-                            <th scope="col">${{$total}} </th> 
-                            <th scope="col"></th>
-
-                        </tr> 
-                                 
-                    </tbody>
-                </table>
+                  <table class="table ">
+                      <thead>
+                          <tr>
+                              <th scope="col" style="text-transform:uppercase; color: black; font-weight: bold;">CODE</th>
+                              <th scope="col" style="text-transform:uppercase; color: black; font-weight: bold;">CONCEPTO</th>
+                              <th scope="col" style="text-transform:uppercase; color: black; font-weight: bold;">CANTIDAD</th>
+                              <th scope="col" style="text-transform:uppercase; color: black; font-weight: bold;">PRECIO</th>
+                              <th scope="col" style="text-transform:uppercase; color: black; font-weight: bold;">SUBTOTAL</th>
+                              <th scope="col" style="text-transform:uppercase; color: black; font-weight: bold;"></th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          @foreach ($arrayDataCars as $arrayDataCar)
+                          <tr style= 'background-color: #000000 '  >
+                              <td style="text-transform:uppercase; color: white; font-weight: bold;" >{{$arrayDataCar["code"]}}</td>
+                              <td style="text-transform:uppercase; color: white; font-weight: bold;">{{$arrayDataCar["nombre"]}}/{{$arrayDataCar["descripcion"]}}</td>
+                              <td style="text-transform:uppercase; color: white; font-weight: bold;">{{$arrayDataCar["cantidad"]}}{{$arrayDataCar["idunidadtipo"] == 2 ? "GR": "" }} @if( $arrayDataCar["idunidadtipo"] !=2) <i wire:click="upItem({{$arrayDataCar["idcar"]}})" class="bx bx-chevron-up-circle me-1"></i> <i wire:click="downItem({{$arrayDataCar["idcar"]}})" class="bx bx-chevron-down-circle me-1"></i>@endif</td>
+                              <td style="text-transform:uppercase; color: white; font-weight: bold;">${{number_format($arrayDataCar["precio"],2, ".", ",")}}</td>
+                              <td style="text-transform:uppercase; color: white; font-weight: bold;">${{number_format($arrayDataCar["subtotal"],2, ".", ",")}}</td>
+                              <td><i class="bx bx-trash-alt me-1" wire:click="delete({{$arrayDataCar["idcar"]}})"></i></td>
+                          </tr>
+                          @endforeach
+                          <tr>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                              <th style="text-transform:uppercase; color: black; font-weight: bold;">Total</th>
+                              <th style="text-transform:uppercase; color: black; font-weight: bold;">${{$total}}</th> 
+                              <th scope="col"></th>
+                          
+                          </tr>
+                      </tbody>
+                  </table>
 
                 </div>
 
@@ -218,13 +221,11 @@
       <!-- Budget Report -->
           <div class="card">
              
-
-            <div class="card-body pb-0">
-              <h5 class="card-title">TOTAL: <span> ${{$total}}</span></h5>
-              <h5 class="card-title">CAMBIO: <span> ${{$cambio}}</span></h5>
-              
-
+          <div class="card-body pb-0" style="background-color: black;">
+          <h5 class="card-title" style="color: #53F81A;">TOTAL: <span> ${{$total}}</span></h5>
+          <h5 class="card-title" style="color: white;">CAMBIO: <span> ${{$cambio}}</span></h5>
             </div>
+
           </div> 
           <div class="my-3"></div> <!-- Este div añade el espacio -->
           <div class="card">
