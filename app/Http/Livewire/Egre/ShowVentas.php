@@ -9,6 +9,7 @@ use App\Models\ing\ingventasdet;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Support\Carbon;
 class ShowVentas extends Component
 {
     
@@ -34,6 +35,8 @@ class ShowVentas extends Component
     
     public function render()
     {  
+        $hoy = Carbon::today()->toDateString();
+        
         $ventas = egre_ventas::select(
                 'id',
                 'totalventa',
@@ -42,9 +45,25 @@ class ShowVentas extends Component
                 'estatus',
                 'created_at'
                 ) 
+                ->where('estatus','<>','POS')
+            ->orderByDesc('id') 
+            ->take(5)
+            ->get();
+
+            $pospuestos = egre_ventas::select(
+                'id',
+                'totalventa',
+                'importe',
+                'cambio',
+                'estatus',
+                'created_at'
+                ) 
+            ->where('estatus','=','POS')
+            ->whereDate('created_at', $hoy) // Filtrar por la fecha de hoy
             ->orderByDesc('id') 
             ->paginate(5);
-        return view('livewire.egre.show-ventas', compact('ventas' ));
+ 
+        return view('livewire.egre.show-ventas', compact('ventas', 'pospuestos'));
     }
     public function updatedproducto()
     {

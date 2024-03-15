@@ -54,11 +54,15 @@
                                     <label for="precio_kilo" class="form-label">CONCEPTO:</label>
                                     <input class="form-control" type="text"  disabled   style="text-transform: uppercase;"   value="OTROS"/>
                                     </div>  
-                    </div>
+                          </div>
                     </div>
                    
                 </div>
             </div>
+
+
+
+
         </div>
 
 
@@ -130,6 +134,48 @@
             <div class="col-12 pt-4">
               <div class="card top-selling overflow-auto"> 
                 <div class="card-body pb-0">
+                  <h5 class="card-title">PENDIENTES <span> </span></h5>
+
+                  <table class="table table-borderless">
+   
+                  <tbody>
+                      <thead>  
+                          <tr> 
+                              <th scope="col">FOLIO</th>
+                              <th scope="col">TOTAL</th>
+                              <th scope="col">IMPORTE</th>
+                              <th scope="col">CAMBIO</th>
+                              <th scope="col">HORA</th>
+                              <th scope="col"></th>
+                             
+                          </tr>
+                      </thead> 
+                      @foreach ($pospuestos as $pospuesto) 
+                      <tr style="{{$pospuesto["estatus"] == 'POS' ? 'background-color: #F4FF81;' : 'background-color:#DCEDC8' }}"> 
+                      <td  style="text-transform:uppercase"> {{$pospuesto["id"]}} </td>
+                      <td  style="text-transform:uppercase"> {{$pospuesto["totalventa"]}} </td>
+                      <td  style="text-transform:uppercase"> {{$pospuesto["importe"]}} </td>
+                      <td  style="text-transform:uppercase"> {{$pospuesto["cambio"]}} </td>
+                      <td  style="text-transform:uppercase"> {{date('H:i:s', strtotime($pospuesto["created_at"]))}} </td> 
+                      <td  style="text-transform:uppercase">  @if($pospuesto["estatus"] == "POS")<i title="Cargar Venta" wire:click="cargarventa({{$pospuesto["id"]}})" class="bx bx-arrow-from-bottom me-1"></i> @endif </td> 
+                       </tr> 
+                      @endforeach   
+                  </tbody>
+              </table>
+                {{ $pospuestos->links() }}
+                <h1></h1>
+
+                </div>
+
+              </div>
+            </div><!-- End Top Selling -->
+
+
+
+            <!-- Top Selling -->
+            <div class="col-12 pt-4">
+              <div class="card top-selling overflow-auto"> 
+                <div class="card-body pb-0">
                   <h5 class="card-title">ULTIMOS MOVIMIENTOS <span> </span></h5>
 
                   <table class="table table-borderless">
@@ -158,13 +204,12 @@
                       @endforeach   
                   </tbody>
               </table>
-              {{ $ventas->links() }}
+              <h1></h1>
 
                 </div>
 
               </div>
             </div><!-- End Top Selling -->
-
           </div>
         </div><!-- End Left side columns -->
 
