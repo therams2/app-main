@@ -88,6 +88,12 @@
                 <div >Ventas</div>
               </a>
             </li>
+            <li class="menu-item">
+              <a href="{{ route('catventas')}}" class="menu-link">
+                <i class="menu-icon material-icons">receipt</i>
+                <div >Registro</div>
+              </a>
+            </li>
              
           </ul>
         </aside>
