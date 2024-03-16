@@ -155,7 +155,7 @@
                       </thead> 
                       @foreach ($pospuestos as $pospuesto) 
                       <tr style="{{$pospuesto["estatus"] == 'POS' ? 'background-color: #F4FF81;' : 'background-color:#DCEDC8' }}"> 
-                      <td  style="text-transform:uppercase"> {{$pospuesto["id"]}} </td>
+                      <td  style="text-transform:uppercase">#{{str_pad($pospuesto["id"], 5, '0', STR_PAD_LEFT)}}</td>
                       <td  style="text-transform:uppercase"> {{$pospuesto["totalventa"]}} </td>
                       <td  style="text-transform:uppercase"> {{$pospuesto["importe"]}} </td>
                       <td  style="text-transform:uppercase"> {{$pospuesto["cambio"]}} </td>
@@ -197,11 +197,11 @@
                       </thead> 
                       @foreach ($ventas as $venta) 
                       <tr style="{{$venta["estatus"] == 'POS' ? 'background-color: #F4FF81;' : 'background-color:#DCEDC8' }}"> 
-                      <td  style="text-transform:uppercase"># {{str_pad($venta["id"], 5, '0', STR_PAD_LEFT); }} </td>
+                      <td  style="text-transform:uppercase">#{{str_pad($venta["id"], 5, '0', STR_PAD_LEFT); }} </td>
                       <td  style="text-transform:uppercase"> {{$venta["totalventa"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["importe"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["cambio"]}} </td>
-                      <td  style="text-transform:uppercase"> {{date('H:i:s', strtotime($pospuesto["created_at"]))}} </td> 
+                      <td  style="text-transform:uppercase"> {{date('H:i:s', strtotime($venta["created_at"]))}} </td> 
                       <td  style="text-transform:uppercase">  @if($venta["estatus"] == "POS")<i title="Cargar Venta" wire:click="cargarventa({{$venta["id"]}})" class="bx bx-arrow-from-bottom me-1"></i> @endif </td> 
                        </tr> 
                       @endforeach   
@@ -264,15 +264,15 @@
 
                 <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
                 <label for="importe" class="form-label">Importe:</label>
-                <input class="form-control" type="number" id="importe" style="text-transform: uppercase;" wire:model="importe" name="importe" value=""/>
+                <input class="form-control" type="number" id="importe" style="text-transform: uppercase;"   wire:keydown.enter="realizarVenta" wire:model="importe" name="importe" value=""/>
                 </div>
 
                
                 <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
-                <button type="button" id='relventa' class="btn btn-success btn-lg"  wire:click="realizarVenta" ><i title="Realizar Venta" class="bx bx-dollar "></i></button>
-                <button type="button" id='canventa' class="btn btn-danger btn-lg"  wire:click="limpiarTodo"><i  title="Cancelar Venta" class="bx bx-x-circle "></i></button>
-                <button type="button" id='posventa' class="btn btn-warning btn-lg"  wire:click="posponer"><i  title="Posponer Venta" class="bx bx-hourglass "></i></button>
-                <button type="button" id="introdinero" class="btn btn-info btn-lg"  wire:click="inputMoney"><i  title="Introducir Efectivo" class="bx bx-money "></i></button>
+                <button type="button" id='relventa' class="btn btn-success btn-lg"  wire:click="realizarVenta" ><i  title="Realizar Venta" class="bx bx-dollar "></i></button>
+                <button type="button" id='canventa' class="btn btn-danger btn-lg"   wire:click="limpiarTodo"><i     title="Cancelar Venta" class="bx bx-x-circle "></i></button>
+                <button type="button" id='posventa' class="btn btn-warning btn-lg"  wire:click="posponer"><i        title="Posponer Venta" class="bx bx-hourglass "></i></button>
+                <button type="button" id="introdinero" class="btn btn-info btn-lg"  wire:click="inputMoney"><i      title="Introducir Efectivo" class="bx bx-money "></i></button>
              
                 </div> 
                

@@ -15,15 +15,13 @@
                     <th scope="col">HORA</th>
                     <th scope="col">IMPORTE</th>
                     <th scope="col">CAMBIO</th>
-                   
                     <th scope="col">TOTAL</th>
-
                   </tr>
                 </thead>
                 <tbody>
                   @foreach($ventas as $venta)
                   <tr wire:click="miMetodo({{$venta->id}})" style="{{$venta["estatus"] == 'POS' ? 'background-color: #F4FF81;' : '' }}">
-                  <th scope="row"># {{str_pad($venta["id"], 5, '0', STR_PAD_LEFT); }} </th>
+                  <th scope="row"># {{str_pad($venta["id"], 5, '0', STR_PAD_LEFT)}} </th>
                   <td style="text-transform:uppercase"> {{date('H:i:s', strtotime($venta["created_at"]))}}</td> 
 
                     <td style="text-transform:uppercase">{{$venta->importe}}</td>
@@ -72,13 +70,9 @@
                   @endforeach
                 </tbody>
               </table>
-           
-
             </div>
           </div>
-
         </div>
       </div>
     </section>
- 
 </div>
