@@ -92,7 +92,7 @@
                  
 
                 <div class="card-body">
-                  <h5 class="card-title">CARRITO DE COMPRAS <span></span></h5>
+                <h5 class="card-title"><b>CARRITO DE COMPRAS</b> <span></span></h5>
 
                   <table class="table ">
                       <thead>
@@ -179,7 +179,7 @@
             <div class="col-12 pt-4">
               <div class="card top-selling overflow-auto"> 
                 <div class="card-body pb-0">
-                  <h5 class="card-title">ULTIMOS MOVIMIENTOS <span> </span></h5>
+                  <h5 class="card-title">ULTIMOS TICKETS <span> </span></h5>
 
                   <table class="table table-borderless">
    
@@ -190,18 +190,18 @@
                               <th scope="col">TOTAL</th>
                               <th scope="col">IMPORTE</th>
                               <th scope="col">CAMBIO</th>
-                              <th scope="col">FECHA</th>
+                              <th scope="col">HORA</th>
                               <th scope="col"></th>
                              
                           </tr>
                       </thead> 
                       @foreach ($ventas as $venta) 
                       <tr style="{{$venta["estatus"] == 'POS' ? 'background-color: #F4FF81;' : 'background-color:#DCEDC8' }}"> 
-                      <td  style="text-transform:uppercase"> {{$venta["id"]}} </td>
+                      <td  style="text-transform:uppercase"># {{str_pad($venta["id"], 5, '0', STR_PAD_LEFT); }} </td>
                       <td  style="text-transform:uppercase"> {{$venta["totalventa"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["importe"]}} </td>
                       <td  style="text-transform:uppercase"> {{$venta["cambio"]}} </td>
-                      <td  style="text-transform:uppercase"> {{substr($venta["created_at"], 0, 10)}} </td> 
+                      <td  style="text-transform:uppercase"> {{date('H:i:s', strtotime($pospuesto["created_at"]))}} </td> 
                       <td  style="text-transform:uppercase">  @if($venta["estatus"] == "POS")<i title="Cargar Venta" wire:click="cargarventa({{$venta["id"]}})" class="bx bx-arrow-from-bottom me-1"></i> @endif </td> 
                        </tr> 
                       @endforeach   
