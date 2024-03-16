@@ -24,9 +24,9 @@
                   <th scope="row"># {{str_pad($venta["id"], 5, '0', STR_PAD_LEFT)}} </th>
                   <td style="text-transform:uppercase"> {{date('H:i:s', strtotime($venta["created_at"]))}}</td> 
 
-                    <td style="text-transform:uppercase">{{$venta->importe}}</td>
-                    <td style="text-transform:uppercase">{{$venta->cambio}}</td>
-                    <td style="text-transform:uppercase">{{$venta->totalventa}}</td>
+                    <td style="text-transform:uppercase">${{$venta->importe}}</td>
+                    <td style="text-transform:uppercase">${{$venta->cambio}}</td>
+                    <td style="text-transform:uppercase">${{$venta->totalventa}}</td>
 
                   </tr>
                   @endforeach
@@ -42,7 +42,7 @@
         <div class="col-lg-6"> 
           <div class="card">
             <div class="card-body">
-            <h5 class="card-title">PRODUCTOS</h5>
+            <h5 class="card-title"># {{str_pad($idticket, 5, '0', STR_PAD_LEFT)}}</h5>
               <!-- Small tables -->
               <table class="table table-sm">
                 <thead>
@@ -60,11 +60,11 @@
                     <th scope="row"> {{$arrayDataP->code}}</th> 
                     <td style="text-transform:uppercase">{{$arrayDataP->concepto}}</td>
                     <td style="text-transform:uppercase">{{$arrayDataP->cantidad}}</td>
-                    <td style="text-transform:uppercase">{{$arrayDataP->precio}}</td>
+                    <td style="text-transform:uppercase">${{$arrayDataP->precio}}</td>
                     @if($arrayDataP->idunidadtipo == 2)
-                    <td style="text-transform:uppercase">{{$arrayDataP->precio}}</td> 
+                    <td style="text-transform:uppercase">${{$arrayDataP->precio}}</td> 
                     @else
-                    <td style="text-transform:uppercase">{{$arrayDataP->precio * $arrayDataP->cantidad}}</td>  
+                    <td style="text-transform:uppercase">${{$arrayDataP->precio * $arrayDataP->cantidad}}</td>  
                     @endif
                   </tr>
                   @endforeach

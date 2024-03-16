@@ -156,9 +156,9 @@
                       @foreach ($pospuestos as $pospuesto) 
                       <tr style="{{$pospuesto["estatus"] == 'POS' ? 'background-color: #F4FF81;' : 'background-color:#DCEDC8' }}"> 
                       <td  style="text-transform:uppercase">#{{str_pad($pospuesto["id"], 5, '0', STR_PAD_LEFT)}}</td>
-                      <td  style="text-transform:uppercase"> {{$pospuesto["totalventa"]}} </td>
-                      <td  style="text-transform:uppercase"> {{$pospuesto["importe"]}} </td>
-                      <td  style="text-transform:uppercase"> {{$pospuesto["cambio"]}} </td>
+                      <td  style="text-transform:uppercase">${{$pospuesto["totalventa"]}} </td>
+                      <td  style="text-transform:uppercase">${{$pospuesto["importe"]}} </td>
+                      <td  style="text-transform:uppercase">${{$pospuesto["cambio"]}} </td>
                       <td  style="text-transform:uppercase"> {{date('H:i:s', strtotime($pospuesto["created_at"]))}} </td> 
                       <td  style="text-transform:uppercase">  @if($pospuesto["estatus"] == "POS")<i title="Cargar Venta" wire:click="cargarventa({{$pospuesto["id"]}})" class="bx bx-arrow-from-bottom me-1"></i> @endif </td> 
                        </tr> 
@@ -198,9 +198,9 @@
                       @foreach ($ventas as $venta) 
                       <tr style="{{$venta["estatus"] == 'POS' ? 'background-color: #F4FF81;' : 'background-color:#DCEDC8' }}"> 
                       <td  style="text-transform:uppercase">#{{str_pad($venta["id"], 5, '0', STR_PAD_LEFT); }} </td>
-                      <td  style="text-transform:uppercase"> {{$venta["totalventa"]}} </td>
-                      <td  style="text-transform:uppercase"> {{$venta["importe"]}} </td>
-                      <td  style="text-transform:uppercase"> {{$venta["cambio"]}} </td>
+                      <td  style="text-transform:uppercase">${{$venta["totalventa"]}} </td>
+                      <td  style="text-transform:uppercase">${{$venta["importe"]}} </td>
+                      <td  style="text-transform:uppercase">${{$venta["cambio"]}} </td>
                       <td  style="text-transform:uppercase"> {{date('H:i:s', strtotime($venta["created_at"]))}} </td> 
                       <td  style="text-transform:uppercase">  @if($venta["estatus"] == "POS")<i title="Cargar Venta" wire:click="cargarventa({{$venta["id"]}})" class="bx bx-arrow-from-bottom me-1"></i> @endif </td> 
                        </tr> 

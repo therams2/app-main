@@ -34,6 +34,7 @@ class ShowCatVentas extends Component
     }
 
     public function miMetodo($id){
+        $this->idticket = $id;
         $ventas =  ingventasdet::select(
             'id',
             'idcatarticulos',
