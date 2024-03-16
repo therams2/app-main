@@ -379,31 +379,9 @@ class ShowVentas extends Component
 
                     $articulo = cat_articulos::find($this->arrayDataCars[$indice]["id"] );
                     if($this->arrayDataCars[$indice]["idunidadtipo"] != 2 ){
-                        $articulo->cantidad     =  $articulo->cantidad -  $this->arrayDataCars[$indice]["cantidad"];
-                        if($articulo->cantidad < 0){
-                            DB::rollBack();
-                            $this->alert('warning', 'No existe inventario suficiente para el producto:  '.$this->arrayDataCars[$indice]["nombre"].'/'.$this->arrayDataCars[$indice]["descripcion"], [
-                                'position' => 'top-end',
-                                'timer' => 15000,
-                                'toast' => true,
-                                'showConfirmButton' => false,
-                                'onConfirmed' => '',
-                               ]);
-                            return;
-                        }
+                        $articulo->cantidad     =  $articulo->cantidad -  $this->arrayDataCars[$indice]["cantidad"]; 
                     }else{
-                        $articulo->peso =  $articulo->peso -($this->arrayDataCars[$indice]["cantidad"]/1000);
-                        if($articulo->peso < 0){
-                            DB::rollBack();
-                            $this->alert('warning', 'No existe inventario suficiente para el producto:  '.$this->arrayDataCars[$indice]["nombre"].'/'.$this->arrayDataCars[$indice]["descripcion"], [
-                                'position' => 'top-end',
-                                'timer' => 15000,
-                                'toast' => true,
-                                'showConfirmButton' => false,
-                                'onConfirmed' => '',
-                               ]);
-                            return;
-                        }
+                        $articulo->peso =  $articulo->peso -($this->arrayDataCars[$indice]["cantidad"]/1000); 
                     }
                         $egreVenta->save();
                         $articulo->save();
