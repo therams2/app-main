@@ -334,7 +334,6 @@ class ShowVentas extends Component
                 'onConfirmed' => '',
                ]);
         }
-        dd( $this->arrayDataCars );
     }
     public function calcularTotal()
     {
