@@ -118,7 +118,7 @@ class ShowVentas extends Component
             ->where('idcatventas','=', $id ) 
             ->orderByDesc('idcar') 
             ->get();
-
+          
             $this->arrayDataCars = [];
  
             foreach ($ventas as $venta) { 
@@ -168,6 +168,9 @@ class ShowVentas extends Component
                 $this-> generateid++;
                 $this->calcularTotal();
             } 
+            $this-> generateid++;
+         
+
     }
     public function posponer( ){
         if(count($this->arrayDataCars) == 0){
@@ -331,7 +334,7 @@ class ShowVentas extends Component
                 'onConfirmed' => '',
                ]);
         }
-       
+        dd( $this->arrayDataCars );
     }
     public function calcularTotal()
     {
