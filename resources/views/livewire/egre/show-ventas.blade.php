@@ -232,7 +232,7 @@
                 <input class="form-control" type="number" id="importe" style="text-transform: uppercase;"   wire:keydown.enter="realizarVenta" wire:model="importe" name="importe" value=""/>
                 </div>
 
-               
+                <div wire:ignore>
                 <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
                 <label for="imageButton">
                 <input type="image" wire:click="changeImporte(20)" src="{{asset('img/20.jpg')}}" alt="Upload Image" id="imageButton">
@@ -257,7 +257,7 @@
                 </label>
                 <input  type="file" name="image" style="display: none;"> 
                 </div> 
-
+                </div>
                 <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
                 <button type="button" id='relventa' class="btn btn-success btn-lg"  wire:click="realizarVenta" ><i  title="Realizar Venta" class="bx bx-dollar "></i></button>
                 <button type="button" id='canventa' class="btn btn-danger btn-lg"   wire:click="limpiarTodo"><i     title="Cancelar Venta" class="bx bx-x-circle "></i></button>

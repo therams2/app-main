@@ -322,6 +322,14 @@ class ShowVentas extends Component
                 $this->calcularTotal();
                 }
                 $this->isArtPeso =false;    // Cambiar a falso?
+        }else{
+            $this->alert('info', 'Articulo no registrado', [
+                'position' => 'top-end',
+                'timer' => 3000,
+                'toast' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+               ]);
         }
        
     }
@@ -422,7 +430,7 @@ class ShowVentas extends Component
     public function changeImporte($importe){
         $this->importe = $importe;
    }
-   
+
     public function inputMoney(){
         $this->emit('mostrarModal2'); 
        
