@@ -419,6 +419,10 @@ class ShowVentas extends Component
         $this->total    =   0 ; 
     }
 
+    public function changeImporte($importe){
+        $this->importe = $importe;
+   }
+   
     public function inputMoney(){
         $this->emit('mostrarModal2'); 
        

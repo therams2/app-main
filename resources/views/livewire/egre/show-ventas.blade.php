@@ -6,7 +6,10 @@
             font-size: 8px; /* Tamaño de fuente más pequeño */
             /* Puedes agregar otros estilos para hacer la tabla más compacta si lo deseas */
         }
-       
+        #imageButton {
+            width: 60px; /* Cambia el ancho de la imagen */
+            height: 30px; /* Cambia el alto de la imagen */
+        }
 
     
     .table-custom tbody tr th td {
@@ -174,45 +177,7 @@
             </div><!-- End Top Selling -->
 
 
-
-            <!-- Top Selling -->
-            <div class="col-12 pt-4">
-              <div class="card top-selling overflow-auto"> 
-                <div class="card-body pb-0">
-                  <h5 class="card-title">ULTIMOS TICKETS <span> </span></h5>
-
-                  <table class="table table-borderless">
-   
-                  <tbody>
-                      <thead>  
-                          <tr> 
-                              <th scope="col">FOLIO</th>
-                              <th scope="col">TOTAL</th>
-                              <th scope="col">IMPORTE</th>
-                              <th scope="col">CAMBIO</th>
-                              <th scope="col">HORA</th>
-                              <th scope="col"></th>
-                             
-                          </tr>
-                      </thead> 
-                      @foreach ($ventas as $venta) 
-                      <tr style="{{$venta["estatus"] == 'POS' ? 'background-color: #F4FF81;' : 'background-color:#DCEDC8' }}"> 
-                      <td  style="text-transform:uppercase">#{{str_pad($venta["id"], 5, '0', STR_PAD_LEFT); }} </td>
-                      <td  style="text-transform:uppercase">${{$venta["totalventa"]}} </td>
-                      <td  style="text-transform:uppercase">${{$venta["importe"]}} </td>
-                      <td  style="text-transform:uppercase">${{$venta["cambio"]}} </td>
-                      <td  style="text-transform:uppercase"> {{date('H:i:s', strtotime($venta["created_at"]))}} </td> 
-                      <td  style="text-transform:uppercase">  @if($venta["estatus"] == "POS")<i title="Cargar Venta" wire:click="cargarventa({{$venta["id"]}})" class="bx bx-arrow-from-bottom me-1"></i> @endif </td> 
-                       </tr> 
-                      @endforeach   
-                  </tbody>
-              </table>
-              <h1></h1>
-
-                </div>
-
-              </div>
-            </div><!-- End Top Selling -->
+ 
           </div>
         </div><!-- End Left side columns -->
 
@@ -269,18 +234,41 @@
 
                
                 <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
+                <label for="imageButton">
+                <input type="image" wire:click="changeImporte(20)" src="{{asset('img/20.jpg')}}" alt="Upload Image" id="imageButton">
+                </label>
+                <input   type="file" name="image" style="display: none;"> 
+
+                <label for="imageButton">
+                <input type="image"  wire:click="changeImporte(50)"  src="{{asset('img/50.jpg')}}" alt="Upload Image" id="imageButton">
+                </label>
+                <input type="file" name="image" style="display: none;"> 
+
+                <label for="imageButton">
+                <input type="image"  wire:click="changeImporte(100)" src="{{asset('img/100.jpg')}}" alt="Upload Image" id="imageButton">
+                </label>
+                <input  type="file" name="image" style="display: none;"> 
+                <label for="imageButton">
+                <input type="image"  wire:click="changeImporte(200)" src="{{asset('img/200.jpg')}}" alt="Upload Image" id="imageButton">
+                </label>
+                <input  type="file" name="image" style="display: none;"> 
+                <label for="imageButton">
+                <input type="image"  wire:click="changeImporte(500)" src="{{asset('img/500.png')}}" alt="Upload Image" id="imageButton">
+                </label>
+                <input  type="file" name="image" style="display: none;"> 
+                </div> 
+
+                <div class="col-xs-12 col-md-12" style="margin-bottom: 20px;">
                 <button type="button" id='relventa' class="btn btn-success btn-lg"  wire:click="realizarVenta" ><i  title="Realizar Venta" class="bx bx-dollar "></i></button>
                 <button type="button" id='canventa' class="btn btn-danger btn-lg"   wire:click="limpiarTodo"><i     title="Cancelar Venta" class="bx bx-x-circle "></i></button>
                 <button type="button" id='posventa' class="btn btn-warning btn-lg"  wire:click="posponer"><i        title="Posponer Venta" class="bx bx-hourglass "></i></button>
                 <button type="button" id="introdinero" class="btn btn-info btn-lg"  wire:click="inputMoney"><i      title="Introducir Efectivo" class="bx bx-money "></i></button>
-             
-                </div> 
-               
+                
+                   </div> 
                
               </div> 
           </div><!-- End Recent Activity --> 
          
-
 
 
 
