@@ -56,7 +56,7 @@ class ShowCatArticulos extends Component
                     'acc.id as id_cat')
             ->leftjoin('adq_cat_categorias as acc', 'acc.id', '=', 'adq_cat_articulos.id')
             ->where('id_categoria','='  , $this->filtercategory  ) 
-            ->where('id','<>'  , 1350  ) 
+            ->where('adq_cat_articulos.id','<>'  , 1350  ) 
             ->orderByDesc('id') 
             ->paginate(15);
         }else{
@@ -75,7 +75,7 @@ class ShowCatArticulos extends Component
                     'acc.id as id_cat')
             ->leftjoin('adq_cat_categorias as acc', 'acc.id', '=', 'adq_cat_articulos.id')
             ->where('adq_cat_articulos.nombre','like', '%'        . $this->search . '%')
-            ->where('id','<>'  , 1350  ) 
+            ->where('adq_cat_articulos.id','<>'  , 1350  ) 
             ->orwhere('adq_cat_articulos.descripcion','like', '%' . $this->search . '%')
             ->orwhere('cantidad','like', '%'    . $this->search . '%')
             ->orwhere('precio','like', '%'      . $this->search . '%')
