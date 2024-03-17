@@ -111,11 +111,11 @@
                       <tbody>
                           @foreach ($arrayDataCars as $arrayDataCar)
                           <tr style= 'background-color: #000000 '  >
-                              <td style="text-transform:uppercase; color: white; font-weight: bold;" >{{$arrayDataCar["code"]}}</td>
-                              <td style="text-transform:uppercase; color: white; font-weight: bold;">{{$arrayDataCar["nombre"]}}/{{$arrayDataCar["descripcion"]}}</td>
-                              <td style="text-transform:uppercase; color: white; font-weight: bold;">{{$arrayDataCar["cantidad"]}}{{$arrayDataCar["idunidadtipo"] == 2 ? "GR": "" }} @if( $arrayDataCar["idunidadtipo"] !=2) <i wire:click="upItem({{$arrayDataCar["idcar"]}})" class="bx bx-chevron-up-circle me-1"></i> <i wire:click="downItem({{$arrayDataCar["idcar"]}})" class="bx bx-chevron-down-circle me-1"></i>@endif</td>
-                              <td style="text-transform:uppercase; color: white; font-weight: bold;">${{number_format($arrayDataCar["precio"],2, ".", ",")}}</td>
-                              <td style="text-transform:uppercase; color: white; font-weight: bold;">${{number_format($arrayDataCar["subtotal"],2, ".", ",")}}</td>
+                              <td style="text-transform:uppercase; color: #53F81A; font-weight: bold;" >{{$arrayDataCar["code"]}}</td>
+                              <td style="text-transform:uppercase; color: #53F81A; font-weight: bold;">{{$arrayDataCar["nombre"]}}/{{$arrayDataCar["descripcion"]}}</td>
+                              <td style="text-transform:uppercase; color: #53F81A; font-weight: bold;">{{$arrayDataCar["cantidad"]}}{{$arrayDataCar["idunidadtipo"] == 2 ? "GR": "" }} @if( $arrayDataCar["idunidadtipo"] !=2) <i wire:click="upItem({{$arrayDataCar["idcar"]}})" class="bx bx-chevron-up-circle me-1"></i> <i wire:click="downItem({{$arrayDataCar["idcar"]}})" class="bx bx-chevron-down-circle me-1"></i>@endif</td>
+                              <td style="text-transform:uppercase; color: #53F81A; font-weight: bold;">${{number_format($arrayDataCar["precio"],2, ".", ",")}}</td>
+                              <td style="text-transform:uppercase; color: #53F81A; font-weight: bold;">${{number_format($arrayDataCar["subtotal"],2, ".", ",")}}</td>
                               <td><i class="bx bx-trash-alt me-1" wire:click="delete({{$arrayDataCar["idcar"]}})"></i></td>
                           </tr>
                           @endforeach
@@ -123,8 +123,8 @@
                               <th scope="col"></th>
                               <th scope="col"></th>
                               <th scope="col"></th>
-                              <th style="text-transform:uppercase; color: black; font-weight: bold;">Total</th>
-                              <th style="text-transform:uppercase; color: black; font-weight: bold;">${{$total}}</th> 
+                              <th style=" font-size: 20px; text-transform:uppercase; color: black; font-weight: bold;">Total</th>
+                              <th style=" font-size: 20px; text-transform:uppercase; color: black; font-weight: bold;">${{$total}}</th> 
                               <th scope="col"></th>
                           
                           </tr>

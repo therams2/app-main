@@ -36,20 +36,7 @@ class ShowVentas extends Component
     public function render()
     {  
         $hoy = Carbon::today()->toDateString();
-        
-        $ventas = egre_ventas::select(
-                'id',
-                'totalventa',
-                'importe',
-                'cambio',
-                'estatus',
-                'created_at'
-                ) 
-                ->where('estatus','<>','POS')
-            ->orderByDesc('id') 
-            ->take(5)
-            ->get();
-
+         
             $pospuestos = egre_ventas::select(
                 'id',
                 'totalventa',
@@ -63,7 +50,7 @@ class ShowVentas extends Component
             ->orderByDesc('id') 
             ->paginate(5);
  
-        return view('livewire.egre.show-ventas', compact('ventas', 'pospuestos'));
+        return view('livewire.egre.show-ventas', compact('pospuestos'));
     }
     public function updatedproducto()
     {
