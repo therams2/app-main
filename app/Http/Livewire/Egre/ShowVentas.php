@@ -417,7 +417,11 @@ class ShowVentas extends Component
     }
 
     public function changeImporte($importe){
-        $this->importe = $importe;
+        if($this->importe){
+            $this->importe = $importe + $this->importe ;
+        }else{
+            $this->importe = $importe ;
+        }
    }
 
     public function inputMoney(){
