@@ -23,7 +23,7 @@ class ShowCatVentas extends Component
         }
       
        // $hoy = Carbon::today()->toDateString();
-        $this->totalDia = egre_ventas::whereDate('created_at', $this->fecha)  ->sum('totalventa');
+        $this->totalDia = egre_ventas::whereDate('created_at', $this->fecha) ->where('estatus','<>','POS') ->sum('totalventa');
             $ventas = egre_ventas::select(
                 'id',
                 'totalventa',
