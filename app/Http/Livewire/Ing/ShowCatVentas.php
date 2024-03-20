@@ -13,11 +13,17 @@ class ShowCatVentas extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $idticket = 0;
+    public $totalDia = 0;
+    public $fecha ;  
     public $arrayData = [];
     public function render()
     {   
-        $hoy = Carbon::today()->toDateString();
-        
+        if($this->fecha == Carbon::today()->toDateString() || $this->fecha == null){
+            $this->fecha = Carbon::today()->toDateString();
+        }
+      
+       // $hoy = Carbon::today()->toDateString();
+        $this->totalDia = egre_ventas::whereDate('created_at', $this->fecha)  ->sum('totalventa');
             $ventas = egre_ventas::select(
                 'id',
                 'totalventa',
@@ -27,7 +33,7 @@ class ShowCatVentas extends Component
                 'created_at'
                 ) 
                 
-                ->whereDate('created_at', $hoy) // Filtrar por la fecha de hoy
+                ->whereDate('created_at', $this->fecha) // Filtrar por la fecha de hoy
                 ->orderByDesc('id')
                 ->paginate(15);
         return view('livewire.ing.show-cat-ventas',compact('ventas'));

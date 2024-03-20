@@ -6,7 +6,11 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">TICKETS</h5>
-
+              <div>
+                  <label for="fecha">Fecha:</label>
+                  <input wire:model="fecha" type="text" id="fecha" class="form-control" />
+              </div>
+              <div class="table-responsive">
               <!-- Default Table -->
               <table class="table table-striped table-hover">
                 <thead>
@@ -34,6 +38,9 @@
                 </tbody>
               </table>
               {{ $ventas->links() }}
+              </div>
+              <p>TOTAL DEL DIA ${{$totalDia}}</p>
+
               <!-- End Default Table Example -->
             </div>
           </div> 
@@ -44,6 +51,7 @@
             <div class="card-body">
             <h5 class="card-title"># {{str_pad($idticket, 5, '0', STR_PAD_LEFT)}}</h5>
               <!-- Small tables -->
+              <div class="table-responsive">
               <table class="table table-sm">
                 <thead>
                   <tr>
@@ -70,6 +78,7 @@
                   @endforeach
                 </tbody>
               </table>
+              </div>
             </div>
           </div>
         </div>
